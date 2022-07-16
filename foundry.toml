@@ -1,0 +1,18 @@
+[default]
+src = 'solidity'
+test = 'solidity/test'
+out = 'out'
+libs = ['lib']
+fuzz_runs = 5000
+optimizer_runs = 15_000
+
+# See more config options https://github.com/gakonst/foundry/tree/master/config
+
+[test]
+via_ir = false
+src = 'solidity/test'
+
+[lite]
+out = 'optimized-out'
+via_ir = false
+fuzz_runs = 1000

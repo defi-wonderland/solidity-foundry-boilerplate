@@ -1,0 +1,13 @@
+# General
+node_modules
+.DS_STORE
+
+# Foundry files
+cache/
+out/
+
+# Config files
+.env
+
+# Not ignore gitkeep
+!/**/.gitkeep
