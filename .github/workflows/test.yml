@@ -44,7 +44,7 @@ jobs:
       - run: yarn lint:check
 
   forge:
-    name: Run Default Forge Tests (via_ir = false; fuzz_runs = 1000)
+    name: Run Unit and E2E Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -60,13 +60,20 @@ jobs:
         run: forge install
 
       - name: Precompile using 0.8.14 and via-ir=false
-        run: forge build
+        run: yarn build
+
+      - name: "Create env file"
+        run: |
+          touch .env
+          echo MAINNET_RPC="${{ secrets.MAINNET_RPC }}" >> .env
+          echo FORK_BLOCK=14941114 >> .env
+          cat .env
 
       - name: Run tests
-        run: forge test -vvv
+        run: yarn test
 
   forge-optimized:
-    name: Run Optimized Forge Tests (via_ir = true; fuzz_runs = 5000)
+    name: Run Optimized Unit Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -82,30 +89,30 @@ jobs:
         run: forge install
 
       - name: Precompile using 0.8.14 and via-ir=true
-        run: FOUNDRY_PROFILE=optimized forge build
+        run: yarn build:optimized
 
       - name: Run tests
-        run: FOUNDRY_PROFILE=test forge test -vvv
+        run: yarn test:unit
 
-  coverage:
-    name: Run Coverage Tests
-    runs-on: ubuntu-latest
+  # coverage:
+  #   name: Run Coverage Tests
+  #   runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [16.x]
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
 
-    steps:
-      - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "yarn"
-      - run: yarn install
-      - run: yarn build
-      - run: yarn coverage
-      - uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage/lcov.info
-          flags: production
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Use Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "yarn"
+  #     - run: yarn install
+  #     - run: yarn build
+  #     - run: yarn coverage
+  #     - uses: codecov/codecov-action@v3
+  #       with:
+  #         files: ./coverage/lcov.info
+  #         flags: production
