@@ -29,19 +29,20 @@
     "lint:sol-logic": "solhint -c .solhint.logic.json 'solidity/contracts/**/*.sol' 'solidity/interfaces/**/*.sol' 'solidity/scripts/**/*.sol'",
     "lint:sol-tests": "solhint 'solidity/test/**/*.sol'",
     "lint:fix": "yarn lint:sol-tests --fix && yarn lint:sol-logic --fix && yarn lint:prettier --write",
-    "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && yarn lint:prettier --check"
+    "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && yarn lint:prettier --check",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "prettier --write",
     "*.sol": "solhint --fix 'solidity/**/*.sol"
   },
   "devDependencies": {
-    "prettier": "2.7.1",
-    "prettier-plugin-solidity": "1.0.0-dev.23",
-    "lint-staged": ">=10",
-    "husky": ">=8",
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
+    "husky": ">=8",
+    "lint-staged": ">=10",
+    "prettier": "2.7.1",
+    "prettier-plugin-solidity": "1.0.0-dev.23",
     "solhint": "3.3.7",
     "solhint-plugin-prettier": "0.0.5"
   }

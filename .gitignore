@@ -12,5 +12,11 @@ broadcast/
 # Config files
 .env
 
-# Not ignore gitkeep
+# Avoid ignoring gitkeep
 !/**/.gitkeep
+
+# Avoid ignoring latest deployment to mainnet
+!broadcast/1/latest-*
+
+# Avoid ignoring external contract ABIs
+!out/Greeter.sol/*
