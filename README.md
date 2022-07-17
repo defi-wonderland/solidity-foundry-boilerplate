@@ -1,6 +1,5 @@
 <img src="https://raw.githubusercontent.com/defi-wonderland/brand/main/assets/solidity-foundry-boilerplate-banner.png" alt="wonderland banner" align="center" />
 <br />
-<br />
 
 <div align="center"><strong>Start your next Solidity project with Foundry in seconds</strong></div>
 <div align="center">A highly scalable foundation focused on DX and best practices</div>
