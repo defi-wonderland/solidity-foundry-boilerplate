@@ -41,11 +41,13 @@
 ## Build
 
 The default way to build the code is suboptimal but fast, you can run it via:
+
 ```bash
 yarn build
 ```
 
 In order to build a more optimized code ([via IR](https://docs.soliditylang.org/en/v0.8.15/ir-breaking-changes.html#solidity-ir-based-codegen-changes)), run:
+
 ```bash
 yarn build:optimized
 ```
@@ -55,26 +57,31 @@ yarn build:optimized
 Unit tests should be isolated from any externalities, while E2E usually run in a fork of the blockchain. In this boilerplate you will find example of both.
 
 In order to run both unit and E2E tests, run:
+
 ```bash
 yarn test
 ```
 
 In order to just run unit tests, run:
+
 ```bash
 yarn test:unit
 ```
 
 In order to run unit tests and run way more fuzzing than usual (5x), run:
+
 ```bash
 yarn test:unit:deep
 ```
 
 In order to just run e2e tests, run:
+
 ```bash
 yarn test:e2e
 ```
 
 In order to check your current code coverage, run:
+
 ```bash
 yarn coverage
 ```
@@ -87,6 +94,7 @@ yarn coverage
 ## Deploy & verify
 
 ### Setup
+
 Configure the `.env` variables.
 
 ### Rinkeby
