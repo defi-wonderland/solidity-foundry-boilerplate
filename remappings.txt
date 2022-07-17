@@ -1,6 +1,7 @@
 ds-test/=lib/ds-test/src
+prb/test/=lib/prb-test/src/
 forge-std/=lib/forge-std/src
-solmate/=lib/solmate/src
+isolmate/=lib/isolmate/src
 
 contracts/=solidity/contracts
 interfaces/=solidity/interfaces

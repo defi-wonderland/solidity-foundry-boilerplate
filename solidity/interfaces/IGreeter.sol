@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4 <0.9.0;
 
+import 'isolmate/interfaces/tokens/IERC20.sol';
+
 /**
  * @title Greeter Contract
  * @author Wonderland
@@ -41,18 +43,33 @@ interface IGreeter {
      */
     function OWNER() external view returns (address);
 
+    /**
+     * @notice Returns the greeting
+     * @return The greeting
+     */
+    function greeting() external view returns (string memory);
+
+    /**
+     * @notice Returns the token used to greet callers
+     * @return The address of the token
+     */
+    function token() external view returns (IERC20);
+
+    /**
+     * @notice Returns set previously set greeting
+     
+     * @return _greeting The greeting
+     * @return _balance  Current token balance of the caller
+     */
+    function greet() external view returns (string memory _greeting, uint256 _balance);
+
     /***************************************************************
                                 LOGIC
     ****************************************************************/
     /**
-     * @notice Returns set previously set greeting
-     * @return _greeting The greeting
-     */
-    function greet() external view returns (string memory _greeting);
-
-    /**
      * @notice Sets a new greeting
-     * @param _greeting The new greeting to be set
+     * @dev Only callable by the owner
+     * @param _newGreeting The new greeting to be set
      */
-    function setGreeting(string memory _greeting) external;
+    function setGreeting(string memory _newGreeting) external;
 }

@@ -1,10 +1,13 @@
 # General
+yarn-error.log
 node_modules
 .DS_STORE
 
 # Foundry files
 cache/
 out/
+out-via-ir/
+broadcast/
 
 # Config files
 .env
