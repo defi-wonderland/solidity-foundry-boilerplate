@@ -1,0 +1,25 @@
+# General
+.prettierignore
+.solhintignore
+.husky
+.gitignore
+.gitattributes
+.gitmodules
+.env.example
+.env
+workspace.code-workspace
+.DS_STORE
+codechecks.yml
+
+# Foundry
+lib/
+cache/
+out/
+foundry.toml
+remappings.txt
+
+# Node
+node_modules
+package-lock.json
+yarn.lock
+yarn-error.log

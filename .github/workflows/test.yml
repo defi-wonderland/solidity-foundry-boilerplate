@@ -1,0 +1,105 @@
+name: CI
+
+on: [push]
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  lint:
+    name: Run Linters
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+      - run: yarn install
+      - run: yarn lint:check
+
+  forge:
+    name: Run Unit and E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install forge dependencies
+        run: forge install
+
+      - name: Precompile using 0.8.14 and via-ir=false
+        run: yarn build
+
+      - name: "Create env file"
+        run: |
+          touch .env
+          echo MAINNET_RPC="${{ secrets.MAINNET_RPC }}" >> .env
+          echo FORK_BLOCK=14941114 >> .env
+          cat .env
+
+      - name: "Test env file"
+        run: |
+          cat .env
+
+      - name: Run tests
+        shell: bash
+        run: yarn test
+
+  forge-optimized:
+    name: Run Optimized Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install forge dependencies
+        run: forge install
+
+      - name: Precompile using 0.8.14 and via-ir=true
+        run: yarn build:optimized
+
+      - name: Run tests
+        run: yarn test:unit
+
+  # coverage:
+  #   name: Run Coverage Tests
+  #   runs-on: ubuntu-latest
+
+  #   strategy:
+  #     matrix:
+  #       node-version: [16.x]
+
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Use Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: ${{ matrix.node-version }}
+  #         cache: "yarn"
+  #     - run: yarn install
+  #     - run: yarn build
+  #     - run: yarn coverage
+  #     - uses: codecov/codecov-action@v3
+  #       with:
+  #         files: ./coverage/lcov.info
+  #         flags: production

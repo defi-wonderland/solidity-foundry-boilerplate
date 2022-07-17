@@ -1,0 +1,48 @@
+{
+  "name": "solidity-foundry-boilerplate",
+  "version": "1.0.0",
+  "description": "Production ready Solidity boilerplate with Foundry",
+  "homepage": "https://github.com/defi-wonderland/solidity-foundry-boilerplate#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/defi-wonderland/solidity-foundry-boilerplate.git"
+  },
+  "author": "Wonderland",
+  "contributors": [
+    "0xGorilla (https://github.com/0xGorilla)",
+    "0xng (https://github.com/0xng)",
+    "gas1cent (https://github.com/gas1cent)"
+  ],
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "forge build",
+    "build:optimized": "FOUNDRY_PROFILE=optimized forge build",
+    "test": "yarn test:unit && yarn test:e2e",
+    "test:e2e": "bash -c 'source .env && forge test --match-contract E2E --fork-url $MAINNET_RPC --fork-block-number $FORK_BLOCK -vvv'",
+    "test:unit": "forge test --match-contract Unit -vvv",
+    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit",
+    "coverage": "forge coverage --match-contract Unit",
+    "deploy:rinkeby": "bash -c 'source .env && forge script DeployRinkeby --rpc-url $RINKEBY_RPC --broadcast --private-key $RINKEBY_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
+    "deploy:mainnet": "bash -c 'source .env && forge script DeployMainnet --rpc-url $MAINNET_RPC --broadcast --private-key $MAINNET_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
+    "lint:prettier": "prettier './**'",
+    "lint:sol-logic": "solhint -c .solhint.logic.json 'solidity/contracts/**/*.sol' 'solidity/interfaces/**/*.sol' 'solidity/scripts/**/*.sol'",
+    "lint:sol-tests": "solhint 'solidity/test/**/*.sol'",
+    "lint:fix": "yarn lint:sol-tests --fix && yarn lint:sol-logic --fix && yarn lint:prettier --write",
+    "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && yarn lint:prettier --check"
+  },
+  "lint-staged": {
+    "*.{js,css,md,ts,sol}": "prettier --write",
+    "*.sol": "solhint --fix 'solidity/**/*.sol"
+  },
+  "devDependencies": {
+    "prettier": "2.7.1",
+    "prettier-plugin-solidity": "1.0.0-dev.23",
+    "lint-staged": ">=10",
+    "husky": ">=8",
+    "@commitlint/cli": "17.0.3",
+    "@commitlint/config-conventional": "17.0.3",
+    "solhint": "3.3.7",
+    "solhint-plugin-prettier": "0.0.5"
+  }
+}
