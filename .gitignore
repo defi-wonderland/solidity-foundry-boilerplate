@@ -4,7 +4,7 @@ node_modules
 .DS_STORE
 
 # Foundry files
-cache/
+cache
 out-via-ir
 
 # Config files
