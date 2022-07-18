@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'test/e2e/Common.sol';
+import "test/e2e/Common.sol";
 
 contract E2EGreeter is CommonE2EBase {
     function test_Greet() public {

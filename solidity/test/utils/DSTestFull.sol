@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'forge-std/console.sol';
-import 'prb/test/PRBTest.sol';
+import "forge-std/console.sol";
+import "prb/test/PRBTest.sol";
 
 contract DSTestFull is PRBTest {
     // Seed for the generation of pseudorandom addresses
-    bytes32 private nextAddressSeed = keccak256(abi.encodePacked('address'));
+    bytes32 private nextAddressSeed = keccak256(abi.encodePacked("address"));
 
     /**
      * @dev Creates a new pseudorandom address and labels it with the given label
@@ -25,7 +25,10 @@ contract DSTestFull is PRBTest {
 
   * @return Address Labeled address
   */
-    function label(address addy, string memory name) internal returns (address) {
+    function label(address addy, string memory name)
+        internal
+        returns (address)
+    {
         vm.label(addy, name);
         return addy;
     }
@@ -47,7 +50,10 @@ contract DSTestFull is PRBTest {
      *
      * @return Address of the mock contract.
      */
-    function mockContract(address addy, string memory name) internal returns (address) {
+    function mockContract(address addy, string memory name)
+        internal
+        returns (address)
+    {
         vm.etch(addy, new bytes(0x1));
         return label(addy, name);
     }
@@ -57,7 +63,8 @@ contract DSTestFull is PRBTest {
      * @return Address of the mock contract.
      */
     function newAddress() internal returns (address) {
-        address payable nextAddress = payable(address(uint160(uint256(nextAddressSeed))));
+        address payable nextAddress =
+            payable(address(uint160(uint256(nextAddressSeed))));
         nextAddressSeed = keccak256(abi.encodePacked(nextAddressSeed));
         return nextAddress;
     }

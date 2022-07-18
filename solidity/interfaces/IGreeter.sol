@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'isolmate/interfaces/tokens/IERC20.sol';
+import "isolmate/interfaces/tokens/IERC20.sol";
 
 /**
  * @title Greeter Contract
@@ -61,7 +61,10 @@ interface IGreeter {
      * @return _greeting The greeting
      * @return _balance  Current token balance of the caller
      */
-    function greet() external view returns (string memory _greeting, uint256 _balance);
+    function greet()
+        external
+        view
+        returns (string memory _greeting, uint256 _balance);
 
     /***************************************************************
                                 LOGIC

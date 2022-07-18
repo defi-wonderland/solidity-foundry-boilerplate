@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'test/utils/DSTestFull.sol';
-import 'contracts/Greeter.sol';
+import "test/utils/DSTestFull.sol";
+import "contracts/Greeter.sol";
 
 abstract contract Base is DSTestFull {
-    address owner = label('owner');
-    IERC20 token = IERC20(mockContract('token'));
-    string initialGreeting = 'hola';
-    bytes32 emptyString = keccak256(bytes(''));
+    address owner = label("owner");
+    IERC20 token = IERC20(mockContract("token"));
+    string initialGreeting = "hola";
+    bytes32 emptyString = keccak256(bytes(""));
     Greeter greeter;
 
     function setUp() public virtual {
@@ -47,7 +47,9 @@ contract Unit_Greeter_SetGreeting is Base {
         vm.startPrank(owner);
     }
 
-    function test_RevertIfNotOwner(address caller, string memory greeting) public {
+    function test_RevertIfNotOwner(address caller, string memory greeting)
+        public
+    {
         vm.assume(keccak256(bytes(greeting)) != emptyString);
         vm.assume(caller != owner);
 
@@ -60,7 +62,7 @@ contract Unit_Greeter_SetGreeting is Base {
 
     function test_RevertIfEmptyGreeting() public {
         vm.expectRevert(IGreeter.Greeter_InvalidGreeting.selector);
-        greeter.setGreeting('');
+        greeter.setGreeting("");
     }
 
     function test_SetGreeting(string memory greeting) public {
@@ -82,14 +84,22 @@ contract Unit_Greeter_SetGreeting is Base {
 
 contract Unit_Greeter_Greet is Base {
     function test_GetGreeting() public {
-        vm.mockCall(address(token), abi.encodeWithSelector(IERC20.balanceOf.selector), abi.encode(0));
+        vm.mockCall(
+            address(token),
+            abi.encodeWithSelector(IERC20.balanceOf.selector),
+            abi.encode(0)
+        );
 
-        (string memory greeting, ) = greeter.greet();
+        (string memory greeting,) = greeter.greet();
         assertEq(initialGreeting, greeting);
     }
 
     function test_GetTokenBalance(address caller, uint256 balance) public {
-        vm.mockCall(address(token), abi.encodeWithSelector(IERC20.balanceOf.selector, caller), abi.encode(balance));
+        vm.mockCall(
+            address(token),
+            abi.encodeWithSelector(IERC20.balanceOf.selector, caller),
+            abi.encode(balance)
+        );
 
         vm.prank(caller);
         (, uint256 greetBalance) = greeter.greet();
