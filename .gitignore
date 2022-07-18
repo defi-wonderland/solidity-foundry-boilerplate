@@ -5,7 +5,7 @@ node_modules
 
 # Foundry files
 cache/
-broadcast/
+out-via-ir
 
 # Config files
 .env
@@ -14,11 +14,9 @@ broadcast/
 !/**/.gitkeep
 
 # Keep related abi
-out/*
+out/*/*
 !out/Greeter.sol/*
-out-via-ir/*
-!out-via-ir/Greeter.sol/*
 
 # Keep the latest deployment only
-broadcast/*/*
-!broadcast/*/run-latest.json
+broadcast/*/*/*
+!broadcast/*/*/run-latest.json
