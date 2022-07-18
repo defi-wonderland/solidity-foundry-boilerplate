@@ -5,8 +5,6 @@ node_modules
 
 # Foundry files
 cache/
-out/
-out-via-ir/
 broadcast/
 
 # Config files
@@ -15,8 +13,12 @@ broadcast/
 # Avoid ignoring gitkeep
 !/**/.gitkeep
 
-# Avoid ignoring latest deployment to mainnet
-!broadcast/1/latest-*
-
-# Avoid ignoring external contract ABIs
+# Keep related abi
+out/*
 !out/Greeter.sol/*
+out-via-ir/*
+!out-via-ir/Greeter.sol/*
+
+# Keep the latest deployment only
+broadcast/*/*
+!broadcast/*/run-latest.json
