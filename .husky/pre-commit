@@ -1,4 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn build && npx lint-staged
+yarn build && yarn lint:fix

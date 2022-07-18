@@ -22,7 +22,7 @@
   <dd>Example tests showcasing mocking, assertions and configuration for mainnet forking. As well it includes everything needed in order to check code coverage.</dd>
 
   <dt>Linter</dt>
-  <dd>Linter for every language present in the repository, including solidity by using <a href="https://github.com/protofire/solhint">solhint</a>. As well, linter runs only against staged git files by using <a href="https://github.com/okonet/lint-staged">lint-staged</a>.</dd>
+  <dd>Simple and fast solidity linting thanks to forge fmt</a>.</dd>
 
   <dt>Github workflows CI</dt>
   <dd>Run all tests and see the coverage as you push your changes.</dd>
