@@ -1,4 +1,7 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn build && yarn lint:fix
+# 1. Build the contracts
+# 2. Stage build output 
+# 2. Lint and stage style improvements 
+yarn build && git add out && npx lint-staged

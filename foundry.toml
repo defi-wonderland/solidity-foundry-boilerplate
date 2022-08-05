@@ -1,3 +1,7 @@
+[fmt]
+quote_style = 'single'
+line_length = 120
+
 [profile.default]
 solc = '0.8.14'
 src = 'solidity'

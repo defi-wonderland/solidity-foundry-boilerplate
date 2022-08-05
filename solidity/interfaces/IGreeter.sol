@@ -1,27 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4 <0.9.0;
 
-import "isolmate/interfaces/tokens/IERC20.sol";
+import 'isolmate/interfaces/tokens/IERC20.sol';
 
 /**
  * @title Greeter Contract
  * @author Wonderland
  * @notice This is a basic contract created in order to portray some
- *         best practices and foundry functionality.
+ * best practices and foundry functionality.
  */
 interface IGreeter {
-    /***************************************************************
-                                EVENTS
-    ****************************************************************/
+    ///////////////////////////////////////////////////////// EVENTS
     /**
      * @notice Greeting has changed
      * @param _greeting The new greeting
      */
     event GreetingSet(string _greeting);
 
-    /***************************************************************
-                                ERRORS
-    ****************************************************************/
+    ///////////////////////////////////////////////////////// ERRORS
     /**
      * @notice Throws if the function was called by someone else than the owner
      */
@@ -33,9 +29,7 @@ interface IGreeter {
      */
     error Greeter_InvalidGreeting();
 
-    /***************************************************************
-                                VARIABLES
-    ****************************************************************/
+    ////////////////////////////////////////////////////// VARIABLES
     /**
      * @notice Returns the owner of the contract
      * @dev The owner will always be the deployer of the contract
@@ -57,18 +51,13 @@ interface IGreeter {
 
     /**
      * @notice Returns set previously set greeting
-     
+     *
      * @return _greeting The greeting
      * @return _balance  Current token balance of the caller
      */
-    function greet()
-        external
-        view
-        returns (string memory _greeting, uint256 _balance);
+    function greet() external view returns (string memory _greeting, uint256 _balance);
 
-    /***************************************************************
-                                LOGIC
-    ****************************************************************/
+    ////////////////////////////////////////////////////////// LOGIC
     /**
      * @notice Sets a new greeting
      * @dev Only callable by the owner
