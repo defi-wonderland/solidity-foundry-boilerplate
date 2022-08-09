@@ -26,6 +26,7 @@
     "deploy:rinkeby": "bash -c 'source .env && forge script DeployRinkeby --rpc-url $RINKEBY_RPC --broadcast --private-key $RINKEBY_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
     "deploy:mainnet": "bash -c 'source .env && forge script DeployMainnet --rpc-url $MAINNET_RPC --broadcast --private-key $MAINNET_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
     "lint:fix": "forge fmt",
+    "postinstall": "forge install",
     "lint:check": "forge fmt --check",
     "prepare": "husky install"
   },
