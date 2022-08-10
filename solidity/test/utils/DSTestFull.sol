@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'forge-std/console.sol';
+import 'forge-std/console2.sol';
 import 'prb/test/PRBTest.sol';
 
 contract DSTestFull is PRBTest {
