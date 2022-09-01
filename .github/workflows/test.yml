@@ -54,7 +54,7 @@ jobs:
         run: |
           touch .env
           echo MAINNET_RPC="${{ secrets.MAINNET_RPC }}" >> .env
-          echo FORK_BLOCK=14941114 >> .env
+          echo RINKEBY_RPC="${{ secrets.RINKEBY_RPC }}" >> .env
           cat .env
 
       - name: "Test env file"
