@@ -57,10 +57,6 @@ jobs:
           echo RINKEBY_RPC="${{ secrets.RINKEBY_RPC }}" >> .env
           cat .env
 
-      - name: "Test env file"
-        run: |
-          cat .env
-
       - name: Run tests
         shell: bash
         run: yarn test
