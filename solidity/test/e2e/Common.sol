@@ -8,6 +8,8 @@ import 'isolmate/interfaces/tokens/IERC20.sol';
 import 'contracts/Greeter.sol';
 
 contract CommonE2EBase is DSTestFull {
+    uint256 constant FORK_BLOCK = 15452788;
+
     string initialGreeting = 'hola';
     address user = label('user');
     address owner = label('owner');
@@ -16,6 +18,7 @@ contract CommonE2EBase is DSTestFull {
     IGreeter greeter;
 
     function setUp() public {
+        vm.createSelectFork(vm.rpcUrl('mainnet'), FORK_BLOCK);
         vm.prank(owner);
         greeter = new Greeter(initialGreeting, dai);
     }

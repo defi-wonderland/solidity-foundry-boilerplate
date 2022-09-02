@@ -21,3 +21,7 @@ via_ir = true
 out = 'out-via-ir'
 fuzz_runs = 5000
 src = 'solidity/test'
+
+[rpc_endpoints]
+mainnet = "${MAINNET_RPC}"
+rinkeby = "${RINKEBY_RPC}"

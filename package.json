@@ -18,8 +18,8 @@
   "scripts": {
     "build": "forge build",
     "build:optimized": "FOUNDRY_PROFILE=optimized forge build",
-    "test": "yarn test:unit && yarn test:e2e",
-    "test:e2e": "bash -c 'source .env && forge test --match-contract E2E --fork-url $MAINNET_RPC --fork-block-number $FORK_BLOCK -vvv'",
+    "test": "forge test -vvv",
+    "test:e2e": "forge test --match-contract E2E -vvv",
     "test:unit": "forge test --match-contract Unit -vvv",
     "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit",
     "coverage": "forge coverage --match-contract Unit",
