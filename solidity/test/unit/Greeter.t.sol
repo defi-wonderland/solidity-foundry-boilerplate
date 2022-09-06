@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'test/utils/DSTestFull.sol';
-import 'contracts/Greeter.sol';
+import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
+import {DSTestFull} from 'test/utils/DSTestFull.sol';
+import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 
 abstract contract Base is DSTestFull {
     address owner = label('owner');

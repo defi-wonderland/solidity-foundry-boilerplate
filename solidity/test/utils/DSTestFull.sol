@@ -2,7 +2,7 @@
 pragma solidity >=0.8.4 <0.9.0;
 
 import 'forge-std/console2.sol';
-import 'prb/test/PRBTest.sol';
+import {PRBTest} from 'prb/test/PRBTest.sol';
 
 contract DSTestFull is PRBTest {
     // Seed for the generation of pseudorandom addresses

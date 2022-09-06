@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'test/utils/DSTestFull.sol';
-import 'forge-std/console.sol';
-import 'isolmate/interfaces/tokens/IERC20.sol';
+import {DSTestFull} from 'test/utils/DSTestFull.sol';
+import {console} from 'forge-std/console.sol';
+import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 
-import 'contracts/Greeter.sol';
+import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 
 contract CommonE2EBase is DSTestFull {
     uint256 constant FORK_BLOCK = 15452788;
