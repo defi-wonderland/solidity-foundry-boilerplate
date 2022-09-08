@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'interfaces/IGreeter.sol';
+import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
+import {IGreeter} from 'interfaces/IGreeter.sol';
 
 contract Greeter is IGreeter {
     // Empty string for revert checks

@@ -1,8 +1,9 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity >=0.8.4 <0.9.0;
 
-import 'test/utils/DSTestFull.sol';
-import 'contracts/Greeter.sol';
+import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
+import {DSTestFull} from 'test/utils/DSTestFull.sol';
+import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 
 abstract contract Base is DSTestFull {
     address owner = label('owner');
@@ -18,17 +19,17 @@ abstract contract Base is DSTestFull {
 }
 
 contract Unit_Greeter_Constructor is Base {
-    function test_OwnerSet(address owner) public {
-        vm.prank(owner);
+    function test_OwnerSet(address _owner) public {
+        vm.prank(_owner);
         greeter = new Greeter(initialGreeting, token);
 
-        assertEq(greeter.OWNER(), owner);
+        assertEq(greeter.OWNER(), _owner);
     }
 
-    function test_TokenSet(IERC20 token) public {
-        greeter = new Greeter(initialGreeting, token);
+    function test_TokenSet(IERC20 _token) public {
+        greeter = new Greeter(initialGreeting, _token);
 
-        assertEq(address(greeter.token()), address(token));
+        assertEq(address(greeter.token()), address(_token));
     }
 
     function test_GreetingSet(string memory greeting) public {
