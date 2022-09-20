@@ -1,6 +1,6 @@
 [fmt]
 quote_style = 'single'
-line_length = 120
+single_line_statement_blocks = 'single'
 
 [profile.default]
 solc = '0.8.14'
