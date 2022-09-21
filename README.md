@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/defi-wonderland/brand/main/assets/solidity-foundry-boilerplate-banner.png" alt="wonderland banner" align="center" />
+<img src="https://raw.githubusercontent.com/defi-wonderland/brand/v1.0.0/external/solidity-foundry-boilerplate-banner.png" alt="wonderland banner" align="center" />
 <br />
 
 <div align="center"><strong>Start your next Solidity project with Foundry in seconds</strong></div>
