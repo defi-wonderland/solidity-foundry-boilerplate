@@ -21,6 +21,7 @@
     "coverage": "forge coverage --match-contract Unit",
     "deploy:mainnet": "bash -c 'source .env && forge script DeployMainnet --rpc-url $MAINNET_RPC --broadcast --private-key $MAINNET_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
     "deploy:rinkeby": "bash -c 'source .env && forge script DeployRinkeby --rpc-url $RINKEBY_RPC --broadcast --private-key $RINKEBY_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
+    "postinstall": "forge install",
     "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && yarn lint:prettier --check",
     "lint:fix": "sort-package-json && yarn lint:sol-tests --fix && yarn lint:sol-logic --fix && yarn lint:prettier --write",
     "lint:prettier": "cross-env prettier './**'",
