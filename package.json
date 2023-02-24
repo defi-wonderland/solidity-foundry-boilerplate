@@ -1,42 +1,54 @@
 {
   "name": "solidity-foundry-boilerplate",
   "version": "1.0.0",
+  "private": true,
   "description": "Production ready Solidity boilerplate with Foundry",
   "homepage": "https://github.com/defi-wonderland/solidity-foundry-boilerplate#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/defi-wonderland/solidity-foundry-boilerplate.git"
   },
+  "license": "MIT",
   "author": "Wonderland",
   "contributors": [
     "0xGorilla (https://github.com/0xGorilla)",
     "0xng (https://github.com/0xng)",
     "gas1cent (https://github.com/gas1cent)"
   ],
-  "license": "MIT",
-  "private": true,
   "scripts": {
     "build": "forge build",
     "build:optimized": "FOUNDRY_PROFILE=optimized forge build",
+    "coverage": "forge coverage --match-contract Unit",
+    "deploy:mainnet": "bash -c 'source .env && forge script DeployMainnet --rpc-url $MAINNET_RPC --broadcast --private-key $MAINNET_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
+    "deploy:rinkeby": "bash -c 'source .env && forge script DeployRinkeby --rpc-url $RINKEBY_RPC --broadcast --private-key $RINKEBY_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
+    "postinstall": "forge install",
+    "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && yarn lint:prettier --check",
+    "lint:fix": "sort-package-json && yarn lint:sol-tests --fix && yarn lint:sol-logic --fix && yarn lint:prettier --write",
+    "lint:prettier": "cross-env prettier './**'",
+    "lint:sol-logic": "cross-env solhint -c .solhint.json 'solidity/contracts/**/*.sol' 'solidity/interfaces/**/*.sol'",
+    "lint:sol-tests": "cross-env solhint 'solidity/test/**/*.sol'",
+    "prepare": "husky install",
     "test": "forge test -vvv",
     "test:e2e": "forge test --match-contract E2E -vvv",
     "test:unit": "forge test --match-contract Unit -vvv",
-    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit",
-    "coverage": "forge coverage --match-contract Unit",
-    "deploy:rinkeby": "bash -c 'source .env && forge script DeployRinkeby --rpc-url $RINKEBY_RPC --broadcast --private-key $RINKEBY_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
-    "deploy:mainnet": "bash -c 'source .env && forge script DeployMainnet --rpc-url $MAINNET_RPC --broadcast --private-key $MAINNET_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
-    "lint:fix": "forge fmt",
-    "postinstall": "forge install",
-    "lint:check": "forge fmt --check",
-    "prepare": "husky install"
+    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit"
+  },
+  "lint-staged": {
+    "*.{js,css,md,ts,sol}": "prettier --write",
+    "*.sol": "cross-env solhint --fix 'solidity/**/*.sol",
+    "package.json": "sort-package-json"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
+    "cross-env": "7.0.3",
     "husky": ">=8",
-    "lint-staged": ">=10"
-  },
-  "lint-staged": {
-    "*.sol": "forge fmt"
+    "lint-staged": ">=10",
+    "prettier": "2.5.1",
+    "prettier-plugin-solidity": "1.0.0-beta.19",
+    "solhint": "3.3.6",
+    "solhint-plugin-defi-wonderland": "1.1.0",
+    "solhint-plugin-prettier": "0.0.5",
+    "sort-package-json": "1.53.1"
   }
 }
