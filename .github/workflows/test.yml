@@ -24,6 +24,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "yarn"
 
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
