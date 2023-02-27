@@ -85,7 +85,7 @@ contract UnitGreeterGreet is Base {
   function test_GetGreeting() public {
     vm.mockCall(address(_token), abi.encodeWithSelector(IERC20.balanceOf.selector), abi.encode(0));
 
-    (string memory _greeting, ) = _greeter.greet();
+    (string memory _greeting,) = _greeter.greet();
     assertEq(_initialGreeting, _greeting);
   }
 
