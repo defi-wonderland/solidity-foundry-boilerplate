@@ -6,94 +6,94 @@ import {DSTestFull} from 'test/utils/DSTestFull.sol';
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 
 abstract contract Base is DSTestFull {
-    address owner = label('owner');
-    IERC20 token = IERC20(mockContract('token'));
-    string initialGreeting = 'hola';
-    bytes32 emptyString = keccak256(bytes(''));
-    Greeter greeter;
+  address internal _owner = _label('owner');
+  IERC20 internal _token = IERC20(_mockContract('token'));
+  string internal _initialGreeting = 'hola';
+  bytes32 internal _emptyString = keccak256(bytes(''));
+  Greeter internal _greeter;
 
-    function setUp() public virtual {
-        vm.prank(owner);
-        greeter = new Greeter(initialGreeting, token);
-    }
+  function setUp() public virtual {
+    vm.prank(_owner);
+    _greeter = new Greeter(_initialGreeting, _token);
+  }
 }
 
-contract Unit_Greeter_Constructor is Base {
-    function test_OwnerSet(address _owner) public {
-        vm.prank(_owner);
-        greeter = new Greeter(initialGreeting, token);
+contract UnitGreeterConstructor is Base {
+  function test_OwnerSet(address _owner) public {
+    vm.prank(_owner);
+    _greeter = new Greeter(_initialGreeting, _token);
 
-        assertEq(greeter.OWNER(), _owner);
-    }
+    assertEq(_greeter.OWNER(), _owner);
+  }
 
-    function test_TokenSet(IERC20 _token) public {
-        greeter = new Greeter(initialGreeting, _token);
+  function test_TokenSet(IERC20 _token) public {
+    _greeter = new Greeter(_initialGreeting, _token);
 
-        assertEq(address(greeter.token()), address(_token));
-    }
+    assertEq(address(_greeter.token()), address(_token));
+  }
 
-    function test_GreetingSet(string memory greeting) public {
-        vm.assume(keccak256(bytes(greeting)) != emptyString);
+  function test_GreetingSet(string memory _greeting) public {
+    vm.assume(keccak256(bytes(_greeting)) != _emptyString);
 
-        greeter = new Greeter(greeting, token);
-        assertEq(greeting, greeter.greeting());
-    }
+    _greeter = new Greeter(_greeting, _token);
+    assertEq(_greeting, _greeter.greeting());
+  }
 }
 
-contract Unit_Greeter_SetGreeting is Base {
-    event GreetingSet(string _greeting);
+contract UnitGreeterSetGreeting is Base {
+  event GreetingSet(string _greeting);
 
-    function setUp() public override {
-        super.setUp();
-        vm.startPrank(owner);
-    }
+  function setUp() public override {
+    super.setUp();
+    vm.startPrank(_owner);
+  }
 
-    function test_RevertIfNotOwner(address caller, string memory greeting) public {
-        vm.assume(keccak256(bytes(greeting)) != emptyString);
-        vm.assume(caller != owner);
+  function test_RevertIfNotOwner(address _caller, string memory _greeting) public {
+    vm.assume(keccak256(bytes(_greeting)) != _emptyString);
+    vm.assume(_caller != _owner);
 
-        vm.stopPrank();
-        vm.prank(caller);
+    vm.stopPrank();
+    vm.prank(_caller);
 
-        vm.expectRevert(IGreeter.Greeter_OnlyOwner.selector);
-        greeter.setGreeting(greeting);
-    }
+    vm.expectRevert(IGreeter.Greeter_OnlyOwner.selector);
+    _greeter.setGreeting(_greeting);
+  }
 
-    function test_RevertIfEmptyGreeting() public {
-        vm.expectRevert(IGreeter.Greeter_InvalidGreeting.selector);
-        greeter.setGreeting('');
-    }
+  function test_RevertIfEmptyGreeting() public {
+    vm.expectRevert(IGreeter.Greeter_InvalidGreeting.selector);
+    _greeter.setGreeting('');
+  }
 
-    function test_SetGreeting(string memory greeting) public {
-        vm.assume(keccak256(bytes(greeting)) != emptyString);
-        greeter.setGreeting(greeting);
+  function test_SetGreeting(string memory _greeting) public {
+    vm.assume(keccak256(bytes(_greeting)) != _emptyString);
+    _greeter.setGreeting(_greeting);
 
-        assertEq(greeting, greeter.greeting());
-    }
+    assertEq(_greeting, _greeter.greeting());
+  }
 
-    function test_EmitEvent(string memory greeting) public {
-        vm.assume(keccak256(bytes(greeting)) != emptyString);
+  function test_EmitEvent(string memory _greeting) public {
+    vm.assume(keccak256(bytes(_greeting)) != _emptyString);
 
-        expectEmitNoIndex();
-        emit GreetingSet(greeting);
+    _expectEmitNoIndex();
+    emit GreetingSet(_greeting);
 
-        greeter.setGreeting(greeting);
-    }
+    _greeter.setGreeting(_greeting);
+  }
 }
 
-contract Unit_Greeter_Greet is Base {
-    function test_GetGreeting() public {
-        vm.mockCall(address(token), abi.encodeWithSelector(IERC20.balanceOf.selector), abi.encode(0));
+contract UnitGreeterGreet is Base {
+  function test_GetGreeting() public {
+    vm.mockCall(address(_token), abi.encodeWithSelector(IERC20.balanceOf.selector), abi.encode(0));
 
-        (string memory greeting,) = greeter.greet();
-        assertEq(initialGreeting, greeting);
-    }
+    (string memory _greeting,) = _greeter.greet();
+    assertEq(_initialGreeting, _greeting);
+  }
 
-    function test_GetTokenBalance(address caller, uint256 balance) public {
-        vm.mockCall(address(token), abi.encodeWithSelector(IERC20.balanceOf.selector, caller), abi.encode(balance));
+  function test_GetTokenBalance(address _caller, uint256 _balance) public {
+    vm.mockCall(address(_token), abi.encodeWithSelector(IERC20.balanceOf.selector, _caller), abi.encode(_balance));
 
-        vm.prank(caller);
-        (, uint256 greetBalance) = greeter.greet();
-        assertEq(balance, greetBalance);
-    }
+    vm.prank(_caller);
+    (, uint256 _greetBalance) = _greeter.greet();
+    assertEq(_balance, _greetBalance);
+  }
 }

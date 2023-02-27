@@ -1,6 +1,11 @@
 [fmt]
+line_length = 120
+tab_width = 2
+bracket_spacing = false
+int_types = 'long'
 quote_style = 'single'
-single_line_statement_blocks = 'single'
+number_underscore = 'thousands'
+multiline_func_header = 'params_first'
 
 [profile.default]
 solc = '0.8.14'
