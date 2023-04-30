@@ -10,7 +10,9 @@ import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
  * best practices and foundry functionality.
  */
 interface IGreeter {
-  ///////////////////////////////////////////////////////// EVENTS
+  /*///////////////////////////////////////////////////////////////
+                            EVENTS
+  //////////////////////////////////////////////////////////////*/
   /**
    * @notice Greeting has changed
    * @param _greeting The new greeting
@@ -29,7 +31,9 @@ interface IGreeter {
    */
   error Greeter_InvalidGreeting();
 
-  ////////////////////////////////////////////////////// VARIABLES
+  /*///////////////////////////////////////////////////////////////
+                            VARIABLES
+  //////////////////////////////////////////////////////////////*/
   /**
    * @notice Returns the owner of the contract
    * @dev The owner will always be the deployer of the contract
@@ -38,7 +42,7 @@ interface IGreeter {
   function OWNER() external view returns (address _owner);
 
   /**
-   * @notice Returns the greeting
+   * @notice Returns the previously set greeting
    * @return _greet The greeting
    */
   function greeting() external view returns (string memory _greet);
@@ -50,14 +54,16 @@ interface IGreeter {
   function token() external view returns (IERC20 _token);
 
   /**
-   * @notice Returns set previously set greeting
+   * @notice Greets the caller
    *
    * @return _greeting The greeting
    * @return _balance  Current token balance of the caller
    */
   function greet() external view returns (string memory _greeting, uint256 _balance);
 
-  ////////////////////////////////////////////////////////// LOGIC
+  /*///////////////////////////////////////////////////////////////
+                            LOGIC
+  //////////////////////////////////////////////////////////////*/
   /**
    * @notice Sets a new greeting
    * @dev Only callable by the owner
