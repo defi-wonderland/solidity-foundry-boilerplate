@@ -21,9 +21,9 @@ contract DeployMainnet is Deploy {
   }
 }
 
-contract DeployRinkeby is Deploy {
+contract DeployGoerli is Deploy {
   function run() external {
-    IERC20 weth = IERC20(0xDf032Bc4B9dC2782Bb09352007D4C57B75160B15);
+    IERC20 weth = IERC20(0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6);
 
     _deploy('some test greeting', weth);
   }
