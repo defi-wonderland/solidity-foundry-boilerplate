@@ -5,8 +5,10 @@ import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 import {IGreeter} from 'interfaces/IGreeter.sol';
 
 contract Greeter is IGreeter {
-  // Empty string for revert checks
-  /// @dev result of doing keccak256(bytes(''))
+  /**
+   * @notice Empty string for revert checks
+   * @dev result of doing keccak256(bytes(''))
+   */
   bytes32 internal constant _EMPTY_STRING = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
 
   /// @inheritdoc IGreeter
@@ -19,9 +21,7 @@ contract Greeter is IGreeter {
   IERC20 public token;
 
   /**
-   * @notice Defines the owner to the msg.sender and sets the
-   * initial greeting
-   *
+   * @notice Defines the owner to the msg.sender and sets the initial greeting
    * @param _greeting Initial greeting
    * @param _token Initial token
    */
@@ -48,8 +48,7 @@ contract Greeter is IGreeter {
   }
 
   /**
-   * @notice Reverts in case the function was not called by
-   * the owner of the contract
+   * @notice Reverts in case the function was not called by the owner of the contract
    */
   modifier onlyOwner() {
     if (msg.sender != OWNER) {
