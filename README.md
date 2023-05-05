@@ -82,9 +82,6 @@ In order to check your current code coverage, run:
 yarn coverage
 ```
 
-> **⚠ WARNING: Forge coverage is having some issues...**  
-> As stated in this [github issue](https://github.com/foundry-rs/foundry/issues/2165), checking the code coverage with Forge when using abstract contract is not currently working.
-
 <br>
 
 ## Deploy & verify
