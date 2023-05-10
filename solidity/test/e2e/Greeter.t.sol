@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.4 <0.9.0;
+pragma solidity >=0.8.18 <0.9.0;
 
 import {CommonE2EBase} from 'test/e2e/Common.sol';
 
