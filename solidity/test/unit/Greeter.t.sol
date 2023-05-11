@@ -29,6 +29,14 @@ contract GreeterForInternalCallsTest is InternalCallsWatcherExtension, Greeter {
   }
 }
 
+contract GreeterForTest is Greeter {
+  constructor(string memory _greeting, IERC20 _token) Greeter(_greeting, _token) {}
+
+  function updateLastGreetingSetTime(uint256 _timestamp) external virtual {
+    _updateLastGreetingSetTime(_timestamp);
+  }
+}
+
 contract UnitGreeterConstructor is Base {
   function test_OwnerSet(address _owner) public {
     vm.prank(_owner);
@@ -122,5 +130,17 @@ contract UnitGreeterGreet is Base {
     vm.prank(_caller);
     (, uint256 _greetBalance) = _greeter.greet();
     assertEq(_balance, _greetBalance);
+  }
+}
+
+contract UnitGreeterUpdateLastGreetingSetTime is Base {
+  function setUp() public override {
+    super.setUp();
+    _greeter = new GreeterForTest(_initialGreeting, _token);
+  }
+
+  function test_Set_LastGreetingSetTime(uint256 _timestamp) public {
+    GreeterForTest(address(_greeter)).updateLastGreetingSetTime(_timestamp);
+    assertEq(_timestamp, _greeter.lastGreetingSetTime());
   }
 }
