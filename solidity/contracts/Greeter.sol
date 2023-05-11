@@ -20,6 +20,7 @@ contract Greeter is IGreeter {
   /// @inheritdoc IGreeter
   IERC20 public token;
 
+  /// @inheritdoc IGreeter
   uint256 public lastGreetingSetTime;
 
   /**
