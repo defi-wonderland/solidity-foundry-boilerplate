@@ -5,7 +5,7 @@ pragma solidity >=0.8.4 <0.9.0;
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 import {DSTestFull} from 'test/utils/DSTestFull.sol';
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
-import {InternalCallsVerifierExtension, InternalCallsVerifier} from 'test/utils/InternalCallsVerifier.sol';
+import {InternalCallsWatcherExtension, InternalCallsWatcher} from 'test/utils/InternalCallsWatcher.sol';
 
 abstract contract Base is DSTestFull {
   address internal _owner = _label('owner');
@@ -20,11 +20,11 @@ abstract contract Base is DSTestFull {
   }
 }
 
-contract GreeterForInternalCallsTest is InternalCallsVerifierExtension, Greeter {
+contract GreeterForInternalCallsTest is InternalCallsWatcherExtension, Greeter {
   constructor(string memory _greeting, IERC20 _token) Greeter(_greeting, _token) {}
 
   function _updateLastGreetingSetTime(uint256 _timestamp) internal override {
-    verifier.calledInternal(abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp));
+    calledInternal(abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp));
     super._updateLastGreetingSetTime(_timestamp);
   }
 }
@@ -54,11 +54,11 @@ contract UnitGreeterConstructor is Base {
 contract UnitGreeterSetGreeting is Base {
   event GreetingSet(string _greeting);
 
-  address internal _verifier;
+  address internal _watcher;
 
   function setUp() public override {
     super.setUp();
-    _verifier = address((GreeterForInternalCallsTest(address(_greeter)).verifier()));
+    _watcher = address((GreeterForInternalCallsTest(address(_greeter)).watcher()));
     vm.startPrank(_owner);
   }
 
@@ -97,9 +97,9 @@ contract UnitGreeterSetGreeting is Base {
   function test_Call_Internal_UpdateLastGreetingSetTime(uint256 _timestamp) public {
     vm.warp(_timestamp);
     vm.expectCall(
-      _verifier,
+      _watcher,
       abi.encodeWithSelector(
-        InternalCallsVerifier.calledInternal.selector,
+        InternalCallsWatcher.calledInternal.selector,
         abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp)
       )
     );

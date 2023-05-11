@@ -70,4 +70,9 @@ interface IGreeter {
    * @param _newGreeting The new greeting to be set
    */
   function setGreeting(string memory _newGreeting) external;
+
+  /**
+   * @notice Returns the last time the greeting was set
+   */
+  function lastGreetingSetTime() external view returns (uint256 _lastGreetingSetTime);
 }
