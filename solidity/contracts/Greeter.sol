@@ -20,6 +20,8 @@ contract Greeter is IGreeter {
   /// @inheritdoc IGreeter
   IERC20 public token;
 
+  uint256 public lastGreetingSetTime;
+
   /**
    * @notice Defines the owner to the msg.sender and sets the initial greeting
    * @param _greeting Initial greeting
@@ -38,7 +40,12 @@ contract Greeter is IGreeter {
     }
 
     greeting = _greeting;
+    _updateLastGreetingSetTime(block.timestamp);
     emit GreetingSet(_greeting);
+  }
+
+  function _updateLastGreetingSetTime(uint256 _timestamp) internal virtual {
+    lastGreetingSetTime = _timestamp;
   }
 
   /// @inheritdoc IGreeter
