@@ -5,7 +5,7 @@ pragma solidity >=0.8.4 <0.9.0;
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 import {DSTestFull} from 'test/utils/DSTestFull.sol';
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
-import {InternalCallsVerifierExtension, InternalCallsVerfier} from 'test/utils/InternalCallsVerifier.sol';
+import {InternalCallsVerifierExtension, InternalCallsVerifier} from 'test/utils/InternalCallsVerifier.sol';
 
 abstract contract Base is DSTestFull {
   address internal _owner = _label('owner');
@@ -99,7 +99,7 @@ contract UnitGreeterSetGreeting is Base {
     vm.expectCall(
       _verifier,
       abi.encodeWithSelector(
-        InternalCallsVerfier.calledInternal.selector,
+        InternalCallsVerifier.calledInternal.selector,
         abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp)
       )
     );
