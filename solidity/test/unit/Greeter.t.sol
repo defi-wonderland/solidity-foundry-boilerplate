@@ -30,7 +30,7 @@ contract GreeterForTest is InternalCallsWatcherExtension, Greeter {
   }
 
   function _updateLastGreetingSetTime(uint256 _timestamp) internal virtual override {
-    calledInternal(abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp));
+    _calledInternal(abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp));
     if (_callSuper) {
       super._updateLastGreetingSetTime(_timestamp);
     }

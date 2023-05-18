@@ -13,7 +13,7 @@ contract InternalCallsWatcherExtension {
     watcher = new InternalCallsWatcher();
   }
 
-  function calledInternal(bytes memory _encodedCall) internal view {
+  function _calledInternal(bytes memory _encodedCall) internal view {
     watcher.calledInternal(_encodedCall);
   }
 
