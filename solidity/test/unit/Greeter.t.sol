@@ -9,6 +9,7 @@ import {InternalCallsWatcherExtension, InternalCallsWatcher} from 'test/utils/In
 
 abstract contract Base is DSTestFull {
   address internal _owner = _label('owner');
+  address internal _watcher;
   IERC20 internal _token = IERC20(_mockContract('token'));
   string internal _initialGreeting = 'hola';
   bytes32 internal _emptyString = keccak256(bytes(''));
@@ -16,24 +17,23 @@ abstract contract Base is DSTestFull {
 
   function setUp() public virtual {
     vm.prank(_owner);
-    _greeter = new GreeterForInternalCallsTest(_initialGreeting, _token);
+    _greeter = new GreeterForTest(_initialGreeting, _token);
+    _watcher = address(GreeterForTest(address(_greeter)).watcher());
   }
 }
 
-contract GreeterForInternalCallsTest is InternalCallsWatcherExtension, Greeter {
-  constructor(string memory _greeting, IERC20 _token) Greeter(_greeting, _token) {}
-
-  function _updateLastGreetingSetTime(uint256 _timestamp) internal override {
-    calledInternal(abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp));
-    super._updateLastGreetingSetTime(_timestamp);
-  }
-}
-
-contract GreeterForTest is Greeter {
+contract GreeterForTest is InternalCallsWatcherExtension, Greeter {
   constructor(string memory _greeting, IERC20 _token) Greeter(_greeting, _token) {}
 
   function updateLastGreetingSetTime(uint256 _timestamp) external virtual {
     _updateLastGreetingSetTime(_timestamp);
+  }
+
+  function _updateLastGreetingSetTime(uint256 _timestamp) internal virtual override {
+    calledInternal(abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp));
+    if (_callSuper) {
+      super._updateLastGreetingSetTime(_timestamp);
+    }
   }
 }
 
@@ -62,11 +62,8 @@ contract UnitGreeterConstructor is Base {
 contract UnitGreeterSetGreeting is Base {
   event GreetingSet(string _greeting);
 
-  address internal _watcher;
-
   function setUp() public override {
     super.setUp();
-    _watcher = address((GreeterForInternalCallsTest(address(_greeter)).watcher()));
     vm.startPrank(_owner);
   }
 

@@ -7,6 +7,7 @@ contract InternalCallsWatcher {
 
 contract InternalCallsWatcherExtension {
   InternalCallsWatcher public watcher;
+  bool internal _callSuper = true;
 
   constructor() {
     watcher = new InternalCallsWatcher();
@@ -14,5 +15,9 @@ contract InternalCallsWatcherExtension {
 
   function calledInternal(bytes memory _encodedCall) internal view {
     watcher.calledInternal(_encodedCall);
+  }
+
+  function setCallSuper(bool __callSuper) external {
+    _callSuper = __callSuper;
   }
 }
