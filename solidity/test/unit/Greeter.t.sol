@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.8.18 <0.9.0;
+pragma solidity =0.8.19;
 
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 import {DSTestFull} from 'test/utils/DSTestFull.sol';
