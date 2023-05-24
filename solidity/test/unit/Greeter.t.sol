@@ -1,12 +1,15 @@
-// SPDX-License-Identifier: UNLICENSED
+// SPDX-License-Identifier: MIT
+
 pragma solidity >=0.8.4 <0.9.0;
 
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 import {DSTestFull} from 'test/utils/DSTestFull.sol';
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
+import {InternalCallsWatcherExtension, InternalCallsWatcher} from 'test/utils/InternalCallsWatcher.sol';
 
 abstract contract Base is DSTestFull {
   address internal _owner = _label('owner');
+  address internal _watcher;
   IERC20 internal _token = IERC20(_mockContract('token'));
   string internal _initialGreeting = 'hola';
   bytes32 internal _emptyString = keccak256(bytes(''));
@@ -14,7 +17,23 @@ abstract contract Base is DSTestFull {
 
   function setUp() public virtual {
     vm.prank(_owner);
-    _greeter = new Greeter(_initialGreeting, _token);
+    _greeter = new GreeterForTest(_initialGreeting, _token);
+    _watcher = address(GreeterForTest(address(_greeter)).watcher());
+  }
+}
+
+contract GreeterForTest is InternalCallsWatcherExtension, Greeter {
+  constructor(string memory _greeting, IERC20 _token) Greeter(_greeting, _token) {}
+
+  function updateLastGreetingSetTime(uint256 _timestamp) external virtual {
+    _updateLastGreetingSetTime(_timestamp);
+  }
+
+  function _updateLastGreetingSetTime(uint256 _timestamp) internal virtual override {
+    _calledInternal(abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp));
+    if (_callSuper) {
+      super._updateLastGreetingSetTime(_timestamp);
+    }
   }
 }
 
@@ -79,6 +98,19 @@ contract UnitGreeterSetGreeting is Base {
 
     _greeter.setGreeting(_greeting);
   }
+
+  function test_Call_Internal_UpdateLastGreetingSetTime(uint256 _timestamp) public {
+    vm.warp(_timestamp);
+    vm.expectCall(
+      _watcher,
+      abi.encodeWithSelector(
+        InternalCallsWatcher.calledInternal.selector,
+        abi.encodeWithSignature('_updateLastGreetingSetTime(uint256)', _timestamp)
+      )
+    );
+
+    _greeter.setGreeting(_initialGreeting);
+  }
 }
 
 contract UnitGreeterGreet is Base {
@@ -95,5 +127,17 @@ contract UnitGreeterGreet is Base {
     vm.prank(_caller);
     (, uint256 _greetBalance) = _greeter.greet();
     assertEq(_balance, _greetBalance);
+  }
+}
+
+contract UnitGreeterUpdateLastGreetingSetTime is Base {
+  function setUp() public override {
+    super.setUp();
+    _greeter = new GreeterForTest(_initialGreeting, _token);
+  }
+
+  function test_Set_LastGreetingSetTime(uint256 _timestamp) public {
+    GreeterForTest(address(_greeter)).updateLastGreetingSetTime(_timestamp);
+    assertEq(_timestamp, _greeter.lastGreetingSetTime());
   }
 }
