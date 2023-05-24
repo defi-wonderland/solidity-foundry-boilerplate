@@ -2,7 +2,7 @@
   "name": "solidity-foundry-boilerplate",
   "version": "1.0.0",
   "private": true,
-  "description": "Production ready Solidity boilerplate with Foundry 2",
+  "description": "Production ready Solidity boilerplate with Foundry",
   "homepage": "https://github.com/defi-wonderland/solidity-foundry-boilerplate#readme",
   "repository": {
     "type": "git",
