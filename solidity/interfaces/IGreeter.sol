@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.8.4 <0.9.0;
+pragma solidity =0.8.19;
 
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 
@@ -19,7 +19,9 @@ interface IGreeter {
    */
   event GreetingSet(string _greeting);
 
-  ///////////////////////////////////////////////////////// ERRORS
+  /*///////////////////////////////////////////////////////////////
+                            ERRORS
+  //////////////////////////////////////////////////////////////*/
   /**
    * @notice Throws if the function was called by someone else than the owner
    */
