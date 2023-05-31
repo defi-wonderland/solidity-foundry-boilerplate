@@ -2,10 +2,6 @@
 	path = lib/ds-test
 	url = https://github.com/dapphub/ds-test
 	branch = master
-[submodule "lib/forge-std"]
-	path = lib/forge-std
-	url = https://github.com/brockelmore/forge-std
-	branch = master
 [submodule "lib/prb-test"]
 	path = lib/prb-test
 	url = https://github.com/paulrberg/prb-test
@@ -14,3 +10,6 @@
 	path = lib/isolmate
 	url = https://github.com/defi-wonderland/isolmate
 	branch = main
+[submodule "lib/forge-std"]
+	path = lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
