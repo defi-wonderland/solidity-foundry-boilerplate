@@ -783,6 +783,10 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
+"ds-test@github:dapphub/ds-test#e282159":
+  version "1.0.0"
+  resolved "https://codeload.github.com/dapphub/ds-test/tar.gz/e282159d5170298eb2455a6c05280ab5a73a4ef0"
+
 eastasianwidth@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/eastasianwidth/-/eastasianwidth-0.2.0.tgz#696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"
@@ -1052,6 +1056,10 @@ flatted@^2.0.0:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
+
+"forge-std@github:foundry-rs/forge-std#v1.5.6":
+  version "1.5.6"
+  resolved "https://codeload.github.com/foundry-rs/forge-std/tar.gz/e8a047e3f40f13fa37af6fe14e6e06283d9a060e"
 
 fs-extra@^10.0.0:
   version "10.1.0"
@@ -1367,6 +1375,10 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
+
+"isolmate@github:defi-wonderland/isolmate#59e1804":
+  version "6.2.0-beta2"
+  resolved "https://codeload.github.com/defi-wonderland/isolmate/tar.gz/59e18043c2450fef550f1744b3705ce9ebcaf1c8"
 
 js-tokens@^4.0.0:
   version "4.0.0"
@@ -1833,6 +1845,10 @@ pidtree@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/pidtree/-/pidtree-0.6.0.tgz#90ad7b6d42d5841e69e0a2419ef38f8883aa057c"
   integrity sha512-eG2dWTVw5bzqGRztnHExczNxt5VGsE6OwTeCG3fdUf9KBsZzO3R5OIIIzWR+iZA0NtZ+RDVdaoE2dK1cn6jH4g==
+
+"prb/test@github:paulrberg/prb-test#a245c71":
+  version "0.6.0"
+  resolved "https://codeload.github.com/paulrberg/prb-test/tar.gz/a245c71edc07643aedfe27df4cc7b21048aa8824"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
