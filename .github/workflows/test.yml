@@ -20,9 +20,6 @@ jobs:
         with:
           version: nightly
 
-      - name: Install forge dependencies
-        run: forge install
-
       - name: Precompile using 0.8.14 and via-ir=false
         run: yarn build
 
@@ -50,23 +47,17 @@ jobs:
         with:
           version: nightly
 
-      - name: Install forge dependencies
-        run: forge install
-
       - name: Precompile using 0.8.14 and via-ir=true
         run: yarn build:optimized
 
       - name: Run tests
         run: yarn test:unit
-
   # coverage:
   #   name: Run Coverage Tests
   #   runs-on: ubuntu-latest
-
   #   strategy:
   #     matrix:
   #       node-version: [16.x]
-
   #   steps:
   #     - uses: actions/checkout@v3
   #     - name: Use Node.js
