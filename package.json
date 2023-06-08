@@ -36,15 +36,17 @@
     "*.sol": "solhint --fix 'solidity/**/*.sol",
     "package.json": "sort-package-json"
   },
+  "dependencies": {
+    "ds-test": "github:dapphub/ds-test#e282159",
+    "forge-std": "github:foundry-rs/forge-std#v1.5.6",
+    "isolmate": "github:defi-wonderland/isolmate#59e1804",
+    "prb/test": "github:paulrberg/prb-test#a245c71"
+  },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
-    "ds-test": "github:dapphub/ds-test#e282159",
-    "forge-std": "github:foundry-rs/forge-std#v1.5.6",
     "husky": ">=8",
-    "isolmate": "github:defi-wonderland/isolmate#59e1804",
     "lint-staged": ">=10",
-    "prb/test": "github:paulrberg/prb-test#a245c71",
     "solhint": "3.3.6",
     "solhint-plugin-defi-wonderland": "1.1.0",
     "sort-package-json": "1.53.1"
