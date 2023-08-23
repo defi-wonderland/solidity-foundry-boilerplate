@@ -2,7 +2,6 @@
 pragma solidity =0.8.19;
 
 import {DSTestFull} from 'test/utils/DSTestFull.sol';
-import {console} from 'forge-std/console.sol';
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
