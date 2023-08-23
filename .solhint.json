@@ -23,6 +23,7 @@
     "defi-wonderland/named-return-values": ["warn"],
     "defi-wonderland/struct-name-camelcase": ["warn"],
     "defi-wonderland/wonder-var-name-mixedcase": ["warn"],
-    "avoid-low-level-calls": "off"
+    "avoid-low-level-calls": "off",
+    "no-console": "off"
   }
 }
