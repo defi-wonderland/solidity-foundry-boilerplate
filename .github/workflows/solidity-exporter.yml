@@ -1,0 +1,50 @@
+name: Export Interfaces And Contracts
+
+on: [push]
+
+jobs:
+  export:
+    name: Generate Interfaces And Contracts
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        export_type: ["interfaces", "contracts"]
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Build project and generate out directory
+        run: yarn build
+
+      - name: Update version
+        run: yarn version --new-version "0.0.0-${GITHUB_SHA::8}" --no-git-tag-version
+
+      - name: Export Solidity - ${{ matrix.export_type }}
+        uses: defi-wonderland/solidity-exporter-action@v1
+        with:
+          # Update package_name with your package name
+          package_name: "@defi_wonderland/solidity-exported"
+          out: "out"
+          interfaces: "solidity/interfaces"
+          contracts: "solidity/contracts"
+          export_type: "${{ matrix.export_type }}"
+    ## Uncomment it if you want to publish your exported packages to NPM
+    # - name: Publish
+    ## Update `@defi_wonderland/solidity-exported` with your package name
+    #   run: cd export/@defi_wonderland/solidity-exported-${{ matrix.export_type }} && npm publish --access public
+    #   env:
+    #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

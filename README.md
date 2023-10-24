@@ -26,6 +26,7 @@
 
   <dt>Github workflows CI</dt>
   <dd>Run all tests and see the coverage as you push your changes.</dd>
+  <dd>Export your Solidity interfaces and contracts as packages, and publish them to NPM.</dd>
 </dl>
 
 ## Setup
@@ -105,3 +106,31 @@ yarn deploy:mainnet
 The deployments are stored in ./broadcast
 
 See the [Foundry Book for available options](https://book.getfoundry.sh/reference/forge/forge-create.html).
+
+## Export And Publish
+
+### Export
+
+Export TypeScript interfaces from Solidity contracts and interfaces providing compatibility with TypeChain.
+
+Update the `package_name` in the `solidity-exporter.yml` file to match your package name:
+
+```yaml
+# Update package_name with your package name
+package_name: "@defi_wonderland/solidity-exported"
+```
+
+### Publish
+
+If you want to publish the exported packages to NPM, you can do so by uncommenting the following lines in the `solidity-exporter.yml` file (make sure you've set the `NPM_TOKEN` on your org's secrets) and updating the package name with yours:
+
+```yaml
+## Uncomment it if you want to publish your exported packages to NPM
+# - name: Publish
+## Update `@defi_wonderland/solidity-exported` with your package name
+#   run: cd export/@defi_wonderland/solidity-exported-${{ matrix.export_type }} && npm publish --access public
+#   env:
+#     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+You can take a look at our [solidity-exporter-action](https://github.com/defi-wonderland/solidity-exporter-action) repository more information and usage examples.
