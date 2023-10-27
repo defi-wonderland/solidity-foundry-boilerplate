@@ -5,6 +5,7 @@ on: [push]
 jobs:
   export:
     name: Generate Interfaces And Contracts
+    # Remove the following line if you wish to export your Solidity contracts and interfaces and publish them to NPM
     if: false
     runs-on: ubuntu-latest
     strategy:
@@ -38,14 +39,14 @@ jobs:
         uses: defi-wonderland/solidity-exporter-action@v2.0.0
         with:
           # Update package_name with your package name
-          package_name: "@defi_wonderland/solidity-exported"
+          package_name: "my-cool-project"
           out: "out"
           interfaces: "solidity/interfaces"
           contracts: "solidity/contracts"
           export_type: "${{ matrix.export_type }}"
 
       - name: Publish to NPM - ${{ matrix.export_type }}
-        # Update `@defi_wonderland/solidity-exported` with your package name
-        run: cd export/@defi_wonderland/solidity-exported-${{ matrix.export_type }} && npm publish --access public
+        # Update `my-cool-project` with your package name
+        run: cd export/my-cool-project-${{ matrix.export_type }} && npm publish --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

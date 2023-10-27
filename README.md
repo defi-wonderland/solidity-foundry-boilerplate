@@ -119,6 +119,7 @@ solidity-exporter.yml
 jobs:
   export:
     name: Generate Interfaces And Contracts
+    # Remove the following line if you wish to export your Solidity contracts and interfaces and publish them to NPM
     if: true
     ...
 ```
@@ -132,13 +133,13 @@ solidity-exporter.yml
   uses: defi-wonderland/solidity-exporter-action@1dbf5371c260add4a354e7a8d3467e5d3b9580b8
   with:
     # Update package_name with your package name
-    package_name: "@defi_wonderland/solidity-exported"
+    package_name: "my-cool-project"
     ...
 
 
 - name: Publish to NPM - ${{ matrix.export_type }}
-  # Update `@defi_wonderland/solidity-exported` with your package name
-  run: cd export/@defi_wonderland/solidity-exported-${{ matrix.export_type }} && npm publish --access public
+  # Update `my-cool-project` with your package name
+  run: cd export/my-cool-project-${{ matrix.export_type }} && npm publish --access public
   ...
 ```
 
