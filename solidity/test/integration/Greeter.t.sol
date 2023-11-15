@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
-import {CommonE2EBase} from 'test/e2e/Common.sol';
+import {IntegrationBase} from 'test/integration/IntegrationBase.sol';
 
-contract E2EGreeter is CommonE2EBase {
+contract IntegrationGreeter is IntegrationBase {
   function test_Greet() public {
     uint256 _whaleBalance = _dai.balanceOf(_daiWhale);
 
