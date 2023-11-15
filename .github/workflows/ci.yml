@@ -1,0 +1,91 @@
+name: CI
+
+on: [push]
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    name: Run Unit and E2E Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Precompile using 0.8.14 and via-ir=false
+        run: yarn build
+
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo MAINNET_RPC="${{ secrets.MAINNET_RPC }}" >> .env
+          echo GOERLI_RPC="${{ secrets.GOERLI_RPC }}" >> .env
+          cat .env
+
+      - name: Run tests
+        shell: bash
+        run: yarn test
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Precompile using 0.8.14 and via-ir=true
+        run: yarn build:optimized
+
+      - name: Run tests
+        run: yarn test:unit
+  lint:
+    name: Lint Commit Messages
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - uses: wagoid/commitlint-github-action@v5
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - run: yarn lint:check
