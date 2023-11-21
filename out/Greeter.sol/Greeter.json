@@ -307,13 +307,13 @@
     },
     "settings": {
       "remappings": [
-        ":contracts/=solidity/contracts/",
-        ":ds-test/=node_modules/ds-test/src/",
-        ":forge-std/=node_modules/forge-std/src/",
-        ":interfaces/=solidity/interfaces/",
-        ":isolmate/=node_modules/isolmate/src/",
-        ":prb/test/=node_modules/prb/test/src/",
-        ":test/=solidity/test/"
+        "contracts/=solidity/contracts/",
+        "ds-test/=node_modules/ds-test/src/",
+        "forge-std/=node_modules/forge-std/src/",
+        "interfaces/=solidity/interfaces/",
+        "isolmate/=node_modules/isolmate/src/",
+        "prb/test/=node_modules/prb/test/src/",
+        "test/=solidity/test/"
       ],
       "optimizer": {
         "enabled": true,
