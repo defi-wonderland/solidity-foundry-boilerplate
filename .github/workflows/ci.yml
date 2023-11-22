@@ -30,7 +30,7 @@ jobs:
       - name: Precompile using 0.8.14 and via-ir=false
         run: yarn build
 
-      - name: 'Create env file'
+      - name: Create env file
         run: |
           touch .env
           echo MAINNET_RPC="${{ secrets.MAINNET_RPC }}" >> .env
