@@ -31,4 +31,4 @@ src = 'solidity/interfaces/'
 runs = 1000
 
 [rpc_endpoints]
-optimism = "${MAINNET_RPC}"
+mainnet = "${MAINNET_RPC}"
