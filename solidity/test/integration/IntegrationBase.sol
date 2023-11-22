@@ -6,7 +6,7 @@ import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 
-contract CommonE2EBase is DSTestFull {
+contract IntegrationBase is DSTestFull {
   uint256 internal constant _FORK_BLOCK = 15_452_788;
 
   string internal _initialGreeting = 'hola';
