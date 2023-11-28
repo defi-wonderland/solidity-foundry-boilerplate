@@ -338,12 +338,12 @@
         "license": "AGPL-3.0-only"
       },
       "solidity/contracts/Greeter.sol": {
-        "keccak256": "0x380ab9fd40c73e52202e49bc8ca254799aa135a5f7214c809f8a0cb65e8cc464",
+        "keccak256": "0x31ad12d0631313be7c0d2afe935047173e2b5ad191d1e22405c0532e63ee8d9a",
         "urls": [
-          "bzz-raw://1269c4308eb17da88bf144f70c38f81948a63176573a9274002d6b09a2da4605",
-          "dweb:/ipfs/QmRjVeDWNNvqhXWnePLbMcskw66KogmAP2iGYLmq3SxcAQ"
+          "bzz-raw://ef0aa8f2282ae495945ffa87d1bf8292d3fed9365b5b36207680851faae8d908",
+          "dweb:/ipfs/QmdygeqQcHQrkV5enr6qj1q6a8fDf4H2P3guHz1LgaGzYs"
         ],
-        "license": "UNLICENSED"
+        "license": "MIT"
       },
       "solidity/interfaces/IGreeter.sol": {
         "keccak256": "0x747827aecbe821fe3ed4b108eefa46393ee1277489d5273ef0496d51200af6c4",
@@ -1667,7 +1667,7 @@
         ]
       }
     ],
-    "license": "UNLICENSED"
+    "license": "MIT"
   },
   "id": 20
 }
