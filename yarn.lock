@@ -1073,9 +1073,9 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
-"forge-std@github:foundry-rs/forge-std#v1.5.6":
-  version "1.5.6"
-  resolved "https://codeload.github.com/foundry-rs/forge-std/tar.gz/e8a047e3f40f13fa37af6fe14e6e06283d9a060e"
+"forge-std@github:foundry-rs/forge-std#v1.7.3":
+  version "1.7.3"
+  resolved "https://codeload.github.com/foundry-rs/forge-std/tar.gz/2f112697506eab12d433a65fdc31a639548fe365"
 
 fs-extra@^11.0.0:
   version "11.1.1"
@@ -1941,10 +1941,6 @@ pluralize@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
-
-"prb/test@github:paulrberg/prb-test#a245c71":
-  version "0.6.0"
-  resolved "https://codeload.github.com/paulrberg/prb-test/tar.gz/a245c71edc07643aedfe27df4cc7b21048aa8824"
 
 prelude-ls@~1.1.2:
   version "1.1.2"

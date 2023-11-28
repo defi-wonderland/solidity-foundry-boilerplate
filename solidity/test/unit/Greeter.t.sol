@@ -2,12 +2,12 @@
 pragma solidity =0.8.19;
 
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
-import {DSTestFull} from 'test/utils/DSTestFull.sol';
+import {Test} from 'forge-std/Test.sol';
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 
-abstract contract Base is DSTestFull {
-  address internal _owner = _label('owner');
-  IERC20 internal _token = IERC20(_mockContract('token'));
+abstract contract Base is Test {
+  address internal _owner = makeAddr('owner');
+  IERC20 internal _token = IERC20(makeAddr('token'));
   string internal _initialGreeting = 'hola';
   bytes32 internal _emptyString = keccak256(bytes(''));
   Greeter internal _greeter;
@@ -74,7 +74,7 @@ contract UnitGreeterSetGreeting is Base {
   function test_EmitEvent(string memory _greeting) public {
     vm.assume(keccak256(bytes(_greeting)) != _emptyString);
 
-    _expectEmitNoIndex();
+    vm.expectEmit(false, false, false, true);
     emit GreetingSet(_greeting);
 
     _greeter.setGreeting(_greeting);
