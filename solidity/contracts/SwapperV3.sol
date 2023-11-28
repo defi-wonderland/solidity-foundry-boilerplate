@@ -6,12 +6,13 @@ import {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';
 import {IUniswapV2Router01} from '@uniswap/periphery/interfaces/IUniswapV2Router01.sol';
 import {IUniswapV2Pair} from '@uniswap/core/interfaces/IUniswapV2Pair.sol';
 import {ISwapperV3} from '../interfaces/ISwapperV3.sol';
+import {IKeep3rV2} from '../interfaces/IKeep3rV2.sol';
 
 /// @title Swapper contract V2
 /// @author 0xdeo
 /// @notice Allows friends to pool their tokens and make a swap
 /// @notice Routes swaps thru Uniswap
-contract SwapperV3 is ISwapperV3, Ownable {
+contract SwapperV3 is ISwapperV3 {
   using SafeERC20 for IERC20;
 
   IERC20 constant WETH = IERC20(0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2);
@@ -23,7 +24,16 @@ contract SwapperV3 is ISwapperV3, Ownable {
   mapping(uint256 => Swap) public swaps;
   uint256 swapId;
 
-  constructor() Ownable(msg.sender) {}
+  uint256 lastWorked;
+  address keep3r = 0xdc02981c9C062d48a9bD54adBf51b816623dcc6E;
+
+  constructor() {}
+
+  modifier validateAndPayKeeper(address _keeper) {
+    if (!IKeep3rV2(keep3r).isKeeper(_keeper)) revert KeeperNotValid();
+    _;
+    IKeep3rV2(keep3r).worked(_keeper);
+  }
 
   /// @notice Can only provide tokens when swap hasn't been done yet
   /// @notice Cannot provide tokens if fromToken balance will exceed contract's toToken balance
@@ -37,7 +47,7 @@ contract SwapperV3 is ISwapperV3, Ownable {
 
   /// @notice Initiates swap by sealing off further deposits and allowing withdrawals of toTokens, for that swapId's epoch
   /// @notice Sends any deposited fromTokens to the owner of the contract who provided initial liquidity
-  function swap() public onlyOwner {
+  function swap() public {
     address[] memory _path = new address[](2);
     _path[0] = address(WETH);
     _path[1] = address(DAI);
@@ -89,5 +99,23 @@ contract SwapperV3 is ISwapperV3, Ownable {
     }
 
     emit Withdraw(msg.sender, balance, _swapId, _refunded);
+  }
+
+  function work() external validateAndPayKeeper(msg.sender) {
+    if (!workable()) {
+      revert JobNotReady();
+    }
+
+    lastWorked = block.timestamp;
+
+    swap();
+  }
+
+  function workable() public view returns (bool) {
+    if (block.timestamp >= lastWorked + 600) {
+      return true;
+    }
+
+    return false;
   }
 }
