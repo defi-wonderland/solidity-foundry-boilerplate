@@ -6,3 +6,5 @@ isolmate/=node_modules/isolmate/src
 contracts/=solidity/contracts
 interfaces/=solidity/interfaces
 test/=solidity/test
+@openzeppelin/=node_modules/@openzeppelin
+@uniswap/=node_modules/uniswap/uniswap/contracts

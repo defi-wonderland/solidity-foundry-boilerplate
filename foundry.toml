@@ -8,7 +8,7 @@ number_underscore = 'thousands'
 multiline_func_header = 'params_first'
 
 [profile.default]
-solc = '0.8.19'
+solc = '0.8.20'
 evm_version = 'paris'
 src = 'solidity'
 test = 'solidity/test'
