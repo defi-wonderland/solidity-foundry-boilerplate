@@ -7,8 +7,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  tests:
-    name: Run Unit and E2E Tests
+  unit-tests:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -39,7 +39,13 @@ jobs:
 
       - name: Run tests
         shell: bash
-        run: yarn test
+        run: yarn test:unit
+
+  integration-tests:
+    name: Run Integration Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
@@ -55,11 +61,19 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
-      - name: Precompile using 0.8.14 and via-ir=true
-        run: yarn build:optimized
+      - name: Precompile using 0.8.14 and via-ir=false
+        run: yarn build
+
+      - name: Create env file
+        run: |
+          touch .env
+          echo MAINNET_RPC="${{ secrets.MAINNET_RPC }}" >> .env
+          echo GOERLI_RPC="${{ secrets.GOERLI_RPC }}" >> .env
+          cat .env
 
       - name: Run tests
-        run: yarn test:unit
+        run: yarn test:integration
+
   lint:
     name: Lint Commit Messages
     runs-on: ubuntu-latest
