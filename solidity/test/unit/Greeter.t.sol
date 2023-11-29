@@ -76,7 +76,7 @@ contract UnitGreeterSetGreeting is Base {
   function test_EmitEvent(string memory _greeting) public {
     vm.assume(keccak256(bytes(_greeting)) != _emptyString);
 
-    vm.expectEmit(false, false, false, true);
+    vm.expectEmit(true, true, true, true, address(_greeter));
     emit GreetingSet(_greeting);
 
     _greeter.setGreeting(_greeting);
