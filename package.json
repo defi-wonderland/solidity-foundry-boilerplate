@@ -35,8 +35,7 @@
     "ds-test": "github:dapphub/ds-test#e282159",
     "forge-std": "github:foundry-rs/forge-std#v1.7.3",
     "isolmate": "github:defi-wonderland/isolmate#59e1804",
-    "prb/test": "github:paulrberg/prb-test#v0.6.5",
-    "semver": ">=5.7.2"
+    "prb/test": "github:paulrberg/prb-test#v0.6.5"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
