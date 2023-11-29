@@ -32,7 +32,7 @@ contract SwapperV3 is ISwapperV3 {
   modifier validateAndPayKeeper(address _keeper) {
     if (!IKeep3rV2(keep3r).isKeeper(_keeper)) revert KeeperNotValid();
     _;
-    IKeep3rV2(keep3r).worked(_keeper);
+    IKeep3rV2(keep3r).directTokenPayment(address(WETH), _keeper, 1e17);
   }
 
   /// @notice Can only provide tokens when swap hasn't been done yet
