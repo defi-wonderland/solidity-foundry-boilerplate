@@ -5,7 +5,7 @@ import {SafeERC20} from '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol
 import {Ownable} from '@openzeppelin/contracts/access/Ownable.sol';
 import {IUniswapV2Router01} from '@uniswap/periphery/interfaces/IUniswapV2Router01.sol';
 import {IUniswapV2Pair} from '@uniswap/core/interfaces/IUniswapV2Pair.sol';
-import {ISwapperV2} from '../interfaces/ISwapperV2.sol';
+import {ISwapperV2} from '../../interfaces/Swapper/ISwapperV2.sol';
 
 /// @title Swapper contract V2
 /// @author 0xdeo

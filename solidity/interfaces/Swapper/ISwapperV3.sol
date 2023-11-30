@@ -9,8 +9,7 @@ interface ISwapperV3 {
   function withdraw(uint256 _swapId) external;
 
   error ZeroBalance();
-  error KeeperNotValid();
-  error JobNotReady();
+  error RefundFailed();
 
   event Provide(address _depositor, uint256 _amount, uint256 _swapId);
   event Swapped(uint256 _swapId);

@@ -2,7 +2,7 @@
 pragma solidity ^0.8.19;
 
 import {Test, console2} from 'forge-std/Test.sol';
-import {Swapper} from '../../contracts/Swapper.sol';
+import {Swapper} from '../../../contracts/Swapper/Swapper.sol';
 import {IERC20} from '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 
 error InsufficientLiquidity();
