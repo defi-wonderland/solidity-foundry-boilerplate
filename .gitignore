@@ -13,9 +13,8 @@ out-via-ir
 # Avoid ignoring gitkeep
 !/**/.gitkeep
 
-# Keep related abi
-out/*/*
-!out/Greeter.sol/*
-
 # Keep the latest deployment only
 broadcast/*/*/*
+
+# Out dir
+out
