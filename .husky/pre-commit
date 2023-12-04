@@ -4,4 +4,4 @@
 # 1. Build the contracts
 # 2. Stage build output 
 # 2. Lint and stage style improvements 
-yarn build && git add out && npx lint-staged
+yarn build && npx lint-staged
