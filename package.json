@@ -32,13 +32,13 @@
     "package.json": "sort-package-json"
   },
   "dependencies": {
-    "ds-test": "github:dapphub/ds-test#e282159",
-    "forge-std": "github:foundry-rs/forge-std#v1.7.3",
     "isolmate": "github:defi-wonderland/isolmate#59e1804"
   },
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
+    "ds-test": "github:dapphub/ds-test#e282159",
+    "forge-std": "github:foundry-rs/forge-std#v1.7.3",
     "husky": ">=8",
     "lint-staged": ">=10",
     "solhint": "3.6.2",
