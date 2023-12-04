@@ -1070,6 +1070,9 @@ flatted@^2.0.0:
 "forge-std@github:foundry-rs/forge-std#v1.7.3":
   version "1.7.3"
   resolved "https://codeload.github.com/foundry-rs/forge-std/tar.gz/2f112697506eab12d433a65fdc31a639548fe365"
+"forge-std@github:foundry-rs/forge-std#v1.7.3":
+  version "1.7.3"
+  resolved "https://codeload.github.com/foundry-rs/forge-std/tar.gz/2f112697506eab12d433a65fdc31a639548fe365"
 
 fs-extra@^11.0.0:
   version "11.1.1"
@@ -1919,10 +1922,6 @@ pluralize@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-8.0.0.tgz#1a6fa16a38d12a1901e0320fa017051c539ce3b1"
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
-
-"prb/test@github:paulrberg/prb-test#v0.6.5":
-  version "0.6.5"
-  resolved "https://codeload.github.com/paulrberg/prb-test/tar.gz/2ece8755d9afe7d66440ef9ca19b8a9dab40164b"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
