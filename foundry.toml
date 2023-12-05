@@ -8,26 +8,27 @@ number_underscore = 'thousands'
 multiline_func_header = 'params_first'
 
 [profile.default]
-solc = '0.8.19'
-evm_version = 'paris'
+solc_version = '0.8.19'
 src = 'solidity'
 test = 'solidity/test'
 out = 'out'
-libs = ['lib']
-fuzz_runs = 1000
+libs = ['node_modules']
 optimizer_runs = 10_000
 
 [profile.optimized]
 via_ir = true
 out = 'out-via-ir'
-fuzz_runs = 5000
 
 [profile.test]
 via_ir = true
 out = 'out-via-ir'
-fuzz_runs = 5000
 src = 'solidity/test'
+
+[profile.docs]
+src = 'solidity/interfaces/'
+
+[fuzz]
+runs = 1000
 
 [rpc_endpoints]
 mainnet = "${MAINNET_RPC}"
-goerli = "${GOERLI_RPC}"
