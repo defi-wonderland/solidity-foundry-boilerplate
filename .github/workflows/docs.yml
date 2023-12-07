@@ -8,11 +8,10 @@ on:
 
 jobs:
   deploy-docs:
-    if: github.repository == 'hai-on-op/hai'
+    # Remove the following line if you wish to export your Solidity contracts and interfaces and publish them to NPM
+    if: false
     name: Deploy docs
     runs-on: ubuntu-latest
-    environment:
-      name: ${{ github.ref_name == 'main' && 'Prod' || 'Dev' }}
 
     steps:
       - uses: actions/checkout@v3
@@ -23,7 +22,7 @@ jobs:
       - name: Install node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 18.x
           cache: 'yarn'
 
       - name: Install dependencies
