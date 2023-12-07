@@ -1,6 +1,10 @@
 name: Export Interfaces And Contracts
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+      - dev
 
 jobs:
   export:
@@ -10,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        export_type: ["interfaces", "contracts"]
+        export_type: ['interfaces', 'contracts']
 
     steps:
       - uses: actions/checkout@v3
@@ -23,8 +27,8 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
-          registry-url: "https://registry.npmjs.org"
+          node-version: 18.x
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
@@ -39,11 +43,11 @@ jobs:
         uses: defi-wonderland/solidity-exporter-action@v2.0.0
         with:
           # Update package_name with your package name
-          package_name: "my-cool-project"
-          out: "out"
-          interfaces: "solidity/interfaces"
-          contracts: "solidity/contracts"
-          export_type: "${{ matrix.export_type }}"
+          package_name: 'my-cool-project'
+          out: 'out'
+          interfaces: 'solidity/interfaces'
+          contracts: 'solidity/contracts'
+          export_type: '${{ matrix.export_type }}'
 
       - name: Publish to NPM - ${{ matrix.export_type }}
         # Update `my-cool-project` with your package name
