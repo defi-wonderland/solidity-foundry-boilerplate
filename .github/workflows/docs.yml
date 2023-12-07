@@ -1,0 +1,50 @@
+name: Deploy docs
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy-docs:
+    if: github.repository == 'hai-on-op/hai'
+    name: Deploy docs
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref_name == 'main' && 'Prod' || 'Dev' }}
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup mdBook
+        uses: peaceiris/actions-mdbook@v1
+
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Build Docs
+        run: yarn docs:build
+
+      - name: Create book folder
+        run: mdbook build docs
+
+      - uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
+          vercel-org-id: ${{ secrets.ORG_ID}} #Required
+          scope: ${{ secrets.ORG_ID}} #Required
+          vercel-args: ${{ github.ref_name == 'main' && '--prod' || '' }}
+          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
+          working-directory: ./docs/book
