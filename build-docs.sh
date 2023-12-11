@@ -1,8 +1,12 @@
 #!/bin/bash
 
 root_path="src" # this could be src/interfaces
+
 # generate docs in a temporary directory
 temp_folder="technical-docs"
+
+# path to the base folder
+base_folder="docs/src/$root_path"
 
 FOUNDRY_PROFILE=docs forge doc --out "$temp_folder"
 
@@ -50,9 +54,6 @@ replace_text() {
         fi
     done
 }
-
-# path to the base folder
-base_folder="docs/src/$root_path"
 
 # calling the function to fix the paths
 replace_text "$base_folder"

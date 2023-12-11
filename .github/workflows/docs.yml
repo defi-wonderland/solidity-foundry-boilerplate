@@ -8,7 +8,7 @@ on:
 
 jobs:
   deploy-docs:
-    # Remove the following line if you wish to export your Solidity contracts and interfaces and publish them to NPM
+    # Remove the following line if you wish to deploy the documentation to Vercel
     if: false
     name: Deploy docs
     runs-on: ubuntu-latest
@@ -41,9 +41,9 @@ jobs:
 
       - uses: amondnet/vercel-action@v25
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }} # Required
-          vercel-org-id: ${{ secrets.ORG_ID}} #Required
-          scope: ${{ secrets.ORG_ID}} #Required
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID}}
+          scope: ${{ secrets.ORG_ID}}
           vercel-args: ${{ github.ref_name == 'main' && '--prod' || '' }}
-          vercel-project-id: ${{ secrets.PROJECT_ID}} #Required
+          vercel-project-id: ${{ secrets.PROJECT_ID}}
           working-directory: ./docs/book
