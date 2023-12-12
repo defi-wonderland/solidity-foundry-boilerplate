@@ -24,7 +24,7 @@
     "lint:sol-tests": "solhint 'solidity/test/**/*.sol'",
     "prepare": "husky install",
     "test": "forge test -vvv",
-    "test:e2e": "forge test --match-contract E2E -vvv",
+    "test:integration": "forge test --match-contract Integration -vvv",
     "test:unit": "forge test --match-contract Unit -vvv",
     "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit"
   },
