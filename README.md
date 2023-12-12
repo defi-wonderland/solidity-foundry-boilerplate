@@ -18,7 +18,7 @@
   <dt>Deployment scripts</dt>
   <dd>Sample scripts to deploy contracts on both mainnet and testnet.</dd>
 
-  <dt>Sample e2e & unit tests</dt>
+  <dt>Sample Integraion & Unit tests</dt>
   <dd>Example tests showcasing mocking, assertions and configuration for mainnet forking. As well it includes everything needed in order to check code coverage.</dd>
 
   <dt>Linter</dt>
@@ -51,9 +51,9 @@ yarn build:optimized
 
 ## Running tests
 
-Unit tests should be isolated from any externalities, while E2E usually run in a fork of the blockchain. In this boilerplate you will find example of both.
+Unit tests should be isolated from any externalities, while Integration usually run in a fork of the blockchain. In this boilerplate you will find example of both.
 
-In order to run both unit and E2E tests, run:
+In order to run both unit and integration tests, run:
 
 ```bash
 yarn test
@@ -71,10 +71,10 @@ In order to run unit tests and run way more fuzzing than usual (5x), run:
 yarn test:unit:deep
 ```
 
-In order to just run e2e tests, run:
+In order to just run integration tests, run:
 
 ```bash
-yarn test:e2e
+yarn test:integration
 ```
 
 In order to check your current code coverage, run:
