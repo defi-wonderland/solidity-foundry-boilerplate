@@ -1,10 +1,6 @@
-name: Export Interfaces And Contracts
+name: Canary Release
 
-on:
-  push:
-    branches:
-      - main
-      - dev
+on: workflow_dispatch
 
 jobs:
   export:
@@ -17,19 +13,21 @@ jobs:
         export_type: ['interfaces', 'contracts']
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
 
-      - name: Use Node.js
+      - name: Install Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
           registry-url: 'https://registry.npmjs.org'
-          cache: yarn
+          node-version: 18.x
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
@@ -52,6 +50,6 @@ jobs:
 
       - name: Publish to NPM - ${{ matrix.export_type }}
         # Update `my-cool-project` with your package name
-        run: cd export/my-cool-project-${{ matrix.export_type }} && npm publish --access public
+        run: cd export/my-cool-project-${{ matrix.export_type }} && npm publish --access public --tag canary
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
