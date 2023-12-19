@@ -1,0 +1,32 @@
+name: Production Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install Dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Build
+        run: yarn build
+
+      - name: Publish
+        run: yarn publish --access public --tag latest
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
