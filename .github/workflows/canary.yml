@@ -1,6 +1,6 @@
-name: Export Interfaces And Contracts
+name: Canary Release
 
-on: [push]
+on: workflow_dispatch
 
 jobs:
   export:
@@ -10,21 +10,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        export_type: ["interfaces", "contracts"]
+        export_type: ['interfaces', 'contracts']
 
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
 
-      - name: Use Node.js
-        uses: actions/setup-node@v3
+      - name: Install Node
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
-          registry-url: "https://registry.npmjs.org"
+          registry-url: 'https://registry.npmjs.org'
+          node-version: 18.x
+          cache: 'yarn'
 
       - name: Install dependencies
         run: yarn --frozen-lockfile
@@ -39,14 +41,14 @@ jobs:
         uses: defi-wonderland/solidity-exporter-action@v2.0.0
         with:
           # Update package_name with your package name
-          package_name: "my-cool-project"
-          out: "out"
-          interfaces: "solidity/interfaces"
-          contracts: "solidity/contracts"
-          export_type: "${{ matrix.export_type }}"
+          package_name: 'my-cool-project'
+          out: 'out'
+          interfaces: 'solidity/interfaces'
+          contracts: 'solidity/contracts'
+          export_type: '${{ matrix.export_type }}'
 
       - name: Publish to NPM - ${{ matrix.export_type }}
         # Update `my-cool-project` with your package name
-        run: cd export/my-cool-project-${{ matrix.export_type }} && npm publish --access public
+        run: cd export/my-cool-project-${{ matrix.export_type }} && npm publish --access public --tag canary
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

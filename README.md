@@ -114,8 +114,6 @@ Export TypeScript interfaces from Solidity contracts and interfaces providing co
 To enable this feature, make sure you've set the `NPM_TOKEN` on your org's secrets. Then set the job's conditional to `true`:
 
 ```yaml
-solidity-exporter.yml
-
 jobs:
   export:
     name: Generate Interfaces And Contracts
@@ -127,8 +125,6 @@ jobs:
 Also, remember to update the `package_name` param to your package name:
 
 ```yaml
-solidity-exporter.yml
-
 - name: Export Solidity - ${{ matrix.export_type }}
   uses: defi-wonderland/solidity-exporter-action@1dbf5371c260add4a354e7a8d3467e5d3b9580b8
   with:
@@ -143,4 +139,4 @@ solidity-exporter.yml
   ...
 ```
 
-You can take a look at our [solidity-exporter-action](https://github.com/defi-wonderland/solidity-exporter-action) repository more information and usage examples.
+You can take a look at our [solidity-exporter-action](https://github.com/defi-wonderland/solidity-exporter-action) repository for more information and usage examples.
