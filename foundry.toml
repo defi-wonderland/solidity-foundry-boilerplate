@@ -6,6 +6,7 @@ int_types = 'long'
 quote_style = 'single'
 number_underscore = 'thousands'
 multiline_func_header = 'params_first'
+sort_imports = true
 
 [profile.default]
 solc_version = '0.8.19'
