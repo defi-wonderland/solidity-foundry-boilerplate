@@ -42,7 +42,7 @@
     "husky": ">=8",
     "lint-staged": ">=10",
     "solhint": "3.6.2",
-    "solhint-plugin-defi-wonderland": "1.1.0",
+    "solhint-plugin-defi-wonderland": "1.1.3",
     "sort-package-json": "1.53.1"
   }
 }
