@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity =0.8.19;
 
-import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 import {IGreeter} from 'interfaces/IGreeter.sol';
+import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 
 contract Greeter is IGreeter {
   /**
