@@ -91,10 +91,10 @@ yarn coverage
 
 Configure the `.env` variables.
 
-### Goerli
+### Sepolia
 
 ```bash
-yarn deploy:goerli
+yarn deploy:sepolia
 ```
 
 ### Mainnet
