@@ -140,3 +140,6 @@ Also, remember to update the `package_name` param to your package name:
 ```
 
 You can take a look at our [solidity-exporter-action](https://github.com/defi-wonderland/solidity-exporter-action) repository for more information and usage examples.
+
+## Licensing
+The license for the foundry boilerplate is MIT. See [`LICENSE`](https://github.com/defi-wonderland/solidity-foundry-boilerplate/edit/main/LICENSE)
