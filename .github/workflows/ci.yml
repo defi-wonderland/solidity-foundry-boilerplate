@@ -6,6 +6,10 @@ concurrency:
   group: ${{github.workflow}}-${{github.ref}}
   cancel-in-progress: true
 
+env:
+  MAINNET_RPC: ${{ secrets.MAINNET_RPC }}
+  GOERLI_RPC: ${{ secrets.GOERLI_RPC }}
+
 jobs:
   unit-tests:
     name: Run Unit Tests
@@ -56,13 +60,6 @@ jobs:
 
       - name: Precompile using 0.8.14 and via-ir=false
         run: yarn build
-
-      - name: Create env file
-        run: |
-          touch .env
-          echo MAINNET_RPC="${{ secrets.MAINNET_RPC }}" >> .env
-          echo GOERLI_RPC="${{ secrets.GOERLI_RPC }}" >> .env
-          cat .env
 
       - name: Run tests
         run: yarn test:integration
