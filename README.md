@@ -18,7 +18,7 @@
   <dt>Deployment scripts</dt>
   <dd>Sample scripts to deploy contracts on both mainnet and testnet.</dd>
 
-  <dt>Sample Integraion & Unit tests</dt>
+  <dt>Sample Integration & Unit tests</dt>
   <dd>Example tests showcasing mocking, assertions and configuration for mainnet forking. As well it includes everything needed in order to check code coverage.</dd>
 
   <dt>Linter</dt>
