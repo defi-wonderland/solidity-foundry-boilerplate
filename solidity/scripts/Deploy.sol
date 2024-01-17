@@ -5,7 +5,7 @@ import {Greeter} from 'contracts/Greeter.sol';
 import {Script} from 'forge-std/Script.sol';
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
 
-abstract contract Deploy is Script {
+abstract contract DeployHelper is Script {
   function _deploy(string memory greeting, IERC20 token) internal {
     vm.startBroadcast();
     new Greeter(greeting, token);
@@ -21,9 +21,9 @@ contract DeployMainnet is Deploy {
   }
 }
 
-contract DeploySepolia is Deploy {
-  function run() external {
-    IERC20 weth = IERC20(0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6);
+contract Deploy is DeployHelper {
+  function run(address _weth) external {
+    IERC20 weth = IERC20(_weth);
 
     _deploy('some test greeting', weth);
   }

@@ -14,8 +14,9 @@
     "build": "forge build",
     "build:optimized": "FOUNDRY_PROFILE=optimized forge build",
     "coverage": "forge coverage --match-contract Unit",
-    "deploy:sepolia": "bash -c 'source .env && forge script DeploySepolia --rpc-url $SEPOLIA_RPC --broadcast --private-key $SEPOLIA_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
-    "deploy:mainnet": "bash -c 'source .env && forge script DeployMainnet --rpc-url $MAINNET_RPC --broadcast --private-key $MAINNET_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY'",
+    
+    "deploy:sepolia": "bash -c 'source .env && forge script Deploy --rpc-url $SEPOLIA_RPC --broadcast --private-key $SEPOLIA_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY --sig \"run(address)\" 0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6'",
+    "deploy:mainnet": "bash -c 'source .env && forge script Deploy --rpc-url $MAINNET_RPC --broadcast --private-key $MAINNET_DEPLOYER_PK --verify --etherscan-api-key $ETHERSCAN_API_KEY --sig \"run(address)\" 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'",
     "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && forge fmt --check",
     "lint:fix": "sort-package-json && forge fmt && yarn lint:sol-tests --fix && yarn lint:sol-logic --fix",
     "lint:sol-logic": "solhint -c .solhint.json 'solidity/contracts/**/*.sol' 'solidity/interfaces/**/*.sol'",
