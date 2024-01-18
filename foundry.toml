@@ -9,7 +9,7 @@ multiline_func_header = 'params_first'
 sort_imports = true
 
 [profile.default]
-solc_version = '0.8.19'
+solc_version = '0.8.23'
 src = 'solidity'
 test = 'solidity/test'
 out = 'out'
