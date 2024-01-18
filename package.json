@@ -37,6 +37,7 @@
   "devDependencies": {
     "@commitlint/cli": "17.0.3",
     "@commitlint/config-conventional": "17.0.3",
+    "@defi-wonderland/natspec-smells": "^1.0.2",
     "ds-test": "github:dapphub/ds-test#e282159",
     "forge-std": "github:foundry-rs/forge-std#v1.7.3",
     "husky": ">=8",
