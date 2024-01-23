@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity =0.8.19;
+pragma solidity =0.8.23;
 
 import {Greeter} from 'contracts/Greeter.sol';
 import {Script} from 'forge-std/Script.sol';
