@@ -192,10 +192,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@defi-wonderland/natspec-smells@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@defi-wonderland/natspec-smells/-/natspec-smells-1.0.2.tgz#bb297fe7a690fd63e03dff449550d77c39bdb003"
-  integrity sha512-aHsXiZm6lY9VtYghlNWgFBSQsHDVet607f0SeqJvutT8wbHVKkCO3XT04h1ZqrCbpB4mtIm8ifReLHBJ6wDVBg==
+"@defi-wonderland/natspec-smells@1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@defi-wonderland/natspec-smells/-/natspec-smells-1.0.3.tgz#0d984bcf591cf9abe6430658354189da28dd5991"
+  integrity sha512-uS2OYgiyrLwZbyySHbVEPsKVGR2TmrGqfNZeYwruwVrvKgj/GfF+NWgu4t9FA+2kjnNXzZ0qMlMGazzh5sx9SQ==
   dependencies:
     fast-glob "3.3.2"
     solc-typed-ast "17.0.3"
