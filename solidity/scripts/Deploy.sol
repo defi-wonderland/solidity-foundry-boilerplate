@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity =0.8.19;
+pragma solidity =0.8.23;
 
 import {Greeter} from 'contracts/Greeter.sol';
 import {Script} from 'forge-std/Script.sol';
@@ -21,7 +21,7 @@ contract DeployMainnet is Deploy {
   }
 }
 
-contract DeployGoerli is Deploy {
+contract DeploySepolia is Deploy {
   function run() external {
     IERC20 weth = IERC20(0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6);
 
