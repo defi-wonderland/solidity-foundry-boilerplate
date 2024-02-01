@@ -18,7 +18,7 @@
   <dt>Deployment scripts</dt>
   <dd>Sample scripts to deploy contracts on both mainnet and testnet.</dd>
 
-  <dt>Sample Integraion & Unit tests</dt>
+  <dt>Sample Integration & Unit tests</dt>
   <dd>Example tests showcasing mocking, assertions and configuration for mainnet forking. As well it includes everything needed in order to check code coverage.</dd>
 
   <dt>Linter</dt>
@@ -140,3 +140,6 @@ Also, remember to update the `package_name` param to your package name:
 ```
 
 You can take a look at our [solidity-exporter-action](https://github.com/defi-wonderland/solidity-exporter-action) repository for more information and usage examples.
+
+## Licensing
+The primary license for the boilerplate is MIT, see [`LICENSE`](https://github.com/defi-wonderland/solidity-foundry-boilerplate/blob/main/LICENSE)
