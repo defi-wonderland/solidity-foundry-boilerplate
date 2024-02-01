@@ -21,6 +21,16 @@ contract Greeter is IGreeter {
   IERC20 public token;
 
   /**
+   * @notice Reverts in case the function was not called by the owner of the contract
+   */
+  modifier onlyOwner() {
+    if (msg.sender != OWNER) {
+      revert Greeter_OnlyOwner();
+    }
+    _;
+  }
+
+  /**
    * @notice Defines the owner to the msg.sender and sets the initial greeting
    * @param _greeting Initial greeting
    * @param _token Initial token
@@ -32,6 +42,12 @@ contract Greeter is IGreeter {
   }
 
   /// @inheritdoc IGreeter
+  function greet() external view returns (string memory _greeting, uint256 _balance) {
+    _greeting = greeting;
+    _balance = token.balanceOf(msg.sender);
+  }
+
+  /// @inheritdoc IGreeter
   function setGreeting(string memory _greeting) public onlyOwner {
     if (keccak256(bytes(_greeting)) == _EMPTY_STRING) {
       revert Greeter_InvalidGreeting();
@@ -39,21 +55,5 @@ contract Greeter is IGreeter {
 
     greeting = _greeting;
     emit GreetingSet(_greeting);
-  }
-
-  /// @inheritdoc IGreeter
-  function greet() external view returns (string memory _greeting, uint256 _balance) {
-    _greeting = greeting;
-    _balance = token.balanceOf(msg.sender);
-  }
-
-  /**
-   * @notice Reverts in case the function was not called by the owner of the contract
-   */
-  modifier onlyOwner() {
-    if (msg.sender != OWNER) {
-      revert Greeter_OnlyOwner();
-    }
-    _;
   }
 }
