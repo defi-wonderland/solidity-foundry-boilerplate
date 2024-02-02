@@ -42,8 +42,8 @@ jobs:
           # Update package_name with your package name
           package_name: 'my-cool-project'
           out: 'out'
-          interfaces: 'solidity/interfaces'
-          contracts: 'solidity/contracts'
+          interfaces: 'src/interfaces'
+          contracts: 'src/contracts'
           export_type: '${{ matrix.export_type }}'
 
       - name: Publish to NPM - ${{ matrix.export_type }}

@@ -10,9 +10,6 @@ sort_imports = true
 
 [profile.default]
 solc_version = '0.8.23'
-src = 'solidity'
-test = 'solidity/test'
-out = 'out'
 libs = ['node_modules']
 optimizer_runs = 10_000
 
@@ -23,10 +20,9 @@ out = 'out-via-ir'
 [profile.test]
 via_ir = true
 out = 'out-via-ir'
-src = 'solidity/test'
 
 [profile.docs]
-src = 'solidity/interfaces/'
+src = 'src/interfaces/'
 
 [fuzz]
 runs = 1000
