@@ -29,3 +29,4 @@ runs = 1000
 
 [rpc_endpoints]
 mainnet = "${MAINNET_RPC}"
+sepolia = "${SEPOLIA_RPC}"
