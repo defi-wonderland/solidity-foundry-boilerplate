@@ -18,7 +18,7 @@
     "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && forge fmt --check",
     "lint:fix": "sort-package-json && forge fmt && yarn lint:sol-tests --fix && yarn lint:sol-logic --fix",
     "lint:natspec": "npx @defi-wonderland/natspec-smells --config natspec-smells.config.js",
-    "lint:sol-logic": "solhint -c .solhint.json 'src/contracts/**/*.sol' 'src/interfaces/**/*.sol'",
+    "lint:sol-logic": "solhint -c .solhint.json 'src/**/*.sol' 'script/**/*.sol'",
     "lint:sol-tests": "solhint -c .solhint.tests.json 'test/**/*.sol'",
     "prepare": "husky install",
     "test": "forge test -vvv",
