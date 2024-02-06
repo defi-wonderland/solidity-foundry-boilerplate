@@ -30,3 +30,7 @@ runs = 1000
 [rpc_endpoints]
 mainnet = "${MAINNET_RPC}"
 sepolia = "${SEPOLIA_RPC}"
+
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}", chain = "mainnet" }
+sepolia = { key = "${ETHERSCAN_API_KEY}", chain = "sepolia" }
