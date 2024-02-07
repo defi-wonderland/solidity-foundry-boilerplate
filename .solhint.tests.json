@@ -18,6 +18,7 @@
     "private-vars-leading-underscore": ["warn", { "strict": false }],
     "ordering": "warn",
     "immutable-name-snakecase": "warn",
-    "avoid-low-level-calls": "off"
+    "avoid-low-level-calls": "off",
+    "one-contract-per-file": "off"
   }
 }

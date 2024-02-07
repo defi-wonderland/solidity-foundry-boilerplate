@@ -22,7 +22,8 @@
   <dd>Example tests showcasing mocking, assertions and configuration for mainnet forking. As well it includes everything needed in order to check code coverage.</dd>
 
   <dt>Linter</dt>
-  <dd>Simple and fast solidity linting thanks to forge fmt</a>.</dd>
+  <dd>Simple and fast solidity linting thanks to forge fmt.</dd>
+  <dd>Find missing natspec automatically.</dd>
 
   <dt>Github workflows CI</dt>
   <dd>Run all tests and see the coverage as you push your changes.</dd>

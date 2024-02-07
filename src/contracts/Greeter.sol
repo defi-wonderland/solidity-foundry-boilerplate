@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity =0.8.23;
+pragma solidity 0.8.23;
 
 import {IGreeter} from 'interfaces/IGreeter.sol';
 import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
