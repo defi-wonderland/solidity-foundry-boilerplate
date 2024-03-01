@@ -28,7 +28,8 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "forge fmt",
-    "*.sol": "solhint --fix './(src|test|script)/**/*.sol",
+    "(src|script)/**/*.sol": "yarn lint:sol-logic",
+    "test/**/*.sol": "yarn lint:sol-tests",
     "package.json": "sort-package-json"
   },
   "dependencies": {
