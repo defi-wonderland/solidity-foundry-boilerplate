@@ -1,0 +1,84 @@
+name: Foundry Reports
+
+on:
+  workflow_dispatch:
+
+concurrency:
+   group: ${{github.workflow}}-${{github.ref}}
+   cancel-in-progress: true
+
+env:
+  MAINNET_RPC: ${{ secrets.MAINNET_RPC }}
+  SEPOLIA_RPC: ${{ secrets.SEPOLIA_RPC }}
+
+jobs:
+  generate-gas-report:
+    name: Generate Foundry Gas Reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Generate Gas Report
+        run: forge test --gas-report > gas-report.txt
+
+      - name: Upload Gas Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: gas-report
+          path: gas-report.txt
+
+  generate-coverage-report:
+    name: Generate Foundry Coverage Reports
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Generate Test Coverage Table
+        run: forge coverage > coverage-report.txt
+
+      - name: Upload Test Coverage Table
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-coverage-report
+          path: coverage-report.txt
+    
+      - name: Generate LCOV Test Coverage Report
+        run: forge coverage --report lcov 
+    
+      - name: Upload LCOV Test Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: lcov-coverage-report
+          path: lcov.info
+    
