@@ -36,6 +36,9 @@ jobs:
       - name: Generate Gas Report
         run: forge test --gas-report > gas-report.txt
 
+      - name: Trim Gas Report
+        run: grep '^|' gas-report.txt > temp && mv temp gas-report.txt
+
       - name: Upload Gas Report
         uses: actions/upload-artifact@v3
         with:
@@ -66,6 +69,9 @@ jobs:
 
       - name: Generate Test Coverage Table
         run: forge coverage > coverage-report.txt
+
+      - name: Trim Coverage Report
+        run: grep '^|' coverage-report.txt > temp && mv temp coverage-report.txt
 
       - name: Upload Test Coverage Table
         uses: actions/upload-artifact@v3
