@@ -19,6 +19,7 @@
     "ordering": "warn",
     "immutable-name-snakecase": "warn",
     "avoid-low-level-calls": "off",
-    "one-contract-per-file": "off"
+    "one-contract-per-file": "off",
+    "max-line-length": ["warn", 120]
   }
 }
