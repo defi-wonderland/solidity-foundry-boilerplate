@@ -61,7 +61,6 @@ interface IGreeter {
 
   /**
    * @notice Greets the caller
-   *
    * @return _greeting The greeting
    * @return _balance  Current token balance of the caller
    */
