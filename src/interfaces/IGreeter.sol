@@ -55,6 +55,10 @@ interface IGreeter {
    */
   function token() external view returns (IERC20 _token);
 
+  /*///////////////////////////////////////////////////////////////
+                            LOGIC
+  //////////////////////////////////////////////////////////////*/
+
   /**
    * @notice Greets the caller
    *
@@ -63,9 +67,6 @@ interface IGreeter {
    */
   function greet() external view returns (string memory _greeting, uint256 _balance);
 
-  /*///////////////////////////////////////////////////////////////
-                            LOGIC
-  //////////////////////////////////////////////////////////////*/
   /**
    * @notice Sets a new greeting
    * @dev Only callable by the owner
