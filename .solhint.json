@@ -12,6 +12,7 @@
     "ordering": "warn",
     "immutable-name-snakecase": "warn",
     "avoid-low-level-calls": "off",
-    "no-console": "off"
+    "no-console": "off",
+    "max-line-length": ["warn", 120]
   }
 }
