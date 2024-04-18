@@ -34,16 +34,6 @@ interface IGreeter {
   error Greeter_InvalidGreeting();
 
   /*///////////////////////////////////////////////////////////////
-                            LOGIC
-  //////////////////////////////////////////////////////////////*/
-  /**
-   * @notice Sets a new greeting
-   * @dev Only callable by the owner
-   * @param _newGreeting The new greeting to be set
-   */
-  function setGreeting(string memory _newGreeting) external;
-
-  /*///////////////////////////////////////////////////////////////
                             VARIABLES
   //////////////////////////////////////////////////////////////*/
   /**
@@ -65,9 +55,18 @@ interface IGreeter {
    */
   function token() external view returns (IERC20 _token);
 
+  /*///////////////////////////////////////////////////////////////
+                            LOGIC
+  //////////////////////////////////////////////////////////////*/
+  /**
+   * @notice Sets a new greeting
+   * @dev Only callable by the owner
+   * @param _newGreeting The new greeting to be set
+   */
+  function setGreeting(string memory _newGreeting) external;
+
   /**
    * @notice Greets the caller
-   *
    * @return _greeting The greeting
    * @return _balance  Current token balance of the caller
    */
