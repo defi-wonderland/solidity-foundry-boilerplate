@@ -1653,7 +1653,7 @@ solc@0.8.24:
     semver "^5.5.0"
     tmp "0.0.33"
 
-"solhint@github:solhint-community/solhint-community#v4.0.0":
+solhint@solhint-community/solhint-community#v4.0.0:
   version "4.0.0"
   resolved "https://codeload.github.com/solhint-community/solhint-community/tar.gz/1bdcfa270e9054607f154c39557906a9da9aaed0"
   dependencies:
