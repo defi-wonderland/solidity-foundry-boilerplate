@@ -1,6 +1,6 @@
 ds-test/=node_modules/ds-test/src
 forge-std/=node_modules/forge-std/src
-isolmate/=node_modules/isolmate/src
+solmate/=node_modules/solmate/src
 
 contracts/=src/contracts
 interfaces/=src/interfaces

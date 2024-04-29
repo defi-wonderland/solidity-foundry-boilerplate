@@ -3,7 +3,7 @@ pragma solidity 0.8.23;
 
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 import {Test} from 'forge-std/Test.sol';
-import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 abstract contract Base is Test {
   address internal _owner = makeAddr('owner');

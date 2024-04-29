@@ -10,7 +10,7 @@ sort_imports = true
 
 [profile.default]
 solc_version = '0.8.23'
-libs = ['node_modules']
+libs = ["node_modules", "lib"]
 optimizer_runs = 10_000
 
 [profile.optimized]
