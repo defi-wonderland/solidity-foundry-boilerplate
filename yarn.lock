@@ -1649,9 +1649,10 @@ solc@0.8.24:
     semver "^5.5.0"
     tmp "0.0.33"
 
-solhint@solhint-community/solhint-community#v4.0.0:
+solhint-community@4.0.0:
   version "4.0.0"
-  resolved "https://codeload.github.com/solhint-community/solhint-community/tar.gz/1bdcfa270e9054607f154c39557906a9da9aaed0"
+  resolved "https://registry.yarnpkg.com/solhint-community/-/solhint-community-4.0.0.tgz#4dba66932ff54ced426a8c035b7ceaa13a224f24"
+  integrity sha512-BERw3qYzkJE64EwvYrp2+iiTN8yAZOJ74FCiL4bTBp7v0JFUvRYCEGZKAqfHcfi/koKkzM6qThsJUceKm9vvfg==
   dependencies:
     "@solidity-parser/parser" "^0.16.0"
     ajv "^6.12.6"
