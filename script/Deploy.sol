@@ -3,7 +3,7 @@ pragma solidity 0.8.23;
 
 import {Greeter} from 'contracts/Greeter.sol';
 import {Script} from 'forge-std/Script.sol';
-import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 contract Deploy is Script {
   struct DeploymentParams {
