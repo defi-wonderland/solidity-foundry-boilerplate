@@ -3,7 +3,7 @@ pragma solidity 0.8.23;
 
 import {Greeter, IGreeter} from 'contracts/Greeter.sol';
 import {Test} from 'forge-std/Test.sol';
-import {IERC20} from 'isolmate/interfaces/tokens/IERC20.sol';
+import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 contract IntegrationBase is Test {
   uint256 internal constant _FORK_BLOCK = 18_920_905;

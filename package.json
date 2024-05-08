@@ -32,17 +32,14 @@
     "test/**/*.sol": "yarn lint:sol-tests",
     "package.json": "sort-package-json"
   },
-  "dependencies": {
-    "isolmate": "github:defi-wonderland/isolmate#59e1804"
-  },
   "devDependencies": {
-    "@commitlint/cli": "17.0.3",
-    "@commitlint/config-conventional": "17.0.3",
-    "@defi-wonderland/natspec-smells": "1.0.3",
+    "@commitlint/cli": "19.3.0",
+    "@commitlint/config-conventional": "19.2.2",
+    "@defi-wonderland/natspec-smells": "1.1.1",
     "forge-std": "github:foundry-rs/forge-std#5475f85",
     "husky": ">=8",
     "lint-staged": ">=10",
-    "solhint": "github:solhint-community/solhint-community#v4.0.0-rc01",
-    "sort-package-json": "1.53.1"
+    "solhint-community": "4.0.0",
+    "sort-package-json": "2.10.0"
   }
 }
