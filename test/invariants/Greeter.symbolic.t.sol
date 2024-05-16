@@ -10,22 +10,32 @@ contract GreeterSymbolic is SymTest, Test {
   Greeter public targetContract;
 
   function setUp() public {
-    string memory _initialGreeting = svm.createString(64, 'initial greeting');
-    address _token = svm.createAddress('token');
+    string memory initialGreeting = svm.createString(64, 'initial greeting');
+    address token = svm.createAddress('token');
 
-    targetContract = new Greeter(_initialGreeting, IERC20(_token));
+    targetContract = new Greeter(initialGreeting, IERC20(token));
   }
 
-  function check_validState_greeterNeverEmpty(address caller, bytes4 selector) public {
+  function check_validState_greeterNeverEmpty(address caller) public {
     // Input conditions: any caller
     vm.prank(caller);
 
-    // Execution
-    (bool success,) = address(targetContract).call(gen_calldata(selector));
+    // Execution: Halmos cannot use a dynamic-sized array, iterate over multiple string lengths
+    for (uint256 i = 1; i < 3; i++) {
+      string memory greeting = svm.createString(i, 'greeting');
+      (bool success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
+
+      // Output condition check
+      vm.assume(success); // discard failing calls
+      assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
+    }
+
+    // Add the empty string (bypass the non-empty check of svm.createString)
+    (bool success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
 
     // Output condition check
     vm.assume(success); // discard failing calls
-    assert(keccak256(bytes(targetContract.greeting())) != keccak256(''));
+    assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
   }
 
   function check_setGreeting_onlyOwnerSetsGreeting(address caller) public {
@@ -41,15 +51,7 @@ contract GreeterSymbolic is SymTest, Test {
       assert(caller == targetContract.OWNER());
       assert(keccak256(bytes(targetContract.greeting())) == keccak256(bytes(newGreeting)));
     } else {
-      assert(caller != targetContract.OWNER() || keccak256(bytes(newGreeting)) == keccak256(''));
-    }
-  }
-
-  // either return a valid call to setGreeting or nothing (avoid halmos panicking on unknown contract call)
-  function gen_calldata(bytes4 selector) public view returns (bytes memory newCalldata) {
-    if (selector == targetContract.setGreeting.selector) {
-      string memory greeting = svm.createString(64, 'greeting');
-      newCalldata = abi.encodeWithSelector(selector, greeting);
+      assert(caller != targetContract.OWNER() || keccak256(bytes(newGreeting)) == keccak256(bytes('')));
     }
   }
 }

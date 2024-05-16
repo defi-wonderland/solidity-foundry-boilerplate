@@ -22,7 +22,7 @@
     "lint:sol-tests": "solhint -c .solhint.tests.json 'test/**/*.sol'",
     "prepare": "husky install",
     "test": "forge test -vvv",
-    "test:fuzz": "echidna test/invariants/Greeter.invariants.t.sol --contract GreeterInvariant --corpus-dir test/invariants/echidna_coverage/",
+    "test:fuzz": "echidna test/invariants/Greeter.invariants.t.sol --contract GreeterInvariant --corpus-dir test/invariants/echidna_coverage/ --test-mode assertion",
     "test:integration": "forge test --match-contract Integration -vvv",
     "test:symbolic": "halmos",
     "test:unit": "forge test --match-contract Unit -vvv",
