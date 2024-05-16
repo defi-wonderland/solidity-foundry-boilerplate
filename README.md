@@ -18,7 +18,7 @@
   <dt>Deployment scripts</dt>
   <dd>Sample scripts to deploy contracts on both mainnet and testnet.</dd>
 
-  <dt>Sample Integration & Unit tests</dt>
+  <dt>Sample Integration, Unit, Property-based fuzzed and symbolic tests</dt>
   <dd>Example tests showcasing mocking, assertions and configuration for mainnet forking. As well it includes everything needed in order to check code coverage.</dd>
 
   <dt>Linter</dt>
@@ -76,6 +76,18 @@ In order to just run integration tests, run:
 
 ```bash
 yarn test:integration
+```
+
+In order to just run the echidna fuzzing campaign (requires [Echidna](https://github.com/crytic/building-secure-contracts/blob/master/program-analysis/echidna/introduction/installation.md) installed), run:
+
+```bash
+yarn test:fuzz
+```
+
+In order to just run the symbolic execution tests (requires [Halmos](https://github.com/a16z/halmos/blob/main/README.md#installation) installed), run:
+
+```bash
+yarn test:symbolic
 ```
 
 In order to check your current code coverage, run:
