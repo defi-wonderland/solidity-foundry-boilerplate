@@ -21,9 +21,10 @@ contract GreeterSymbolic is SymTest, Test {
     vm.prank(caller);
 
     // Execution: Halmos cannot use a dynamic-sized array, iterate over multiple string lengths
+    bool success;
     for (uint256 i = 1; i < 3; i++) {
       string memory greeting = svm.createString(i, 'greeting');
-      (bool success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
+      (success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
 
       // Output condition check
       vm.assume(success); // discard failing calls
@@ -31,7 +32,7 @@ contract GreeterSymbolic is SymTest, Test {
     }
 
     // Add the empty string (bypass the non-empty check of svm.createString)
-    (bool success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
+    (success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
 
     // Output condition check
     vm.assume(success); // discard failing calls
