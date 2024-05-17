@@ -1,0 +1,25 @@
+Greeter::constructor
+├── when passing valid greeting string
+│   ├── it deploys
+│   ├── it sets the greeting string
+│   ├── it sets the owner as sender
+│   └── it sets the token used
+└── when passing an empty greeting string
+    └── it reverts
+
+
+Greeter::greet
+└── when called
+    ├── it returns the greeting string
+    └── it returns the token balance of the contract
+
+
+Greeter::setGreeting
+├── when called by the owner
+│   ├── when passing a valid greeting string
+│   │   ├── it sets the greeting string
+│   │   └── it emit GreetingSet
+│   └── when passing an empty greeting string
+│       └── it reverts
+└── when called by a non-owner
+    └── it reverts

@@ -20,6 +20,8 @@
 
   <dt>Sample Integration, Unit, Property-based fuzzed and symbolic tests</dt>
   <dd>Example tests showcasing mocking, assertions and configuration for mainnet forking. As well it includes everything needed in order to check code coverage.</dd>
+  <dd>Unit tests are built based on the <a href="https://twitter.com/PaulRBerg/status/1682346315806539776">Branched-Tree Technique</a>, using <a href="https://github.com/alexfertel/bulloak">Bulloak</a>.
+  <dd>Formal verification and property-based fuzzing are achieved with <a href="https://github.com/a16z/halmos">Halmos</a> and <a href="https://github.com/crytic/echidna">Echidna</a> (resp.).
 
   <dt>Linter</dt>
   <dd>Simple and fast solidity linting thanks to forge fmt.</dd>
