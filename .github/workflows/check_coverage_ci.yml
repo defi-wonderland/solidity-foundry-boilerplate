@@ -1,0 +1,70 @@
+name: Upload coverage on merge
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  upload-coverage:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+      - name: Precompile using 0.8.14 and via-ir=false
+        run: yarn build
+      - name: Run coverage
+        shell: bash
+        run: forge coverage --report summary --report lcov
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1
+      - name: Filter directories
+        run: lcov --remove lcov.info 'test/*' 'script/*' --output-file lcovNew.info --rc lcov_branch_coverage=1
+
+      - name: Retrieve previous coverage
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage
+          path: lcov.info
+
+      - name: Verify previous coverage
+        uses: zgosalvez/github-actions-report-lcov@v4
+        with:
+          coverage-files: ./lcov.info
+
+      - name: Verify new coverage
+        uses: zgosalvez/github-actions-report-lcov@v4
+        with:
+          coverage-files: ./lcovNew.info
+      
+      - name: Check if new >= old
+        run: |
+          old=$(awk -F" " '/lines/ {print $3}' lcov.info)
+          new=$(awk -F" " '/lines/ {print $3}' lcovNew.info)
+          if [ "$new" -lt "$old" ]; then
+            echo "Coverage decreased from $old to $new"
+            exit 1
+          fi
+      
+      - name: Cleanup
+        run: | 
+          rm lcov.info
+          mv lcovNew.info lcov.info
+          
+      - name: Upload new coverage
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: lcovNew.info

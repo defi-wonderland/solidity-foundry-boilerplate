@@ -86,7 +86,57 @@ jobs:
       - name: Run tests
         run: yarn test:integration
 
-    
+  echidna-tests:
+    name: Echidna Test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+      with:
+        submodules: recursive
+
+    - name: Install Foundry
+      uses: foundry-rs/foundry-toolchain@v1
+      with:
+        version: nightly
+
+    - name: Compile contracts
+      run: |
+        forge build --build-info
+
+    - name: Run Echidna
+      uses: crytic/echidna-action@v2
+      with:
+        files: .
+        contract: GreeterInvariant
+        crytic-args: --ignore-compile
+
+  halmos-tests:
+    name: Run symbolic execution tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Precompile using 0.8.14 and via-ir=false
+        run: yarn build
+
+      - name: Run tests
+        run: yarn test:integration
 
   lint:
     name: Lint Commit Messages
