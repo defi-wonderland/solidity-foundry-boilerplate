@@ -11,6 +11,28 @@ env:
   SEPOLIA_RPC: ${{ secrets.SEPOLIA_RPC }}
 
 jobs:
+  static-test:
+    name: slither
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v4
+        with:
+          node-version: latest
+      - name: Install npm dependencies
+        run: npm ci --production
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+      - name: Run slither
+        uses: crytic/slither-action@v0.3.1
+        with:
+            slither-config: slither-ci.config.json
+            fail-on: medium
+            
   unit-tests:
     name: Run Unit Tests
     runs-on: ubuntu-latest
@@ -63,6 +85,8 @@ jobs:
 
       - name: Run tests
         run: yarn test:integration
+
+    
 
   lint:
     name: Lint Commit Messages
