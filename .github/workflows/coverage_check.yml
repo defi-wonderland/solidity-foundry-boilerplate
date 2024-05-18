@@ -48,7 +48,7 @@ jobs:
 
       - name: Check if a previous coverage exists
         run: |
-          if [ ! -f lcov.info ]; then
+          if [ ! -f coverage.info ]; then
             echo "Artifact not found. Initializing at 0"
             echo "0" >> coverage.info
           fi
