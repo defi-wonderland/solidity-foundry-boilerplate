@@ -1,4 +1,4 @@
-name: Upload coverage on merge
+name: Coverage check on main push
 
 on:
   push:
@@ -16,55 +16,57 @@ jobs:
         uses: foundry-rs/foundry-toolchain@v1
         with:
           version: nightly
+
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
           cache: 'yarn'
+
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
-      - name: Precompile using 0.8.14 and via-ir=false
-        run: yarn build
+
       - name: Run coverage
         shell: bash
         run: forge coverage --report summary --report lcov
+
       - name: Setup LCOV
         uses: hrishikesh-kadam/setup-lcov@v1
+
       - name: Filter directories
-        run: lcov --remove lcov.info 'test/*' 'script/*' --output-file lcovNew.info --rc lcov_branch_coverage=1
+        run: lcov --remove lcov.info 'test/*' 'script/*' --output-file lcov.info --rc branch_coverage=1 --rc derive_function_end_line=0 
+
+      - name: Capture coverage output
+        id: capture-coverage
+        run: |
+          COVERAGE_OUTPUT=$(zgosalvez/github-actions-report-lcov@v3 --coverage-files lcov.info)
+          echo "new_coverage=$COVERAGE_OUTPUT" >> $GITHUB_ENV
 
       - name: Retrieve previous coverage
         uses: actions/download-artifact@v2
         with:
           name: coverage
-          path: lcov.info
+          path: coverage.info
+        continue-on-error: true
 
-      - name: Verify previous coverage
-        uses: zgosalvez/github-actions-report-lcov@v4
-        with:
-          coverage-files: ./lcov.info
-
-      - name: Verify new coverage
-        uses: zgosalvez/github-actions-report-lcov@v4
-        with:
-          coverage-files: ./lcovNew.info
-      
-      - name: Check if new >= old
+      - name: Check if a previous coverage exists
         run: |
-          old=$(awk -F" " '/lines/ {print $3}' lcov.info)
-          new=$(awk -F" " '/lines/ {print $3}' lcovNew.info)
+          if [ ! -f lcov.info ]; then
+            echo "Artifact not found. Initializing at 0"
+            echo "0" >> coverage.info
+          fi
+
+      - name: Compare previous coverage
+        run: |
+          old=$(cat coverage.info)
+          new=$(echo $COVERAGE_OUTPUT)
           if [ "$new" -lt "$old" ]; then
             echo "Coverage decreased from $old to $new"
             exit 1
           fi
-      
-      - name: Cleanup
-        run: | 
-          rm lcov.info
-          mv lcovNew.info lcov.info
-          
-      - name: Upload new coverage
+
+      - name: Upload the new coverage
         uses: actions/upload-artifact@v2
         with:
           name: coverage
-          path: lcovNew.info
+          path: coverage.info
