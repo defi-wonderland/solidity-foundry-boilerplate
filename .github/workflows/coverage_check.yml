@@ -34,10 +34,10 @@ jobs:
         run: lcov --remove lcov.info 'test/*' 'script/*' --output-file lcov.info --rc branch_coverage=1 --rc derive_function_end_line=0 
 
       - name: Capture coverage output
-        id: capture-coverage
-        run: |
-          COVERAGE_OUTPUT=$(zgosalvez/github-actions-report-lcov@v3 --coverage-files lcov.info)
-          echo "new_coverage=$COVERAGE_OUTPUT" >> $GITHUB_ENV
+        id: new-coverage
+        uses: zgosalvez/github-actions-report-lcov@v3
+        with:
+          coverage-files: lcov.info
 
       - name: Retrieve previous coverage
         uses: actions/download-artifact@v2
@@ -56,7 +56,7 @@ jobs:
       - name: Compare previous coverage
         run: |
           old=$(cat coverage.info)
-          new=$(echo $COVERAGE_OUTPUT)
+          new=${{ steps.new-coverage.outputs.total-coverage }}
           if [ "$new" -lt "$old" ]; then
             echo "Coverage decreased from $old to $new"
             exit 1
