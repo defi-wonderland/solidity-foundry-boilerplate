@@ -30,7 +30,7 @@ jobs:
       - name: Run slither
         uses: crytic/slither-action@v0.3.1
         with:
-            slither-config: slither-ci.config.json
+            slither-config: slither.config.json
             fail-on: medium
             
   unit-tests:

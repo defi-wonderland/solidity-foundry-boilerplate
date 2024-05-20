@@ -1,0 +1,10 @@
+{
+    "detectors_to_exclude": "timestamp,uninitialized-local",
+    "exclude_informational": true,
+    "exclude_low": false,
+    "exclude_medium": false,
+    "exclude_high": false,
+    "disable_color": false,
+    "filter_paths": "(test/|node_modules/|script/)",
+    "legacy_ast": false
+}
