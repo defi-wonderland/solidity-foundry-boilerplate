@@ -33,6 +33,9 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
+      - name: Compile contracts
+        run: yarn build
+
       - name: Run slither
         uses: crytic/slither-action@v0.3.1
         with:
@@ -125,7 +128,8 @@ jobs:
         with:
           files: .
           contract: InvariantGreeter
-          crytic-args: --ignore-compile --test-mode assertion
+          test-mode: assertion
+          crytic-args: --ignore-compile
 
   halmos-tests:
     name: Run symbolic execution tests
