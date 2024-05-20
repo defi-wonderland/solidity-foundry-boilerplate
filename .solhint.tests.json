@@ -10,7 +10,7 @@
     "var-name-mixedcase": "off",
     "const-name-snakecase": "off",
     "no-inline-assembly": "off",
-    "no-empty-blocks": "off",
+    "no-empty-blocks": "error",
     "definition-name-capwords": "off",
     "named-parameters-function": "off",
     "no-global-import": "off",
