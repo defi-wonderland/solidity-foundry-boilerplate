@@ -32,7 +32,7 @@ jobs:
 
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
-        
+
       - name: Run slither
         uses: crytic/slither-action@v0.3.1
         with:
@@ -124,7 +124,7 @@ jobs:
         uses: crytic/echidna-action@v2
         with:
           files: .
-          contract: GreeterInvariant
+          contract: InvariantGreeter
           crytic-args: --ignore-compile
 
   halmos-tests:
