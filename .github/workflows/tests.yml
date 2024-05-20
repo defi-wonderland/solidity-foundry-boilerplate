@@ -17,16 +17,22 @@ jobs:
     env:
       NODE_ENV: production
     steps:
-      - uses: actions/checkout@v4
-        with:
-          submodules: recursive
-      - uses: actions/setup-node@v4
-        with:
-          node-version: latest
-      - name: Install npm dependencies
-        run: npm ci --production
+      - uses: actions/checkout@v3
+
       - name: Install Foundry
         uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+        
       - name: Run slither
         uses: crytic/slither-action@v0.3.1
         with:
@@ -91,26 +97,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-      with:
-        submodules: recursive
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
-    - name: Install Foundry
-      uses: foundry-rs/foundry-toolchain@v1
-      with:
-        version: nightly
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
 
-    - name: Compile contracts
-      run: |
-        forge build --build-info
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+          cache: 'yarn'
 
-    - name: Run Echidna
-      uses: crytic/echidna-action@v2
-      with:
-        files: .
-        contract: GreeterInvariant
-        crytic-args: --ignore-compile
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Compile contracts
+        run: |
+          forge build --build-info
+
+      - name: Run Echidna
+        uses: crytic/echidna-action@v2
+        with:
+          files: .
+          contract: GreeterInvariant
+          crytic-args: --ignore-compile
 
   halmos-tests:
     name: Run symbolic execution tests
