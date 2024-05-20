@@ -7,7 +7,7 @@ interface IHevm {
   function prank(address) external;
 }
 
-contract GreeterInvariant {
+contract InvariantGreeter {
   address constant HEVM_ADDRESS = 0x7109709ECfa91a80626fF3989D68f67F5b1DD12D;
   IHevm hevm = IHevm(HEVM_ADDRESS);
   Greeter public targetContract;

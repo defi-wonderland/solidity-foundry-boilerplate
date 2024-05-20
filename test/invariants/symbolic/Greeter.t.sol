@@ -6,7 +6,7 @@ import {Greeter, IERC20} from 'contracts/Greeter.sol';
 import {Test} from 'forge-std/Test.sol';
 import {SymTest} from 'halmos-cheatcodes/src/SymTest.sol';
 
-contract GreeterSymbolic is SymTest, Test {
+contract SymbolicGreeter is SymTest, Test {
   Greeter public targetContract;
 
   function setUp() public {
