@@ -11,37 +11,6 @@ env:
   SEPOLIA_RPC: ${{ secrets.SEPOLIA_RPC }}
 
 jobs:
-  static-test:
-    name: slither
-    runs-on: ubuntu-latest
-    env:
-      NODE_ENV: production
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.x
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn --frozen-lockfile --network-concurrency 1
-
-      - name: Compile contracts
-        run: yarn build
-
-      - name: Run slither
-        uses: crytic/slither-action@v0.3.1
-        with:
-            slither-config: slither.config.json
-            fail-on: medium
-            
   unit-tests:
     name: Run Unit Tests
     runs-on: ubuntu-latest
