@@ -120,7 +120,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
-      - name: Precompile using 0.8.14 and via-ir=false
+      - name: Precompile with via-ir=false
         run: yarn build
 
       - name: Run tests
