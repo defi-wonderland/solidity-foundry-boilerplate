@@ -22,6 +22,11 @@ contract UnitGreeter is Test {
     vm.etch(address(_token), new bytes(0x1));
   }
 
+  function test_EmptyTestExample() external {
+    // it does nothing
+    vm.skip(true);
+  }
+
   function test_ConstructorWhenPassingValidGreetingString() external {
     vm.prank(_owner);
 
