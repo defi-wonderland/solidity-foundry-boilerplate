@@ -125,7 +125,7 @@ jobs:
         with:
           files: .
           contract: InvariantGreeter
-          crytic-args: --ignore-compile
+          crytic-args: --ignore-compile --test-mode assertion
 
   halmos-tests:
     name: Run symbolic execution tests
