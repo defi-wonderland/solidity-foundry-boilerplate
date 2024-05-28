@@ -9,8 +9,8 @@ interface IHevm {
 
 contract InvariantGreeter {
   // See https://github.com/a16z/halmos-cheatcodes?tab=readme-ov-file
-  address constant HEVM_ADDRESS = 0x7109709ECfa91a80626fF3989D68f67F5b1DD12D;
-  IHevm hevm = IHevm(HEVM_ADDRESS);
+  IHevm public hevm = IHevm(0x7109709ECfa91a80626fF3989D68f67F5b1DD12D);
+
   Greeter public targetContract;
 
   constructor() {
