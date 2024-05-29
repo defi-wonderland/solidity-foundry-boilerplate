@@ -45,8 +45,7 @@ jobs:
       - name: Retrieve previous coverage
         uses: actions/download-artifact@v2
         with:
-          name: coverage
-          path: coverage.info
+          name: coverage.info
         continue-on-error: true
 
       - name: Check if a previous coverage exists
@@ -69,5 +68,5 @@ jobs:
       - name: Upload the new coverage
         uses: actions/upload-artifact@v2
         with:
-          name: coverage
-          path: coverage.info
+          name: coverage.info
+          path: .
