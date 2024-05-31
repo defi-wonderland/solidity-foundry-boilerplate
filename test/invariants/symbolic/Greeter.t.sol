@@ -10,49 +10,49 @@ contract SymbolicGreeter is SymTest, Test {
   Greeter public targetContract;
 
   function setUp() public {
-    string memory initialGreeting = svm.createString(64, 'initial greeting');
-    address token = svm.createAddress('token');
+    string memory _initialGreeting = svm.createString(64, 'initial greeting');
+    address _token = svm.createAddress('token');
 
-    targetContract = new Greeter(initialGreeting, IERC20(token));
+    targetContract = new Greeter(_initialGreeting, IERC20(_token));
   }
 
-  function check_validState_greeterNeverEmpty(address caller) public {
+  function check_validState_greeterNeverEmpty(address _caller) public {
     // Input conditions: any caller
-    vm.prank(caller);
+    vm.prank(_caller);
 
     // Execution: Halmos cannot use a dynamic-sized array, iterate over multiple string lengths
-    bool success;
+    bool _success;
     for (uint256 i = 1; i < 3; i++) {
       string memory greeting = svm.createString(i, 'greeting');
-      (success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
+      (_success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
 
       // Output condition check
-      vm.assume(success); // discard failing calls
+      vm.assume(_success); // discard failing calls
       assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
     }
 
     // Add the empty string (bypass the non-empty check of svm.createString)
-    (success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
+    (_success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
 
     // Output condition check
-    vm.assume(success); // discard failing calls
+    vm.assume(_success); // discard failing calls
     assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
   }
 
-  function check_setGreeting_onlyOwnerSetsGreeting(address caller) public {
+  function check_setGreeting_onlyOwnerSetsGreeting(address _caller) public {
     // Input conditions
-    string memory newGreeting = svm.createString(64, 'new greeting');
+    string memory _newGreeting = svm.createString(64, 'new greeting');
 
     // Execution
-    vm.prank(caller);
-    (bool success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (newGreeting)));
+    vm.prank(_caller);
+    (bool _success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (_newGreeting)));
 
     // Output condition check
-    if (success) {
-      assert(caller == targetContract.OWNER());
-      assert(keccak256(bytes(targetContract.greeting())) == keccak256(bytes(newGreeting)));
+    if (_success) {
+      assert(_caller == targetContract.OWNER());
+      assert(keccak256(bytes(targetContract.greeting())) == keccak256(bytes(_newGreeting)));
     } else {
-      assert(caller != targetContract.OWNER() || keccak256(bytes(newGreeting)) == keccak256(bytes('')));
+      assert(_caller != targetContract.OWNER() || keccak256(bytes(_newGreeting)) == keccak256(bytes('')));
     }
   }
 }
