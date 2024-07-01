@@ -1,4 +1,4 @@
-name: Coverage check on main push
+name: Coverage Check
 
 on: [push]
 
