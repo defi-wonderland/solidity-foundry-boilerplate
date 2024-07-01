@@ -7,6 +7,7 @@ env:
 
 jobs:
   upload-coverage:
+    name: Upload Coverage
     runs-on: ubuntu-latest
 
     steps:
