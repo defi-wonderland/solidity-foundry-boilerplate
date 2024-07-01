@@ -45,7 +45,7 @@ jobs:
           coverage-files: lcovNew.info
 
       - name: Retrieve previous coverage
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: coverage.info
         continue-on-error: true
@@ -68,7 +68,7 @@ jobs:
           mv lcovNew.info coverage.info
 
       - name: Upload the new coverage
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: coverage.info
           path: ./coverage.info
