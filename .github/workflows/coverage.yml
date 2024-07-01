@@ -4,8 +4,6 @@ on: [push]
 
 env:
     COVERAGE_SENSITIVITY_PERCENT: 1
-    MAINNET_RPC: ${{ secrets.MAINNET_RPC }}
-    SEPOLIA_RPC: ${{ secrets.SEPOLIA_RPC }}
 
 jobs:
   upload-coverage:
@@ -30,7 +28,7 @@ jobs:
 
       - name: Run coverage
         shell: bash
-        run: forge coverage --report summary --report lcov
+        run: forge coverage --report summary --report lcov --match-contract Unit
 
       - name: Setup LCOV
         uses: hrishikesh-kadam/setup-lcov@v1
