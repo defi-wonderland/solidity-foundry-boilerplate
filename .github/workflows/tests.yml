@@ -127,7 +127,7 @@ jobs:
         run: yarn test:integration
 
   lint:
-    name: Lint Commit Messages
+    name: Static Analysis
     runs-on: ubuntu-latest
 
     steps:
@@ -148,7 +148,15 @@ jobs:
           node-version: 20.x
           cache: 'yarn'
 
+      - name: Install bulloak 
+        uses: baptiste0928/cargo-install@v3
+        with:
+          crate: bulloak
+
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
       - run: yarn lint:check
+
+      - name: Run bulloak check
+        run: yarn lint:bulloak
