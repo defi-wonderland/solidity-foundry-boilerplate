@@ -29,7 +29,7 @@ jobs:
 
       - name: Run coverage
         shell: bash
-        run: forge coverage --report summary --report lcov --match-path 'test/unit/*'
+        run: yarn coverage
 
       - name: Setup LCOV
         uses: hrishikesh-kadam/setup-lcov@v1
