@@ -38,7 +38,7 @@
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
     "@defi-wonderland/natspec-smells": "1.1.1",
-    "forge-std": "github:foundry-rs/forge-std#1.8.2",
+    "forge-std": "github:foundry-rs/forge-std#1.9.0",
     "halmos-cheatcodes": "github:a16z/halmos-cheatcodes#c0d8655",
     "husky": ">=8",
     "lint-staged": ">=10",
