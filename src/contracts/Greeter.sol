@@ -6,10 +6,16 @@ import {IGreeter} from 'interfaces/IGreeter.sol';
 
 contract Greeter is IGreeter {
   /**
-   * @notice Empty string for revert checks
+   * @notice Empty string signature for revert checks
    * @dev result of doing keccak256(bytes(''))
    */
   bytes32 internal constant _EMPTY_STRING = 0xc5d2460186f7233c927e7db2dcc703c0e500b653ca82273b7bfad8045d85a470;
+
+  /**
+   * @notice Forbidden string signature for revert checks
+   * @dev result of doing keccak256(bytes('SECRET_STRING'))
+   */
+  bytes32 internal constant _FORBIDDEN_STRING = 0x8c917c6c6ed13e2a7bc9a85e333804f00ef06bf49d17d1140551e128758a022c;
 
   /// @inheritdoc IGreeter
   address public immutable OWNER;
@@ -49,7 +55,8 @@ contract Greeter is IGreeter {
 
   /// @inheritdoc IGreeter
   function setGreeting(string memory _greeting) public onlyOwner {
-    if (keccak256(bytes(_greeting)) == _EMPTY_STRING) {
+    bytes32 _greetingHash = keccak256(bytes(_greeting));
+    if (_greetingHash == _EMPTY_STRING || _greetingHash == _FORBIDDEN_STRING) {
       revert Greeter_InvalidGreeting();
     }
 
