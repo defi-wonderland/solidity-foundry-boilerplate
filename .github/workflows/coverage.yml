@@ -4,8 +4,6 @@ on: [push]
 
 env:
     COVERAGE_SENSITIVITY_PERCENT: 1
-    MAINNET_RPC: ${{ secrets.MAINNET_RPC }}
-    SEPOLIA_RPC: ${{ secrets.SEPOLIA_RPC }}
 
 jobs:
   upload-coverage:
