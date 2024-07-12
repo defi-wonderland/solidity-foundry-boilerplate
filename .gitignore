@@ -19,3 +19,7 @@ broadcast/*/*/*
 
 # Out dir
 out
+crytic-export
+
+# Echidna corpus
+test/invariants/fuzz/echidna_coverage
