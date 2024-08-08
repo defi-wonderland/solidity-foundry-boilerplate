@@ -7,12 +7,18 @@ on:
 jobs:
   release:
     name: Release
-    # Remove the following line if you wish to export your Solidity contracts and interfaces and publish them to NPM
+
+    # 1) Remove the following line if you wish to export your Solidity contracts and interfaces and publish them to NPM
     if: false
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        export_type: ['interfaces', 'contracts']
+        export_type: ['interfaces', 'all']
+
+    env:
+    # 2) Fill the project name to be used in NPM
+      PROJECT_NAME: 'my-cool-project'
+      EXPORT_NAME: ${{ matrix.export_type == 'interfaces' && '-interfaces' || '' }}
 
     steps:
       - name: Checkout Repo
@@ -36,18 +42,17 @@ jobs:
       - name: Build project and generate out directory
         run: yarn build
 
-      - name: Export Solidity - ${{ matrix.export_type }}
-        uses: defi-wonderland/solidity-exporter-action@v2.0.0
+      - name: Export Solidity - Export Type ${{ matrix.export_type }}
+        uses: defi-wonderland/solidity-exporter-action@v2.1.0
         with:
-          # Update package_name with your package name
-          package_name: 'my-cool-project'
+          package_name: ${{ env.PROJECT_NAME }}
           out: 'out'
-          interfaces: 'src/interfaces'
-          contracts: 'src/contracts'
+          interfaces: 'solidity/interfaces'
+          contracts: 'solidity/contracts'
+          libraries: "solidity/libraries"
           export_type: '${{ matrix.export_type }}'
 
-      - name: Publish to NPM - ${{ matrix.export_type }}
-        # Update `my-cool-project` with your package name
-        run: cd export/my-cool-project-${{ matrix.export_type }} && npm publish --access public --tag latest
+      - name: Publish to NPM - Export Type ${{ matrix.export_type }}
+        run: cd export/${{ env.PROJECT_NAME }}${{ env.EXPORT_NAME }} && npm publish --access public
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
