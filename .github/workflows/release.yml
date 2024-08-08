@@ -53,6 +53,6 @@ jobs:
           export_type: '${{ matrix.export_type }}'
 
       - name: Publish to NPM - Export Type ${{ matrix.export_type }}
-        run: cd export/${{ env.PROJECT_NAME }}${{ env.EXPORT_NAME }} && npm publish --access public
+        run: cd export/${{ env.PROJECT_NAME }}${{ env.EXPORT_NAME }} && npm publish --access public --tag latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
