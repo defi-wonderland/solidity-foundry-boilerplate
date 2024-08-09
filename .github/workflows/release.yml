@@ -17,7 +17,7 @@ jobs:
 
     env:
     # 2) Fill the project name to be used in NPM
-      PROJECT_NAME: 'my-cool-project'
+      NPM_PACKAGE_NAME: 'my-cool-project'
       EXPORT_NAME: ${{ matrix.export_type == 'interfaces' && '-interfaces' || '' }}
 
     steps:
@@ -45,7 +45,7 @@ jobs:
       - name: Export Solidity - Export Type ${{ matrix.export_type }}
         uses: defi-wonderland/solidity-exporter-action@v2.1.0
         with:
-          package_name: ${{ env.PROJECT_NAME }}
+          package_name: ${{ env.NPM_PACKAGE_NAME }}
           out: 'out'
           interfaces: 'solidity/interfaces'
           contracts: 'solidity/contracts'
@@ -53,6 +53,6 @@ jobs:
           export_type: '${{ matrix.export_type }}'
 
       - name: Publish to NPM - Export Type ${{ matrix.export_type }}
-        run: cd export/${{ env.PROJECT_NAME }}${{ env.EXPORT_NAME }} && npm publish --access public --tag latest
+        run: cd export/${{ env.NPM_PACKAGE_NAME }}${{ env.EXPORT_NAME }} && npm publish --access public --tag latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
