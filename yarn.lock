@@ -801,9 +801,9 @@ for-each@^0.3.3:
   dependencies:
     is-callable "^1.1.3"
 
-"forge-std@github:foundry-rs/forge-std#1.8.2":
-  version "1.8.2"
-  resolved "https://codeload.github.com/foundry-rs/forge-std/tar.gz/978ac6fadb62f5f0b723c996f64be52eddba6801"
+"forge-std@github:foundry-rs/forge-std#1.9.2":
+  version "1.9.2"
+  resolved "https://codeload.github.com/foundry-rs/forge-std/tar.gz/1714bee72e286e73f76e320d110e0eaf5c4e649d"
 
 form-data@^4.0.0:
   version "4.0.0"
