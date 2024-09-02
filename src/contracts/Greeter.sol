@@ -48,7 +48,9 @@ contract Greeter is IGreeter {
   }
 
   /// @inheritdoc IGreeter
-  function setGreeting(string memory _greeting) public onlyOwner {
+  function setGreeting(
+    string memory _greeting
+  ) public onlyOwner {
     if (keccak256(bytes(_greeting)) == _EMPTY_STRING) {
       revert Greeter_InvalidGreeting();
     }

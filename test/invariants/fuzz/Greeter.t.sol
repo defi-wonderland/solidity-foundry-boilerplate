@@ -4,7 +4,9 @@ pragma solidity 0.8.23;
 import {Greeter, IERC20} from 'contracts/Greeter.sol';
 
 interface IHevm {
-  function prank(address) external;
+  function prank(
+    address
+  ) external;
 }
 
 contract InvariantGreeter {
@@ -16,7 +18,9 @@ contract InvariantGreeter {
     _targetContract = new Greeter('a', IERC20(address(1)));
   }
 
-  function checkGreeterNeverEmpty(string memory _newGreeting) public {
+  function checkGreeterNeverEmpty(
+    string memory _newGreeting
+  ) public {
     // Execution
     (bool _success,) = address(_targetContract).call(abi.encodeCall(Greeter.setGreeting, _newGreeting));
 
@@ -24,7 +28,9 @@ contract InvariantGreeter {
     assert((_success && keccak256(bytes(_targetContract.greeting())) != keccak256(bytes(''))) || !_success);
   }
 
-  function checkOnlyOwnerSetsGreeting(address _caller) public {
+  function checkOnlyOwnerSetsGreeting(
+    address _caller
+  ) public {
     // Input conditions
     _hevm.prank(_caller);
 

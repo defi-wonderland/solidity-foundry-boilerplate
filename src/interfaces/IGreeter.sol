@@ -63,7 +63,9 @@ interface IGreeter {
    * @dev Only callable by the owner
    * @param _newGreeting The new greeting to be set
    */
-  function setGreeting(string memory _newGreeting) external;
+  function setGreeting(
+    string memory _newGreeting
+  ) external;
 
   /**
    * @notice Greets the caller

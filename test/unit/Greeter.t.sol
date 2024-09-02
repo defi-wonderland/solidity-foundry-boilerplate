@@ -88,7 +88,9 @@ contract UnitGreeter is Test {
     _greeter.setGreeting('');
   }
 
-  function test_SetGreetingWhenCalledByANon_owner(address _caller) external {
+  function test_SetGreetingWhenCalledByANon_owner(
+    address _caller
+  ) external {
     vm.assume(_caller != _owner);
     vm.prank(_caller);
 
