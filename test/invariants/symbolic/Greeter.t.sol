@@ -16,9 +16,7 @@ contract SymbolicGreeter is SymTest, Test {
     targetContract = new Greeter(_initialGreeting, IERC20(_token));
   }
 
-  function check_validState_greeterNeverEmpty(
-    address _caller
-  ) public {
+  function check_validState_greeterNeverEmpty(address _caller) public {
     // Input conditions: any caller
     vm.prank(_caller);
 
@@ -41,9 +39,7 @@ contract SymbolicGreeter is SymTest, Test {
     assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
   }
 
-  function check_setGreeting_onlyOwnerSetsGreeting(
-    address _caller
-  ) public {
+  function check_setGreeting_onlyOwnerSetsGreeting(address _caller) public {
     // Input conditions
     string memory _newGreeting = svm.createString(64, 'new greeting');
 
