@@ -1,6 +1,13 @@
 {
   "rules": {
-    "style-guide-casing": "off",
+    "style-guide-casing": [
+      "warn",
+      {
+        "ignorePublicFunctions":true,
+        "ignoreExternalFunctions":true,
+        "ignoreContracts":true
+      }
+    ],
     "no-global-import": "off",
     "max-states-count": "off",
     "ordering": "off",
