@@ -1,0 +1,9 @@
+{
+  "rules": {
+    "style-guide-casing": "off",
+    "no-global-import": "off",
+    "max-states-count": "off",
+    "ordering": "off",
+    "one-contract-per-file": "off"
+  }
+}

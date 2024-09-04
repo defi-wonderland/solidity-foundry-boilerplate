@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "ordering": "off",
+    "style-guide-casing": [
+      "warn",
+      {
+        "ignoreExternalFunctions": true
+      }
+    ]
+  }
+}

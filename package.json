@@ -15,11 +15,10 @@
     "coverage": "forge coverage --report summary --report lcov --match-path 'test/unit/*'",
     "deploy:mainnet": "bash -c 'source .env && forge script Deploy -vvvvv --rpc-url $MAINNET_RPC --broadcast --chain mainnet --private-key $MAINNET_DEPLOYER_PK'",
     "deploy:sepolia": "bash -c 'source .env && forge script Deploy -vvvvv --rpc-url $SEPOLIA_RPC --broadcast --chain sepolia --private-key $SEPOLIA_DEPLOYER_PK'",
-    "lint:check": "yarn lint:sol-tests && yarn lint:sol-logic && forge fmt --check",
-    "lint:fix": "sort-package-json && forge fmt && yarn lint:sol-tests --fix && yarn lint:sol-logic --fix",
+    "lint:check": "yarn lint:sol && forge fmt --check",
+    "lint:fix": "sort-package-json && forge fmt && yarn lint:sol --fix",
     "lint:natspec": "npx @defi-wonderland/natspec-smells --config natspec-smells.config.js",
-    "lint:sol-logic": "solhint -c .solhint.json 'src/**/*.sol' 'script/**/*.sol'",
-    "lint:sol-tests": "solhint -c .solhint.tests.json 'test/**/*.sol'",
+    "lint:sol": "solhint 'src/**/*.sol' 'script/**/*.sol' 'test/**/*.sol'",
     "prepare": "husky install",
     "test": "forge test -vvv",
     "test:fuzz": "echidna test/invariants/fuzz/Greeter.t.sol --contract InvariantGreeter --corpus-dir test/invariants/fuzz/echidna_coverage/ --test-mode assertion",
@@ -30,8 +29,7 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "forge fmt",
-    "(src|script)/**/*.sol": "yarn lint:sol-logic",
-    "test/**/*.sol": "yarn lint:sol-tests",
+    "(src|test|script)/**/*.sol": "yarn lint:sol",
     "package.json": "sort-package-json"
   },
   "devDependencies": {
