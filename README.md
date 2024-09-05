@@ -104,7 +104,13 @@ yarn coverage
 
 ### Setup
 
-Configure the `.env` variables.
+```bash
+cast wallet import MAINNET_DEPLOYER --interactive
+```
+
+```bash
+cast wallet import SEPOLIA_DEPLOYER --interactive
+```
 
 ### Sepolia
 
