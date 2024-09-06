@@ -104,12 +104,20 @@ yarn coverage
 
 ### Setup
 
+Configure the `.env` variables and source them:
+
 ```bash
-cast wallet import MAINNET_DEPLOYER --interactive
+source .env
+```
+
+Import your private keys into Foundry's encrypted keystore:
+
+```bash
+cast wallet import $MAINNET_DEPLOYER --interactive
 ```
 
 ```bash
-cast wallet import SEPOLIA_DEPLOYER --interactive
+cast wallet import $SEPOLIA_DEPLOYER --interactive
 ```
 
 ### Sepolia
