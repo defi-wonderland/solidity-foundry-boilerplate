@@ -1,4 +1,4 @@
-Greeter::constructor
+UnitGreeter::constructor
 ├── when passing valid greeting string
 │   ├── it deploys
 │   ├── it sets the greeting string
@@ -8,13 +8,13 @@ Greeter::constructor
     └── it reverts
 
 
-Greeter::greet
+UnitGreeter::greet
 └── when called
     ├── it returns the greeting string
     └── it returns the token balance of the contract
 
 
-Greeter::setGreeting
+UnitGreeter::setGreeting
 ├── when called by the owner
 │   ├── when passing a valid greeting string
 │   │   ├── it sets the greeting string
