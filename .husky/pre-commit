@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 # 1. Build the contracts
 # 2. Stage build output 
 # 3. Lint and stage style improvements 
