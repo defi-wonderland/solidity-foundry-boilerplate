@@ -20,7 +20,7 @@
     "lint:natspec": "npx @defi-wonderland/natspec-smells --config natspec-smells.config.js",
     "lint:sol-logic": "solhint -c .solhint.json 'src/**/*.sol' 'script/**/*.sol'",
     "lint:sol-tests": "solhint -c .solhint.tests.json 'test/**/*.sol'",
-    "prepare": "husky install",
+    "prepare": "husky",
     "test": "forge test -vvv",
     "test:fuzz": "echidna test/invariants/fuzz/Greeter.t.sol --contract InvariantGreeter --corpus-dir test/invariants/fuzz/echidna_coverage/ --test-mode assertion",
     "test:integration": "forge test --match-contract Integration -vvv",
@@ -40,7 +40,7 @@
     "@defi-wonderland/natspec-smells": "1.1.3",
     "forge-std": "github:foundry-rs/forge-std#1.9.2",
     "halmos-cheatcodes": "github:a16z/halmos-cheatcodes#c0d8655",
-    "husky": ">=8",
+    "husky": ">=9",
     "lint-staged": ">=10",
     "solhint-community": "4.0.0",
     "sort-package-json": "2.10.0"
