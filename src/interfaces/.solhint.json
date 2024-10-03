@@ -1,6 +1,6 @@
 {
   "rules": {
-    "ordering": "off",
+    "ordering": "warn",
     "style-guide-casing": [
       "warn",
       {
