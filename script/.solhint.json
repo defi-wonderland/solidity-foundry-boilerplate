@@ -1,0 +1,7 @@
+{
+  "rules": {
+    "ordering": "off",
+    "one-contract-per-file": "off",
+    "no-console": "off"
+  }
+}
