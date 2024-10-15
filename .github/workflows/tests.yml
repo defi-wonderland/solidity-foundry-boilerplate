@@ -63,6 +63,22 @@ jobs:
 
       - name: Run tests
         run: yarn test:integration
+  medusa-tests:
+    name: Medusa Test
+    runs-on: ubuntu-latest
+    container: ghcr.io/defi-wonderland/eth-security-toolbox-ci:initial-branch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Run Medusa
+        run: medusa fuzz --timeout 100
 
   halmos-tests:
     name: Run symbolic execution tests
