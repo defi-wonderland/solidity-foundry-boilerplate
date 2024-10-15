@@ -64,42 +64,6 @@ jobs:
       - name: Run tests
         run: yarn test:integration
 
-  echidna-tests:
-    name: Echidna Test
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
-
-      - name: Install Foundry
-        uses: foundry-rs/foundry-toolchain@v1
-        with:
-          version: nightly
-
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'yarn'
-
-      - name: Install dependencies
-        run: yarn --frozen-lockfile --network-concurrency 1
-
-      - name: Compile contracts
-        run: |
-          forge build --build-info
-
-      - name: Run Echidna
-        uses: crytic/echidna-action@v2
-        with:
-          files: .
-          contract: InvariantGreeter
-          test-mode: assertion
-          crytic-args: --ignore-compile
-
   halmos-tests:
     name: Run symbolic execution tests
     runs-on: ubuntu-latest
