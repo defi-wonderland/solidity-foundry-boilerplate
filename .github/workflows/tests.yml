@@ -66,7 +66,7 @@ jobs:
   medusa-tests:
     name: Medusa Test
     runs-on: ubuntu-latest
-    container: ghcr.io/defi-wonderland/eth-security-toolbox-ci:initial-branch
+    container: ghcr.io/defi-wonderland/eth-security-toolbox-ci:latest
 
     steps:
       - name: Checkout repository
@@ -78,7 +78,7 @@ jobs:
         run: yarn --frozen-lockfile --network-concurrency 1
 
       - name: Run Medusa
-        run: medusa fuzz --timeout 100
+        run: medusa fuzz --test-limit 200000
 
   halmos-tests:
     name: Run symbolic execution tests
