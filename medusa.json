@@ -12,7 +12,7 @@
 			"html",
 			"lcov"
 		],
-		"targetContracts": ["InvariantGreeter"],
+		"targetContracts": ["FuzzTest"],
 		"predeployedContracts": {},
 		"targetContractsBalances": [],
 		"constructorArgs": {},
@@ -75,7 +75,7 @@
 	"compilation": {
 		"platform": "crytic-compile",
 		"platformConfig": {
-			"target": "test/invariants/fuzz/Greeter.t.sol",
+			"target": "test/invariants/fuzz/FuzzTest.t.sol",
 			"solcVersion": "",
 			"exportDirectory": "",
 			"args": []
