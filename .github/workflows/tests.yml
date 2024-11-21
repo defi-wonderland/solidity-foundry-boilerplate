@@ -31,7 +31,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
-      - name: Precompile using 0.8.14 and via-ir=false
+      - name: Precompile
         run: yarn build
 
       - name: Run tests
@@ -58,7 +58,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
-      - name: Precompile using 0.8.14 and via-ir=false
+      - name: Precompile
         run: yarn build
 
       - name: Run tests
@@ -120,7 +120,7 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
-      - name: Precompile with via-ir=false
+      - name: Precompile
         run: yarn build
 
       - name: Run tests
