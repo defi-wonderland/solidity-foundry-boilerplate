@@ -21,7 +21,7 @@
     "lint:sol": "solhint 'src/**/*.sol' 'script/**/*.sol' 'test/**/*.sol'",
     "prepare": "husky",
     "test": "forge test -vvv",
-    "test:fuzz": "echidna test/invariants/fuzz/Greeter.t.sol --contract InvariantGreeter --corpus-dir test/invariants/fuzz/echidna_coverage/ --test-mode assertion",
+    "test:fuzz": "medusa fuzz",
     "test:integration": "forge test --match-contract Integration -vvv",
     "test:symbolic": "halmos",
     "test:unit": "forge test --match-contract Unit -vvv",
