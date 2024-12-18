@@ -1,0 +1,91 @@
+name: Foundry Reports
+
+on: workflow_dispatch
+
+concurrency:
+   group: ${{github.workflow}}-${{github.ref}}
+   cancel-in-progress: true
+
+env:
+  MAINNET_RPC: ${{ secrets.MAINNET_RPC }}
+  SEPOLIA_RPC: ${{ secrets.SEPOLIA_RPC }}
+
+jobs:
+  generate-gas-report:
+    name: Gas Reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Generate Gas Report
+        run: forge test --gas-report > gas-report.txt
+
+      - name: Trim Gas Report
+        run: grep '^|' gas-report.txt > temp && mv temp gas-report.txt
+
+      - name: Upload Gas Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: gas-report
+          path: gas-report.txt
+
+  generate-coverage-report:
+    name: Test Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: nightly
+
+      - name: Install Node
+        uses: actions/setup-node@v4
+        with:
+          registry-url: 'https://registry.npmjs.org'
+          node-version: 18.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Generate Test Coverage Table
+        run: forge coverage > coverage-report.txt
+
+      - name: Trim Coverage Report
+        run: grep '^|' coverage-report.txt > temp && mv temp coverage-report.txt
+
+      - name: Upload Test Coverage Table
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-coverage-report
+          path: coverage-report.txt
+    
+      - name: Generate LCOV Test Coverage Report
+        run: forge coverage --report lcov 
+    
+      - name: Upload LCOV Test Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: lcov-coverage-report
+          path: lcov.info
+    
