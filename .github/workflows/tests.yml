@@ -63,6 +63,7 @@ jobs:
 
       - name: Run tests
         run: yarn test:integration
+
   medusa-tests:
     name: Medusa Test
     runs-on: ubuntu-latest
