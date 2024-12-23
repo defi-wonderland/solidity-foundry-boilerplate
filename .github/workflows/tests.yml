@@ -67,7 +67,7 @@ jobs:
   medusa-tests:
     name: Medusa Test
     runs-on: ubuntu-latest
-    container: ghcr.io/trailofbits/eth-security-toolbox/ci:testing-dev
+    container: ghcr.io/trailofbits/eth-security-toolbox/ci:nightly-20241223
 
     steps:
       - name: Checkout repository
