@@ -64,6 +64,23 @@ jobs:
       - name: Run tests
         run: yarn test:integration
 
+  medusa-tests:
+    name: Medusa Test
+    runs-on: ubuntu-latest
+    container: ghcr.io/trailofbits/eth-security-toolbox/ci:nightly-20241223
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Run Medusa
+        run: medusa fuzz --test-limit 200000
+
   halmos-tests:
     name: Run symbolic execution tests
     runs-on: ubuntu-latest
