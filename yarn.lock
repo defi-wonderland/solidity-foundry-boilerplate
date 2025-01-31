@@ -181,13 +181,13 @@
     "@types/conventional-commits-parser" "^5.0.0"
     chalk "^5.3.0"
 
-"@defi-wonderland/natspec-smells@1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@defi-wonderland/natspec-smells/-/natspec-smells-1.1.3.tgz#6d4c7e289b24264856170fec33e0cae0c844bd32"
-  integrity sha512-QfZ7uD2bseU/QwQgY8uFrGSD5+a4y1S+GqCNePfmjgRGnEaV7zSFL5FO+zd1GUMtWQNGLgSuRknJMu6DEp3njw==
+"@defi-wonderland/natspec-smells@1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@defi-wonderland/natspec-smells/-/natspec-smells-1.1.6.tgz#5f8e7feaa134bcf70f71b603932221721c38a722"
+  integrity sha512-HTdZLEdBs3UakW0JQZ7vO8pb6YCoU3CPQNfLxa0Z9PWAwmgKhSZJbF8dm/okkJEJGRa0dCoOxviJw5jeK+kDiQ==
   dependencies:
     fast-glob "3.3.2"
-    solc-typed-ast "18.1.6"
+    solc-typed-ast "18.2.4"
     yargs "17.7.2"
 
 "@noble/curves@1.3.0", "@noble/curves@~1.3.0":
@@ -1647,10 +1647,10 @@ slice-ansi@^7.0.0:
     ansi-styles "^6.2.1"
     is-fullwidth-code-point "^5.0.0"
 
-solc-typed-ast@18.1.6:
-  version "18.1.6"
-  resolved "https://registry.yarnpkg.com/solc-typed-ast/-/solc-typed-ast-18.1.6.tgz#997e986583f0fdddb3ddb1960c33d5c63b3f729a"
-  integrity sha512-nBk24fdju+P2xsy32tG6HLqkXI+Tn+W84Fqm5+XD1Xby2/8YLlsMgI3ADoRPhhO7DeWjq/kflm//dGNkEb3ILA==
+solc-typed-ast@18.2.4:
+  version "18.2.4"
+  resolved "https://registry.yarnpkg.com/solc-typed-ast/-/solc-typed-ast-18.2.4.tgz#eecdc23be946c7b93aa9f6fcb75a27954e5ce411"
+  integrity sha512-HTkr6b2WMSJ3pgVRf5us/UWjCvfSlvE1yUcHna+miSPerkyppGnZQaJWqrcECa7ZjxmSV7H2buUDKux9hR4ivg==
   dependencies:
     axios "^1.6.8"
     commander "^12.0.0"
