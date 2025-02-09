@@ -40,7 +40,7 @@
     "halmos-cheatcodes": "github:a16z/halmos-cheatcodes#c0d8655",
     "husky": ">=9",
     "lint-staged": ">=10",
-    "solhint-community": "4.0.0",
+    "solhint-community": "4.0.1",
     "sort-package-json": "2.10.0"
   }
 }
