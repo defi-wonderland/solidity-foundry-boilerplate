@@ -7,6 +7,7 @@ node_modules
 # Foundry files
 cache
 out-via-ir
+lcov.info
 
 # Config files
 .env
