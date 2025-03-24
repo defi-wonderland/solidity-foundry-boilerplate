@@ -22,5 +22,5 @@ broadcast/*/*/*
 out
 crytic-export
 
-# Echidna corpus
-test/invariants/fuzz/echidna_coverage
+# Medusa corpus
+test/invariants/corpus
