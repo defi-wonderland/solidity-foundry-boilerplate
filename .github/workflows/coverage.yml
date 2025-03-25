@@ -3,7 +3,7 @@ name: Coverage Check
 on: [push]
 
 env:
-    COVERAGE_SENSITIVITY_PERCENT: 1
+  COVERAGE_SENSITIVITY_PERCENT: 1
 
 jobs:
   upload-coverage:
@@ -35,7 +35,7 @@ jobs:
         uses: hrishikesh-kadam/setup-lcov@v1
 
       - name: Filter directories
-        run: lcov --remove lcov.info 'test/*' 'script/*' --output-file lcovNew.info --rc lcov_branch_coverage=1 --rc derive_function_end_line=0 --ignore-errors unused
+        run: lcov --remove lcov.info 'test/*' 'script/*' --output-file lcovNew.info --rc branch_coverage=1 --rc derive_function_end_line=0 --ignore-errors unused
 
       - name: Capture coverage output
         id: new-coverage
