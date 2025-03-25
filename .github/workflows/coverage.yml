@@ -3,7 +3,7 @@ name: Coverage Check
 on: [push]
 
 env:
-    COVERAGE_SENSITIVITY_PERCENT: 1
+  COVERAGE_SENSITIVITY_PERCENT: 1
 
 jobs:
   upload-coverage:
