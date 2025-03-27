@@ -21,22 +21,17 @@ contract SymbolicGreeter is SymTest, Test {
     vm.prank(_caller);
 
     // Execution: Halmos cannot use a dynamic-sized array, iterate over multiple string lengths
-    bool _success;
-    for (uint256 i = 1; i < 3; i++) {
-      string memory greeting = svm.createString(i, 'greeting');
-      (_success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
+    for (uint256 i; i < 10; i++) {
+      if (i == 0) {
+        address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
+      } else {
+        string memory greeting = svm.createString(i, 'greeting');
+        address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
+      }
 
       // Output condition check
-      vm.assume(_success); // discard failing calls
       assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
     }
-
-    // Add the empty string (bypass the non-empty check of svm.createString)
-    (_success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
-
-    // Output condition check
-    vm.assume(!_success); // expect call to fail
-    assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
   }
 
   function check_setGreeting_onlyOwnerSetsGreeting(address _caller) public {
