@@ -35,7 +35,7 @@ contract SymbolicGreeter is SymTest, Test {
     (_success,) = address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
 
     // Output condition check
-    vm.assume(_success); // discard failing calls
+    vm.assume(!_success); // expect call to fail
     assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
   }
 
