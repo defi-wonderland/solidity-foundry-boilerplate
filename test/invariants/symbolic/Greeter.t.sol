@@ -22,12 +22,8 @@ contract SymbolicGreeter is SymTest, Test {
 
     // Execution: Halmos cannot use a dynamic-sized array, iterate over multiple string lengths
     for (uint256 i; i < 10; i++) {
-      if (i == 0) {
-        address(targetContract).call(abi.encodeCall(Greeter.setGreeting, ('')));
-      } else {
-        string memory greeting = svm.createString(i, 'greeting');
-        address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
-      }
+      string memory greeting = svm.createString(i, 'greeting');
+      address(targetContract).call(abi.encodeCall(Greeter.setGreeting, (greeting)));
 
       // Output condition check
       assert(keccak256(bytes(targetContract.greeting())) != keccak256(bytes('')));
