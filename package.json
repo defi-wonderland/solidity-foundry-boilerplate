@@ -1,14 +1,10 @@
 {
-  "name": "solidity-foundry-boilerplate",
+  "name": "lensfluence",
   "version": "1.0.0",
-  "description": "Production ready Solidity boilerplate with Foundry",
-  "homepage": "https://github.com/defi-wonderland/solidity-foundry-boilerplate#readme",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/defi-wonderland/solidity-foundry-boilerplate.git"
-  },
+  "description": "Lensfluence",
+ 
   "license": "MIT",
-  "author": "Wonderland",
+  "author": "koaj&thor",
   "scripts": {
     "build": "forge build",
     "build:optimized": "FOUNDRY_PROFILE=optimized forge build",
@@ -33,6 +29,7 @@
     "package.json": "sort-package-json"
   },
   "devDependencies": {
+    "@openzeppelin": "github:OpenZeppelin/openzeppelin-contracts#bcdfa848a6abb37216df861573d9576636e77824",
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
     "forge-std": "github:foundry-rs/forge-std#1.9.2",
