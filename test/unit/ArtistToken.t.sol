@@ -112,22 +112,6 @@ contract ArtistTokenTest is Test {
     token.burn(user, amount);
   }
 
-  function testBurnInsufficientGHOInContract() public {
-    uint256 amount = 100;
-    uint256 pricePerToken = priceEngine.getMintPrice(profileId);
-    uint256 cost = (amount * pricePerToken) / 1e18;
-
-    vm.prank(user);
-    token.mint{value: cost}(user, amount);
-
-    vm.prank(owner);
-    token.withdrawGHO(owner, address(token).balance);
-
-    vm.prank(user);
-    vm.expectRevert('Insufficient GHO in contract');
-    token.burn(user, amount);
-  }
-
   function testSetMaxSupply() public {
     uint256 newMaxSupply = 2_000_000;
     vm.prank(owner);
@@ -153,33 +137,5 @@ contract ArtistTokenTest is Test {
     vm.prank(owner);
     vm.expectRevert('New supply too high');
     token.setMaxSupply(10_000_001);
-  }
-
-  function testWithdrawGHO() public {
-    uint256 amount = 100;
-    uint256 pricePerToken = priceEngine.getMintPrice(profileId);
-    uint256 cost = (amount * pricePerToken) / 1e18;
-
-    vm.prank(user);
-    token.mint{value: cost}(user, amount);
-
-    uint256 ownerBalanceBefore = owner.balance;
-    vm.prank(owner);
-    token.withdrawGHO(owner, cost);
-
-    assertEq(address(token).balance, 0);
-    assertApproxEqAbs(owner.balance, ownerBalanceBefore + cost, 1 wei);
-  }
-
-  function testWithdrawGHOInsufficientBalance() public {
-    vm.prank(owner);
-    vm.expectRevert('Insufficient balance');
-    token.withdrawGHO(owner, 1 ether);
-  }
-
-  function testWithdrawGHONonOwner() public {
-    vm.prank(user);
-    vm.expectRevert();
-    token.withdrawGHO(user, 1 ether);
   }
 }

@@ -6,5 +6,4 @@ interface IPriceEngine {
   function getMintPrice(uint256 profileId) external view returns (uint256);
   function updateMetricsAndSI(uint256 profileId) external;
   function calculatePrices(uint256[] calldata profileIds) external returns (uint256[] memory);
-  function distributePayments(uint256[] calldata profileIds, uint256[] calldata prices) external;
 }

@@ -138,17 +138,4 @@ contract PriceEngine is Ownable, IPriceEngine {
     prevYtSubscribers[profileId] = ytSubscribers;
     prevYtVideos[profileId] = ytVideos;
   }
-
-  function distributePayments(uint256[] calldata profileIds, uint256[] calldata prices) external override onlyOwner {
-    uint256 totalPaid = 0;
-    for (uint256 i = 0; i < profileIds.length; i++) {
-      address token = factory.profileIdToToken(profileIds[i]);
-      uint256 supply = IERC20(token).totalSupply();
-      uint256 payment = prices[i].mulDiv(supply, 1e18);
-      totalPaid += payment;
-      payable(Ownable(token).owner()).transfer(payment);
-    }
-    require(totalPaid <= treasuryGHO, 'Insufficient Treasury');
-    treasuryGHO -= totalPaid;
-  }
 }

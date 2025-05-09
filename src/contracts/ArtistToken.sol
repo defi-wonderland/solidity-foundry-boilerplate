@@ -56,9 +56,4 @@ contract ArtistToken is ERC20, Ownable, IArtistToken {
     maxSupply = newMaxSupply;
     emit MaxSupplyUpdated(newMaxSupply);
   }
-
-  function withdrawGHO(address to, uint256 amount) external override onlyOwner {
-    require(amount <= address(this).balance, 'Insufficient balance');
-    payable(to).transfer(amount);
-  }
 }

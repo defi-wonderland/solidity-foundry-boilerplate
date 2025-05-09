@@ -8,6 +8,8 @@ import '../../src/contracts/PriceEngine.sol';
 import '../../src/mocks/MockFollowNFT.sol';
 import '../../src/mocks/MockLensHub.sol';
 import '../../src/mocks/MockOracle.sol';
+
+import '@openzeppelin/contracts/access/Ownable.sol';
 import 'forge-std/Test.sol';
 
 contract ArtistTokenFactoryTest is Test {
@@ -77,7 +79,7 @@ contract ArtistTokenFactoryTest is Test {
 
   function testCreateArtistTokenNonOwner() public {
     vm.prank(nonOwner);
-    vm.expectRevert('Ownable: caller is not the owner');
+    vm.expectRevert(abi.encodeWithSelector(Ownable.OwnableUnauthorizedAccount.selector, nonOwner));
     factory.createArtistToken(profileId, 'Test Token', 'TST', 1_000_000, address(priceEngine));
   }
 }
