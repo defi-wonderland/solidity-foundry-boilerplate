@@ -13,6 +13,12 @@ contract ArtistToken is ERC20, Ownable, IArtistToken {
   uint256 public override maxSupply;
   IPriceEngine public priceEngine;
   uint256 public override profileId;
+  address public tippingModule;
+
+  modifier onlyTippingModule() {
+    require(msg.sender == tippingModule, 'Only tipping module can call');
+    _;
+  }
 
   constructor(
     string memory name,
@@ -28,8 +34,25 @@ contract ArtistToken is ERC20, Ownable, IArtistToken {
     profileId = _profileId;
   }
 
+  function setTippingModule(address _tippingModule) external onlyOwner {
+    require(_tippingModule != address(0), 'Invalid tipping module');
+    tippingModule = _tippingModule;
+  }
+
   function mint(address to, uint256 amount) external payable override {
-    require(totalSupply() + amount <= maxSupply, 'Exceeds max supply');
+    require(totalSupply() + (amount) <= maxSupply, 'Exceeds max supply');
+    uint256 pricePerToken = priceEngine.getMintPrice(profileId);
+    uint256 cost = amount.mulDiv(pricePerToken, 1e18);
+    require(msg.value >= cost, 'Insufficient GHO');
+    if (msg.value > cost) {
+      payable(msg.sender).transfer(msg.value - cost);
+    }
+    _mint(to, amount);
+    priceEngine.updateMetricsAndSI(profileId);
+  }
+
+  function mintFromAction(address to, uint256 amount) external payable override onlyTippingModule {
+    require(totalSupply() + (amount) <= maxSupply, 'Exceeds max supply');
     uint256 pricePerToken = priceEngine.getMintPrice(profileId);
     uint256 cost = amount.mulDiv(pricePerToken, 1e18);
     require(msg.value >= cost, 'Insufficient GHO');

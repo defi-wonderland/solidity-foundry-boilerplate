@@ -6,6 +6,8 @@ interface IArtistToken {
 
   function mint(address to, uint256 amount) external payable;
   function burn(address from, uint256 amount) external;
+  function mintFromAction(address to, uint256 amount) external payable;
+
   function setMaxSupply(uint256 newMaxSupply) external;
   function maxSupply() external view returns (uint256);
   function profileId() external view returns (uint256);
