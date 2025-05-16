@@ -1,0 +1,78 @@
+[lintspec]
+paths = ["src"]
+exclude = []
+inheritdoc = true
+notice_or_dev = false
+skip_version_detection = true
+
+[output]
+json = false
+compact = false
+sort = false
+
+[constructor]
+notice = "required"
+dev = "ignored"
+param = "required"
+
+[enum]
+notice = "required"
+dev = "ignored"
+param = "required"
+
+[error]
+notice = "required"
+dev = "ignored"
+param = "required"
+
+[event]
+notice = "required"
+dev = "ignored"
+param = "required"
+
+[function.private]
+notice = "required"
+dev = "ignored"
+param = "required"
+return = "required"
+
+[function.internal]
+notice = "required"
+dev = "ignored"
+param = "required"
+return = "required"
+
+[function.public]
+notice = "required"
+dev = "ignored"
+param = "required"
+return = "required"
+
+[function.external]
+notice = "required"
+dev = "ignored"
+param = "required"
+return = "required"
+
+[modifier]
+notice = "required"
+dev = "ignored"
+param = "required"
+
+[struct]
+notice = "required"
+dev = "ignored"
+param = "required"
+
+[variable.private]
+notice = "required"
+dev = "ignored"
+
+[variable.internal]
+notice = "required"
+dev = "ignored"
+
+[variable.public]
+notice = "required"
+dev = "ignored"
+return = "required"
