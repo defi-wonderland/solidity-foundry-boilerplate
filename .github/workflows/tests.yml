@@ -138,8 +138,13 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile --network-concurrency 1
 
-      - name: Run solhint and forge-fmt
+      - name: Run Forge formatter and Solhint
         run: yarn lint:check
 
       - name: Run lintspec
         run: yarn lint:natspec
+
+      - name: Install and run Bulloak
+        uses: smol-ninja/bulloak-toolchain@v1
+        with:
+          test-dir: 'test/unit'

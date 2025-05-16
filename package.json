@@ -15,8 +15,9 @@
     "coverage": "forge coverage --report summary --report lcov --match-path 'test/unit/*'",
     "deploy:mainnet": "bash -c 'source .env && forge script Deploy --rpc-url $MAINNET_RPC --account $MAINNET_DEPLOYER_NAME --broadcast --verify --chain mainnet -vvvvv'",
     "deploy:sepolia": "bash -c 'source .env && forge script Deploy --rpc-url $SEPOLIA_RPC --account $SEPOLIA_DEPLOYER_NAME --broadcast --verify --chain sepolia -vvvvv'",
-    "lint:check": "yarn lint:sol && forge fmt --check",
-    "lint:fix": "sort-package-json && forge fmt && yarn lint:sol --fix",
+    "lint:bulloak": "find test/unit -name '*.tree' | xargs bulloak check",
+    "lint:check": "forge fmt --check && yarn lint:sol",
+    "lint:fix": "forge fmt && yarn lint:sol --fix && sort-package-json",
     "lint:natspec": "lintspec src -f variable",
     "lint:sol": "solhint 'src/**/*.sol' 'script/**/*.sol' 'test/**/*.sol'",
     "prepare": "husky",
@@ -29,7 +30,8 @@
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "forge fmt",
-    "(src|test|script)/**/*.sol": "yarn lint:sol",
+    "(src|script|test)/**/*.sol": "yarn lint:sol --fix",
+    "test/unit/**/*.{t.sol,tree}": "yarn lint:bulloak",
     "package.json": "sort-package-json"
   },
   "devDependencies": {
