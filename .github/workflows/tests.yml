@@ -108,7 +108,7 @@ jobs:
         run: yarn test:integration
 
   lint:
-    name: Lint Commit Messages
+    name: Static Analysis
     runs-on: ubuntu-latest
 
     steps:
