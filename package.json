@@ -31,7 +31,7 @@
     "*.{js,css,md,ts,sol}": "forge fmt",
     "(src|script|test)/**/*.sol": "yarn lint:sol --fix",
     "src/**/*.sol": "lintspec",
-    "test/unit/**/*.{t.sol,tree}": "yarn lint:bulloak",
+    "test/unit/**/*.tree": "yarn lint:bulloak",
     "package.json": "sort-package-json"
   },
   "devDependencies": {
