@@ -19,6 +19,13 @@ interface IGreeter {
    */
   event GreetingSet(string _greeting);
 
+  /**
+   * @notice Greet has been called
+   * @param _greeting The greeting
+   * @param _balance Current token balance of the caller
+   */
+  event Greeting(string _greeting, uint256 _balance);
+
   /*///////////////////////////////////////////////////////////////
                             ERRORS
   //////////////////////////////////////////////////////////////*/
@@ -44,16 +51,16 @@ interface IGreeter {
   function OWNER() external view returns (address _owner);
 
   /**
+   * @notice Returns the token used to greet callers
+   * @return _token The address of the token
+   */
+  function TOKEN() external view returns (IERC20 _token);
+
+  /**
    * @notice Returns the previously set greeting
    * @return _greet The greeting
    */
   function greeting() external view returns (string memory _greet);
-
-  /**
-   * @notice Returns the token used to greet callers
-   * @return _token The address of the token
-   */
-  function token() external view returns (IERC20 _token);
 
   /*///////////////////////////////////////////////////////////////
                             LOGIC
@@ -68,7 +75,7 @@ interface IGreeter {
   /**
    * @notice Greets the caller
    * @return _greeting The greeting
-   * @return _balance  Current token balance of the caller
+   * @return _balance Current token balance of the caller
    */
-  function greet() external view returns (string memory _greeting, uint256 _balance);
+  function greet() external returns (string memory _greeting, uint256 _balance);
 }

@@ -20,7 +20,7 @@ contract Deploy is Script {
 
     // Sepolia
     _deploymentParams[11_155_111] =
-      DeploymentParams('Hello, Sepolia!', IERC20(0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6));
+      DeploymentParams('Hello, Sepolia!', IERC20(0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14));
   }
 
   function run() public {

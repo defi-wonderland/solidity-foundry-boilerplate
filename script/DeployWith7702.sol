@@ -20,18 +20,25 @@ contract DeployWith7702 is Script {
 
     // Sepolia
     _deploymentParams[11_155_111] =
-      DeploymentParams('Hello, Sepolia!', IERC20(0xB4FBF271143F4FBf7B91A5ded31805e42b2208d6));
+      DeploymentParams('Hello, Sepolia!', IERC20(0xfFf9976782d46CC05630D1f6eBAb18b2324d6B14));
   }
 
   function run() public {
     DeploymentParams memory _params = _deploymentParams[block.chainid];
 
-    /// @notice Must use private key given the signAndAttachDelegation cheatcode
-    uint256 _deployerPrivateKey = vm.envUint('DEPLOYER_PK');
-    vm.startBroadcast(_deployerPrivateKey);
-    address _greeter = address(new Greeter(_params.greeting, _params.token));
-    /// @notice Signs and attaches the delegation in one step
-    vm.signAndAttachDelegation(_greeter, _deployerPrivateKey);
+    /// @notice Must use private key for delegator given the signAndAttachDelegation cheatcode below
+    uint256 _delegatorPrivateKey = vm.envUint('DELEGATOR_PK');
+    address _delegator = vm.addr(_delegatorPrivateKey);
+
+    /// @notice Deployer deploys Greeter contract
+    vm.startBroadcast();
+    Greeter _greeter = new Greeter(_params.greeting, _params.token);
+
+    /// @notice Delegator signs and attaches the delegation in one step
+    vm.signAndAttachDelegation(address(_greeter), _delegatorPrivateKey);
+
+    /// @notice Deployer calls greet through the delegator (using 7702 delegation)
+    Greeter(_delegator).greet();
     vm.stopBroadcast();
   }
 }
