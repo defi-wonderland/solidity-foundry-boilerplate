@@ -15,10 +15,10 @@ contract Greeter is IGreeter {
   address public immutable OWNER;
 
   /// @inheritdoc IGreeter
-  string public greeting;
+  IERC20 public immutable TOKEN;
 
   /// @inheritdoc IGreeter
-  IERC20 public token;
+  string public greeting;
 
   /**
    * @notice Reverts in case the function was not called by the owner of the contract
@@ -37,14 +37,15 @@ contract Greeter is IGreeter {
    */
   constructor(string memory _greeting, IERC20 _token) {
     OWNER = msg.sender;
-    token = _token;
+    TOKEN = _token;
     setGreeting(_greeting);
   }
 
   /// @inheritdoc IGreeter
-  function greet() external view returns (string memory _greeting, uint256 _balance) {
+  function greet() external returns (string memory _greeting, uint256 _balance) {
     _greeting = greeting;
-    _balance = token.balanceOf(msg.sender);
+    _balance = TOKEN.balanceOf(msg.sender);
+    emit Greeting(_greeting, _balance);
   }
 
   /// @inheritdoc IGreeter
