@@ -3,6 +3,8 @@ pragma solidity 0.8.23;
 
 import {Greeter} from 'contracts/Greeter.sol';
 import {Script} from 'forge-std/Script.sol';
+
+import {Vm} from 'forge-std/Vm.sol';
 import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 contract DeployWith7702 is Script {
@@ -30,12 +32,15 @@ contract DeployWith7702 is Script {
     uint256 _delegatorPrivateKey = vm.envUint('DELEGATOR_PK');
     address _delegator = vm.addr(_delegatorPrivateKey);
 
-    /// @notice Deployer deploys Greeter contract
+    /// @notice Uses Deployer's account to deploy the contract and interact with Delegator's address
     vm.startBroadcast();
+
+    /// @notice Deployer deploys Greeter contract
     Greeter _greeter = new Greeter(_params.greeting, _params.token);
 
     /// @notice Delegator signs and attaches the delegation in one step
-    vm.signAndAttachDelegation(address(_greeter), _delegatorPrivateKey);
+    Vm.SignedDelegation memory signedDelegation = vm.signDelegation(address(_greeter), _delegatorPrivateKey);
+    vm.attachDelegation(signedDelegation);
 
     /// @notice Deployer calls greet through the delegator (using 7702 delegation)
     Greeter(_delegator).greet();
