@@ -40,7 +40,7 @@ contract UnitGreeter is Test {
     assertEq(_greeter.OWNER(), _owner);
 
     // it sets the token used
-    assertEq(address(_greeter.token()), address(_token));
+    assertEq(address(_greeter.TOKEN()), address(_token));
   }
 
   function test_ConstructorWhenPassingAnEmptyGreetingString() external {

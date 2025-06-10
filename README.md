@@ -123,14 +123,26 @@ cast wallet import $SEPOLIA_DEPLOYER_NAME --interactive
 
 ### Sepolia
 
+Standard deployment command
 ```bash
 yarn deploy:sepolia
 ```
 
+EIP7702 Delegation deployment command
+```bash
+yarn deployWith7702:sepolia
+```
+
 ### Mainnet
 
+Standard deployment command
 ```bash
 yarn deploy:mainnet
+```
+
+EIP7702 Delegation deployment command
+```bash
+yarn deployWith7702:mainnet
 ```
 
 The deployments are stored in ./broadcast
