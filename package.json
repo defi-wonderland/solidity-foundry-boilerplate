@@ -18,6 +18,7 @@
     "lint:bulloak": "find test/unit -name '*.tree' | xargs bulloak check",
     "lint:check": "forge fmt --check && yarn lint:sol",
     "lint:fix": "forge fmt && yarn lint:sol --fix && sort-package-json",
+    "lint:natspec": "lintspec",
     "lint:sol": "solhint 'src/**/*.sol' 'script/**/*.sol' 'test/**/*.sol'",
     "prepare": "husky",
     "test": "forge test -vvv",

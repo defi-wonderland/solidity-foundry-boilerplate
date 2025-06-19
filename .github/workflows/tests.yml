@@ -136,7 +136,7 @@ jobs:
         run: yarn lint:check
 
       - name: Install and run Lintspec
-        uses: beeb/lintspec@v0.5.0
+        uses: beeb/lintspec@v0.6.0
 
       - name: Install and run Bulloak
         uses: smol-ninja/bulloak-toolchain@v1
