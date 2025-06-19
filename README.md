@@ -6,6 +6,14 @@
 
 <br />
 
+## Quick Start
+
+Quickly bootstrap your next Foundry project using this template by running the following command:
+
+```bash
+forge init --template defi-wonderland/solidity-foundry-boilerplate
+```
+
 ## Features
 
 <dl>
