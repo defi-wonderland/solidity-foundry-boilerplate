@@ -5,6 +5,7 @@ on: [push]
 
 jobs:
   natspec:
+    name: Run Lintspec
     runs-on: ubuntu-latest
 
     steps:
