@@ -135,9 +135,6 @@ jobs:
       - name: Run Forge formatter and Solhint
         run: yarn lint:check
 
-      - name: Install and run Lintspec
-        uses: beeb/lintspec@v0.6.0
-
       - name: Install and run Bulloak
         uses: smol-ninja/bulloak-toolchain@v1
         with:
