@@ -1,6 +1,7 @@
 name: Natspec Check
 
-on: workflow_dispatch
+# on: workflow_dispatch
+on: [push]
 
 jobs:
   natspec:
