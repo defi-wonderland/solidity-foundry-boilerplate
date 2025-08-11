@@ -110,7 +110,7 @@ yarn test:bulloak:scaffold
 In order to fix or add missing tests to a `.t.sol` file after changing a `.tree` bulloak file, run:
 
 ```bash
-yarn test:bulloack:fix
+yarn test:bulloak:fix
 ```
 
 <br>
