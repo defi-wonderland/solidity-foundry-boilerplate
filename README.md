@@ -101,6 +101,18 @@ In order to check your current code coverage, run:
 yarn coverage
 ```
 
+In order to create a new `.t.sol` file from a `.tree` bulloak file, run:
+
+```bash
+yarn test:bulloak:scaffold
+```
+
+In order to fix or add missing tests to a `.t.sol` file after changing a `.tree` bulloak file, run:
+
+```bash
+yarn test:bulloack:fix
+```
+
 <br>
 
 ## Deploy & verify
