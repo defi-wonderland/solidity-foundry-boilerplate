@@ -43,7 +43,7 @@
     "husky": ">=9",
     "lint-staged": ">=10",
     "solhint-community": "4.0.1",
-    "solhint-config-wonderland": "0.0.0",
+    "solhint-config-wonderland": "0.0.1",
     "sort-package-json": "2.10.0"
   }
 }

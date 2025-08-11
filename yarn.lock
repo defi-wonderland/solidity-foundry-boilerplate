@@ -1266,6 +1266,11 @@ solhint-community@4.0.1:
   optionalDependencies:
     prettier "^2.8.3"
 
+solhint-config-wonderland@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/solhint-config-wonderland/-/solhint-config-wonderland-0.0.1.tgz#184f7703e181f108517c6abb8b8f144f42927733"
+  integrity sha512-VyIbo6+gSw2XH/j9s3c2zJdpq+gYmOrSCzbU2zg+USponXwRfk/kJ1DGT/p+lENAYQOwddMlRR/GrvuD9CIPbg==
+
 sort-object-keys@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/sort-object-keys/-/sort-object-keys-1.1.3.tgz#bff833fe85cab147b34742e45863453c1e190b45"
