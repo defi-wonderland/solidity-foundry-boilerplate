@@ -26,7 +26,9 @@
     "test:integration": "forge test --match-contract Integration -vvv",
     "test:symbolic": "halmos",
     "test:unit": "forge test --match-contract Unit -vvv",
-    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit"
+    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit",
+    "test:bulloak:fix": "bulloak check --fix ./**/*.tree",
+    "test:bulloak:scaffold": "bulloak scaffold -wS ./**/*.tree"
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "forge fmt",
