@@ -1,14 +1,3 @@
 {
-  "extends": "solhint:recommended",
-  "rules": {
-    "compiler-version": ["warn"],
-    "quotes": "off",
-    "func-visibility": ["warn", { "ignoreConstructors": true }],
-    "no-inline-assembly": "off",
-    "no-empty-blocks": "off",
-    "private-vars-leading-underscore": ["warn", { "strict": false }],
-    "ordering": "warn",
-    "avoid-low-level-calls": "off",
-    "named-parameters-mapping": "warn"
-  }
+  "extends": "wonderland"
 }
