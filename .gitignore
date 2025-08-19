@@ -21,6 +21,3 @@ broadcast/*/*/*
 # Out dir
 out
 crytic-export
-
-# Medusa corpus
-test/invariants/corpus

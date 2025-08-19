@@ -696,10 +696,6 @@ globby@^13.1.2:
     merge2 "^1.4.1"
     slash "^4.0.0"
 
-"halmos-cheatcodes@github:a16z/halmos-cheatcodes#c0d8655":
-  version "0.0.0"
-  resolved "https://codeload.github.com/a16z/halmos-cheatcodes/tar.gz/c0d865508c0fee0a11b97732c5e90f9cad6b65a5"
-
 has-flag@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/has-flag/-/has-flag-3.0.0.tgz#b5d454dc2199ae225699f3467e5a07f3b955bafd"
