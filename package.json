@@ -22,13 +22,13 @@
     "lint:sol": "solhint 'src/**/*.sol' 'script/**/*.sol' 'test/**/*.sol'",
     "prepare": "husky",
     "test": "forge test -vvv",
+    "test:bulloak:fix": "bulloak check --fix ./**/*.tree",
+    "test:bulloak:scaffold": "bulloak scaffold -wS ./**/*.tree",
     "test:fuzz": "medusa fuzz",
     "test:integration": "forge test --match-contract Integration -vvv",
     "test:symbolic": "halmos",
     "test:unit": "forge test --match-contract Unit -vvv",
-    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit",
-    "test:bulloak:fix": "bulloak check --fix ./**/*.tree",
-    "test:bulloak:scaffold": "bulloak scaffold -wS ./**/*.tree"
+    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit"
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "forge fmt",
@@ -43,9 +43,9 @@
     "forge-std": "github:foundry-rs/forge-std#1.9.2",
     "halmos-cheatcodes": "github:a16z/halmos-cheatcodes#c0d8655",
     "husky": ">=9",
-    "lint-staged": ">=10",
+    "lint-staged": ">=16",
     "solhint-community": "4.0.1",
     "solhint-config-wonderland": "0.0.1",
-    "sort-package-json": "2.10.0"
+    "sort-package-json": "3.4.0"
   }
 }
