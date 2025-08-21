@@ -24,9 +24,7 @@
     "test": "forge test -vvv",
     "test:bulloak:fix": "bulloak check --fix ./**/*.tree",
     "test:bulloak:scaffold": "bulloak scaffold -wS ./**/*.tree",
-    "test:fuzz": "medusa fuzz",
     "test:integration": "forge test --match-contract Integration -vvv",
-    "test:symbolic": "halmos",
     "test:unit": "forge test --match-contract Unit -vvv",
     "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit"
   },
@@ -41,7 +39,6 @@
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
     "forge-std": "github:foundry-rs/forge-std#1.9.2",
-    "halmos-cheatcodes": "github:a16z/halmos-cheatcodes#c0d8655",
     "husky": ">=9",
     "lint-staged": ">=16",
     "solhint-community": "4.0.1",
