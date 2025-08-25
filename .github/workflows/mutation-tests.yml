@@ -1,0 +1,46 @@
+name: slither-mutate
+
+on:
+  workflow_dispatch:
+    inputs:
+      contract:
+        description: 'Contract name to mutate (e.g. Greeter)'
+        required: true
+      ref:
+        description: 'git reference (branch/commit) to check out'
+        required: true
+
+concurrency:
+  group: ${{github.workflow}}-${{github.ref}}
+  cancel-in-progress: true
+
+jobs:
+  slither-analyze:
+    name: Run unit tests aganinst mutated contract
+    runs-on: ubuntu-latest
+    container: ghcr.io/trailofbits/eth-security-toolbox/ci:nightly
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref }}
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'yarn'
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --network-concurrency 1
+
+      - name: Precompile
+        run: yarn build
+
+      - name: Run tests
+        shell: bash
+        run: .github/scripts/mutate-contract ${{ github.event.inputs.contract }}
