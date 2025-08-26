@@ -9,7 +9,7 @@ multiline_func_header = 'params_first_multi'
 sort_imports = true
 
 [profile.default]
-solc_version = '0.8.23'
+solc_version = '0.8.30'
 evm_version = 'prague'
 libs = ['node_modules']
 optimizer_runs = 10_000
