@@ -11,7 +11,7 @@ sort_imports = true
 [profile.default]
 solc_version = '0.8.23'
 evm_version = 'prague'
-libs = ['node_modules', 'lib']
+libs = ['node_modules']
 optimizer_runs = 10_000
 
 [profile.optimized]
