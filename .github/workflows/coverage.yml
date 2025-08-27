@@ -5,8 +5,6 @@ on:
 
 env:
   COVERAGE_SENSITIVITY_PERCENT: 1
-  MAINNET_RPC: ${{ secrets.MAINNET_RPC }}
-  SEPOLIA_RPC: ${{ secrets.SEPOLIA_RPC }}
 
 jobs:
   base-coverage:
@@ -89,6 +87,13 @@ jobs:
           name: base-lcov
           path: .
 
+      - name: Normalize base lcov path
+        run: |
+          mkdir -p .coverage-base
+          if [ -f base-lcov.info ]; then
+            cp base-lcov.info .coverage-base/lcov.info
+          fi
+
       - name: Run current branch coverage
         run: yarn coverage
 
@@ -98,6 +103,7 @@ jobs:
       # Updates the comment on every PR push
       - name: Create a comment on the PR with the current branch coverage
         id: new-coverage
+        if: hashFiles('lcov.info') != ''
         uses: zgosalvez/github-actions-report-lcov@v4
         with:
           coverage-files: lcov.info
@@ -106,14 +112,14 @@ jobs:
 
       - name: Compare previous coverage (against base branch)
         run: |
-          if [ -f base-lcov.info ]; then
-            old=$(lcov --summary base-lcov.info 2>/dev/null | awk '/lines\.+:/ {print $2}' | tr -d '%')
+          if [ -f .coverage-base/lcov.info ]; then
+            old=$(lcov --summary .coverage-base/lcov.info 2>/dev/null | awk '/lines\.+:/ {print $2}' | tr -d '%')
           else
             old=0
           fi
-          new_total=${{ steps.new-coverage.outputs.total-coverage }}
-          new=$(awk -v a="$new_total" -v b="${{ env.COVERAGE_SENSITIVITY_PERCENT }}" 'BEGIN{printf "%.2f", a+b}')
+          head="${{ steps.new-coverage.outputs.total-coverage }}"
+          [ -z "$head" ] && head=0
+          new=$(awk -v a="$head" -v b="${{ env.COVERAGE_SENSITIVITY_PERCENT }}" 'BEGIN{printf "%.2f", a+b}')
           if awk "BEGIN {exit !($new < $old)}"; then
-            echo "Coverage decreased from $old to $new"
-            exit 1
+            echo "Coverage decreased from $old to $new"; exit 1
           fi
