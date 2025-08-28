@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      base-coverage: ${{ steps.export-base.outputs.base-coverage }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -35,27 +37,31 @@ jobs:
         id: cache-base
         uses: actions/cache@v4
         with:
-          path: .coverage-base/lcov.info
+          path: total-coverage.txt
           key: coverage-base-${{ github.event.pull_request.base.sha }}
 
       - name: Run base branch coverage
         if: steps.cache-base.outputs.cache-hit != 'true'
         run: yarn coverage
 
-      - name: Prepare cached base lcov
+      - name: Setup LCOV (for base coverage summary)
+        if: steps.cache-base.outputs.cache-hit != 'true'
+        uses: hrishikesh-kadam/setup-lcov@v1
+
+      - name: Prepare cached base total coverage
         if: steps.cache-base.outputs.cache-hit != 'true'
         run: |
-          mkdir -p .coverage-base
-          cp lcov.info .coverage-base/lcov.info
+          total_coverage=$(lcov --summary lcov.info 2>/dev/null | awk '/lines\.+:/ {print $2}' | tr -d '%')
+          echo "$total_coverage" > total-coverage.txt
 
-      - name: Copy artifact file
-        run: cp .coverage-base/lcov.info base-lcov.info
-
-      - name: Upload base lcov as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: base-lcov
-          path: base-lcov.info
+      - name: Export base coverage output
+        id: export-base
+        run: |
+          base=0
+          if [ -f total-coverage.txt ]; then
+            base=$(cat total-coverage.txt | tr -d '%')
+          fi
+          echo "base-coverage=$base" >> "$GITHUB_OUTPUT"
 
   check-coverage:
     name: Check PR coverage
@@ -81,24 +87,21 @@ jobs:
       - name: Install dependencies
         run: yarn --frozen-lockfile
 
-      - name: Download base lcov artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: base-lcov
-          path: .
-
-      - name: Normalize base lcov path
-        run: |
-          mkdir -p .coverage-base
-          if [ -f base-lcov.info ]; then
-            cp base-lcov.info .coverage-base/lcov.info
-          fi
-
       - name: Run current branch coverage
         run: yarn coverage
 
-      - name: Setup LCOV
+      - name: Setup LCOV (for current PR coverage summary)
         uses: hrishikesh-kadam/setup-lcov@v1
+
+      - name: Compute minimum coverage threshold
+        id: compute-min
+        run: |
+          base="${{ needs.base-coverage.outputs.base-coverage }}"
+          sens="${{ env.COVERAGE_SENSITIVITY_PERCENT }}"
+          [ -z "$base" ] && base=0
+          [ -z "$sens" ] && sens=0
+          min=$(awk -v b="$base" -v s="$sens" 'BEGIN{v=b-s; if (v<0) v=0; printf "%.2f", v}')
+          echo "minimum=$min" >> "$GITHUB_OUTPUT"
 
       # Updates the comment on every PR push
       - name: Create a comment on the PR with the current branch coverage
@@ -109,17 +112,4 @@ jobs:
           coverage-files: lcov.info
           github-token: ${{ github.token }}
           update-comment: true
-
-      - name: Compare previous coverage (against base branch)
-        run: |
-          if [ -f .coverage-base/lcov.info ]; then
-            old=$(lcov --summary .coverage-base/lcov.info 2>/dev/null | awk '/lines\.+:/ {print $2}' | tr -d '%')
-          else
-            old=0
-          fi
-          head="${{ steps.new-coverage.outputs.total-coverage }}"
-          [ -z "$head" ] && head=0
-          new=$(awk -v a="$head" -v b="${{ env.COVERAGE_SENSITIVITY_PERCENT }}" 'BEGIN{printf "%.2f", a+b}')
-          if awk "BEGIN {exit !($new < $old)}"; then
-            echo "Coverage decreased from $old to $new"; exit 1
-          fi
+          minimum-coverage: ${{ steps.compute-min.outputs.minimum }}
