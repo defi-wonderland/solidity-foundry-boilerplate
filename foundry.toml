@@ -8,6 +8,9 @@ number_underscore = 'thousands'
 multiline_func_header = 'params_first_multi'
 sort_imports = true
 
+[invariant]
+show_solidity=true
+
 [profile.default]
 solc_version = '0.8.23'
 libs = ['node_modules', 'lib']
