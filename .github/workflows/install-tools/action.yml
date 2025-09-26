@@ -16,4 +16,4 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: yarn --frozen-lockfile --network-concurrency 1
+      run: yarn --frozen-lockfile
