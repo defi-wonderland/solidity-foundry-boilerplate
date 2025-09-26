@@ -27,23 +27,20 @@ contract UnitGreeter is Test {
     vm.skip(true);
   }
 
-  function test_ConstructorWhenPassingValidGreetingString() external {
+  function test_Constructor_WhenPassingValidGreetingString() external {
     vm.prank(_owner);
-
     // it deploys
     _greeter = new Greeter(_initialGreeting, _token);
 
     // it sets the greeting string
     assertEq(_greeter.greeting(), _initialGreeting);
-
     // it sets the owner as sender
     assertEq(_greeter.OWNER(), _owner);
-
     // it sets the token used
     assertEq(address(_greeter.token()), address(_token));
   }
 
-  function test_ConstructorWhenPassingAnEmptyGreetingString() external {
+  function test_Constructor_WhenPassingAnEmptyGreetingString() external {
     vm.prank(_owner);
 
     // it reverts
@@ -51,7 +48,7 @@ contract UnitGreeter is Test {
     _greeter = new Greeter('', _token);
   }
 
-  function test_GreetWhenCalled() external {
+  function test_Greet_WhenCalled() external {
     vm.mockCall(address(_token), abi.encodeWithSelector(IERC20.balanceOf.selector), abi.encode(_initialBalance));
     vm.expectCall(address(_token), abi.encodeWithSelector(IERC20.balanceOf.selector));
     (string memory _greet, uint256 _balance) = _greeter.greet();
@@ -69,7 +66,7 @@ contract UnitGreeter is Test {
     vm.stopPrank();
   }
 
-  function test_SetGreetingWhenPassingAValidGreetingString() external whenCalledByTheOwner {
+  function test_SetGreeting_WhenPassingAValidGreetingString() external whenCalledByTheOwner {
     string memory _newGreeting = 'hello';
 
     // it emit GreetingSet
@@ -82,13 +79,14 @@ contract UnitGreeter is Test {
     assertEq(_greeter.greeting(), _newGreeting);
   }
 
-  function test_SetGreetingWhenPassingAnEmptyGreetingString() external whenCalledByTheOwner {
+  function test_SetGreeting_WhenPassingAnEmptyGreetingString() external whenCalledByTheOwner {
     // it reverts
     vm.expectRevert(IGreeter.Greeter_InvalidGreeting.selector);
     _greeter.setGreeting('');
   }
 
-  function test_SetGreetingWhenCalledByANon_owner(address _caller) external {
+  function test_SetGreeting_WhenCalledByANon_owner(address _caller) external {
+    // it reverts
     vm.assume(_caller != _owner);
     vm.prank(_caller);
 
