@@ -9,6 +9,7 @@ multiline_func_header = 'params_first_multi'
 sort_imports = true
 
 [invariant]
+corpus_dir='cache/corpus'
 show_solidity=true
 
 [profile.default]
