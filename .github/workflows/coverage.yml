@@ -41,15 +41,15 @@ jobs:
           key: coverage-base-${{ github.event.pull_request.base.sha }}
 
       - name: Run base branch coverage
-        if: steps.cache-base.outputs.cache-hit != 'true'
+        if: ! steps.cache-base.outputs.cache-hit 
         run: yarn coverage
 
       - name: Setup LCOV (for base coverage summary)
-        if: steps.cache-base.outputs.cache-hit != 'true'
+        if: ! steps.cache-base.outputs.cache-hit 
         uses: hrishikesh-kadam/setup-lcov@v1
 
       - name: Prepare cached base total coverage
-        if: steps.cache-base.outputs.cache-hit != 'true'
+        if: ! steps.cache-base.outputs.cache-hit
         run: |
           total_coverage=$(lcov --summary lcov.info 2>/dev/null | awk '/lines\.+:/ {print $2}' | tr -d '%')
           echo "$total_coverage" > total-coverage.txt
