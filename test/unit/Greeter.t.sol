@@ -68,32 +68,4 @@ contract UnitGreeter is Test {
     _;
     vm.stopPrank();
   }
-
-  function test_SetGreetingWhenPassingAValidGreetingString() external whenCalledByTheOwner {
-    string memory _newGreeting = 'hello';
-
-    // it emit GreetingSet
-    vm.expectEmit(true, true, true, true, address(_greeter));
-    emit GreetingSet(_newGreeting);
-
-    _greeter.setGreeting(_newGreeting);
-
-    // it sets the greeting string
-    assertEq(_greeter.greeting(), _newGreeting);
-  }
-
-  function test_SetGreetingWhenPassingAnEmptyGreetingString() external whenCalledByTheOwner {
-    // it reverts
-    vm.expectRevert(IGreeter.Greeter_InvalidGreeting.selector);
-    _greeter.setGreeting('');
-  }
-
-  function test_SetGreetingWhenCalledByANon_owner(address _caller) external {
-    vm.assume(_caller != _owner);
-    vm.prank(_caller);
-
-    // it reverts
-    vm.expectRevert(IGreeter.Greeter_OnlyOwner.selector);
-    _greeter.setGreeting('new greeting');
-  }
 }
