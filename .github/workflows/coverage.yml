@@ -1,15 +1,19 @@
 name: Coverage Check
 
-on: [push]
+on:
+  pull_request:
 
 env:
   COVERAGE_SENSITIVITY_PERCENT: 1
 
 jobs:
-  upload-coverage:
-    name: Upload Coverage
+  base-coverage:
+    name: Generate base coverage
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+    outputs:
+      base-coverage: ${{ steps.export-base.outputs.base-coverage }}
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
@@ -17,47 +21,83 @@ jobs:
       - name: install-tools
         uses: ./.github/workflows/install-tools
 
-      - name: Run coverage
-        shell: bash
+      - name: Restore base coverage cache
+        id: cache-base
+        uses: actions/cache@v4
+        with:
+          path: total-coverage.txt
+          key: coverage-base-${{ github.event.pull_request.base.sha }}
+
+      - name: Run base branch coverage
+        if: steps.cache-base.outputs.cache-hit != 'true'
         run: yarn coverage
 
-      - name: Setup LCOV
+      - name: Setup LCOV (for base coverage summary)
+        if: steps.cache-base.outputs.cache-hit != 'true'
         uses: hrishikesh-kadam/setup-lcov@v1
 
-      - name: Filter directories
-        run: lcov --remove lcov.info 'test/*' 'script/*' --output-file lcovNew.info --rc branch_coverage=1 --rc derive_function_end_line=0 --ignore-errors unused
+      - name: Prepare cached base total coverage
+        if: steps.cache-base.outputs.cache-hit != 'true'
+        run: |
+          total_coverage=$(lcov --summary lcov.info 2>/dev/null | awk '/lines\.+:/ {print $2}' | tr -d '%')
+          echo "$total_coverage" > total-coverage.txt
 
-      - name: Capture coverage output
+      - name: Export base coverage output
+        id: export-base
+        run: |
+          base=0
+          if [ -f total-coverage.txt ]; then
+            base=$(cat total-coverage.txt | tr -d '%')
+          fi
+          echo "base-coverage=$base" >> "$GITHUB_OUTPUT"
+
+  check-coverage:
+    name: Check PR coverage
+    runs-on: ubuntu-latest
+    needs: base-coverage
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Install Foundry
+        uses: foundry-rs/foundry-toolchain@v1
+        with:
+          version: stable
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: "yarn"
+
+      - name: Install dependencies
+        run: yarn --frozen-lockfile
+
+      - name: Run current branch coverage
+        run: yarn coverage
+
+      - name: Setup LCOV (for current PR coverage summary)
+        uses: hrishikesh-kadam/setup-lcov@v1
+
+      - name: Compute minimum coverage threshold
+        id: compute-min
+        run: |
+          base="${{ needs.base-coverage.outputs.base-coverage }}"
+          sens="${{ env.COVERAGE_SENSITIVITY_PERCENT }}"
+          [ -z "$base" ] && base=0
+          [ -z "$sens" ] && sens=0
+          min=$(awk -v b="$base" -v s="$sens" 'BEGIN{v=b-s; if (v<0) v=0; printf "%.2f", v}')
+          echo "minimum=$min" >> "$GITHUB_OUTPUT"
+
+      # Updates the comment on every PR push
+      - name: Create a comment on the PR with the current branch coverage
         id: new-coverage
+        if: hashFiles('lcov.info') != ''
         uses: zgosalvez/github-actions-report-lcov@v4
         with:
-          coverage-files: lcovNew.info
-
-      - name: Retrieve previous coverage
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage.info
-        continue-on-error: true
-
-      - name: Check if a previous coverage exists
-        run: |
-          if [ ! -f coverage.info ]; then
-            echo "Artifact not found. Initializing at 0"
-            echo "0" >> coverage.info
-          fi
-
-      - name: Compare previous coverage
-        run: |
-          old=$(cat coverage.info)
-          new=$(( ${{ steps.new-coverage.outputs.total-coverage }} + ${{ env.COVERAGE_SENSITIVITY_PERCENT }} ))
-          if [ "$new" -lt "$old" ]; then
-            echo "Coverage decreased from $old to $new"
-            exit 1
-          fi
-          mv lcovNew.info coverage.info
-
-      - name: Upload the new coverage
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage.info
-          path: ./coverage.info
+          coverage-files: lcov.info
+          github-token: ${{ github.token }}
+          update-comment: true
+          minimum-coverage: ${{ steps.compute-min.outputs.minimum }}
