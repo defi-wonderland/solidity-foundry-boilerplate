@@ -6,8 +6,6 @@ import {Test} from 'forge-std/Test.sol';
 import {IERC20} from 'forge-std/interfaces/IERC20.sol';
 
 contract IntegrationBase is Test {
-  uint256 internal constant _FORK_BLOCK = 18_920_905;
-
   string internal _initialGreeting = 'hola';
   address internal _user = makeAddr('user');
   address internal _owner = makeAddr('owner');
@@ -16,7 +14,7 @@ contract IntegrationBase is Test {
   IGreeter internal _greeter;
 
   function setUp() public {
-    vm.createSelectFork(vm.rpcUrl('mainnet'), _FORK_BLOCK);
+    vm.createSelectFork(vm.rpcUrl('mainnet'));
     vm.prank(_owner);
     _greeter = new Greeter(_initialGreeting, _dai);
   }
