@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        export_type: ["interfaces", "all"]
+        export_type: ['interfaces', 'all']
 
     env:
       # 2) Fill the project name to be used in NPM
-      NPM_PACKAGE_NAME: "my-cool-project"
+      NPM_PACKAGE_NAME: 'my-cool-project'
       EXPORT_NAME: ${{ matrix.export_type == 'interfaces' && '-interfaces' || '' }}
 
     steps:
@@ -29,17 +29,17 @@ jobs:
         run: pnpm build
 
       - name: Update version
-        run: pnpm version "0.0.0-${GITHUB_SHA::8}" --no-git-tag-version
+        run: pnpm version '0.0.0-${GITHUB_SHA::8}' --no-git-tag-version
 
       - name: Export Solidity - Export Type ${{ matrix.export_type }}
         uses: defi-wonderland/solidity-exporter-action@v2.1.0
         with:
           package_name: ${{ env.NPM_PACKAGE_NAME }}
-          out: "out"
-          interfaces: "solidity/interfaces"
-          contracts: "solidity/contracts"
-          libraries: "solidity/libraries"
-          export_type: "${{ matrix.export_type }}"
+          out: 'out'
+          interfaces: 'solidity/interfaces'
+          contracts: 'solidity/contracts'
+          libraries: 'solidity/libraries'
+          export_type: '${{ matrix.export_type }}'
 
       - name: Publish to NPM - Export Type ${{ matrix.export_type }}
         run: cd export/${{ env.NPM_PACKAGE_NAME }}${{ env.EXPORT_NAME }} && npm publish --access public --tag canary
