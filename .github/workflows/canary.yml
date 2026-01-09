@@ -26,10 +26,10 @@ jobs:
         uses: ./.github/workflows/install-tools
 
       - name: Build project and generate out directory
-        run: yarn build
+        run: pnpm build
 
       - name: Update version
-        run: yarn version --new-version "0.0.0-${GITHUB_SHA::8}" --no-git-tag-version
+        run: npm version "0.0.0-${GITHUB_SHA::8}" --no-git-tag-version
 
       - name: Export Solidity - Export Type ${{ matrix.export_type }}
         uses: defi-wonderland/solidity-exporter-action@v2.1.0
