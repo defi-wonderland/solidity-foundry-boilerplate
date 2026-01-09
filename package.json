@@ -16,8 +16,8 @@
     "deploy:mainnet": "bash -c 'source .env && forge script Deploy --rpc-url mainnet --account $MAINNET_DEPLOYER_NAME --broadcast --verify --chain mainnet -vvvvv'",
     "deploy:sepolia": "bash -c 'source .env && forge script Deploy --rpc-url sepolia --account $SEPOLIA_DEPLOYER_NAME --broadcast --verify --chain sepolia -vvvvv'",
     "lint:bulloak": "find test/unit -name '*.tree' | xargs bulloak check",
-    "lint:check": "forge fmt --check && yarn lint:sol",
-    "lint:fix": "forge fmt && yarn lint:sol --fix && sort-package-json",
+    "lint:check": "forge fmt --check && pnpm lint:sol",
+    "lint:fix": "forge fmt && pnpm lint:sol --fix && sort-package-json",
     "lint:natspec": "lintspec",
     "lint:sol": "solhint 'src/**/*.sol' 'script/**/*.sol' 'test/**/*.sol'",
     "prepare": "husky",
@@ -26,19 +26,19 @@
     "test:bulloak:scaffold": "bulloak scaffold -wS ./**/*.tree",
     "test:integration": "forge test --match-contract Integration -vvv",
     "test:unit": "forge test --match-contract Unit -vvv",
-    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 yarn test:unit"
+    "test:unit:deep": "FOUNDRY_FUZZ_RUNS=5000 pnpm test:unit"
   },
   "lint-staged": {
     "*.{js,css,md,ts,sol}": "forge fmt",
-    "(src|script|test)/**/*.sol": "yarn lint:sol --fix",
+    "(src|script|test)/**/*.sol": "pnpm lint:sol --fix",
     "src/**/*.sol": "lintspec",
-    "test/unit/**/*.tree": "yarn lint:bulloak",
+    "test/unit/**/*.tree": "pnpm lint:bulloak",
     "package.json": "sort-package-json"
   },
   "devDependencies": {
     "@commitlint/cli": "19.3.0",
     "@commitlint/config-conventional": "19.2.2",
-    "forge-std": "github:foundry-rs/forge-std#1.9.2",
+    "forge-std": "github:foundry-rs/forge-std#v1.9.2",
     "husky": ">=9",
     "lint-staged": ">=16",
     "solhint-community": "4.0.1",
