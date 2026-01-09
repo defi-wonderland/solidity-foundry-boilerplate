@@ -23,7 +23,7 @@ jobs:
 
       - name: Run tests
         shell: bash
-        run: yarn test:unit
+        run: pnpm test:unit
 
   integration-tests:
     name: Run Integration Tests
@@ -36,7 +36,7 @@ jobs:
         uses: ./.github/workflows/install-tools
 
       - name: Run tests
-        run: yarn test:integration
+        run: pnpm test:integration
 
   lint:
     name: Static Analysis
@@ -54,7 +54,7 @@ jobs:
 
 
       - name: Run Forge formatter and Solhint
-        run: yarn lint:check
+        run: pnpm lint:check
 
       - name: Install and run Bulloak
         uses: smol-ninja/bulloak-toolchain@v1

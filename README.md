@@ -38,20 +38,20 @@
 3. Install rust dependencies with [cargo](https://doc.rust-lang.org/cargo/getting-started/installation.html):
    1. `cargo install lintspec`
    2. `cargo install bulloak`
-4. Install the dependencies by running: `yarn install`. In case there is an error with the commands, run `foundryup` and try them again.
+4. Install the dependencies by running: `pnpm install`. In case there is an error with the commands, run `foundryup` and try them again.
 
 ## Build
 
 The default way to build the code is suboptimal but fast, you can run it via:
 
 ```bash
-yarn build
+pnpm build
 ```
 
 In order to build a more optimized code ([via IR](https://docs.soliditylang.org/en/v0.8.15/ir-breaking-changes.html#solidity-ir-based-codegen-changes)), run:
 
 ```bash
-yarn build:optimized
+pnpm build:optimized
 ```
 
 ## Running tests
@@ -61,43 +61,43 @@ Unit tests should be isolated from any externalities, while Integration usually 
 In order to run both unit and integration tests, run:
 
 ```bash
-yarn test
+pnpm test
 ```
 
 In order to just run unit tests, run:
 
 ```bash
-yarn test:unit
+pnpm test:unit
 ```
 
 In order to run unit tests and run way more fuzzing than usual (5x), run:
 
 ```bash
-yarn test:unit:deep
+pnpm test:unit:deep
 ```
 
 In order to just run integration tests, run:
 
 ```bash
-yarn test:integration
+pnpm test:integration
 ```
 
 In order to check your current code coverage, run:
 
 ```bash
-yarn coverage
+pnpm coverage
 ```
 
 In order to create a new `.t.sol` file from a `.tree` bulloak file, run:
 
 ```bash
-yarn test:bulloak:scaffold
+pnpm test:bulloak:scaffold
 ```
 
 In order to fix or add missing tests to a `.t.sol` file after changing a `.tree` bulloak file, run:
 
 ```bash
-yarn test:bulloak:fix
+pnpm test:bulloak:fix
 ```
 
 <br>
@@ -125,13 +125,13 @@ cast wallet import $SEPOLIA_DEPLOYER_NAME --interactive
 ### Sepolia
 
 ```bash
-yarn deploy:sepolia
+pnpm deploy:sepolia
 ```
 
 ### Mainnet
 
 ```bash
-yarn deploy:mainnet
+pnpm deploy:mainnet
 ```
 
 The deployments are stored in ./broadcast

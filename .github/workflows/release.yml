@@ -28,7 +28,7 @@ jobs:
         uses: ./.github/workflows/install-tools
 
       - name: Build project and generate out directory
-        run: yarn build
+        run: pnpm build
 
       - name: Export Solidity - Export Type ${{ matrix.export_type }}
         uses: defi-wonderland/solidity-exporter-action@v2.1.0
