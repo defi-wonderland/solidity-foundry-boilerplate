@@ -60,3 +60,4 @@ jobs:
         uses: smol-ninja/bulloak-toolchain@v2
         with:
           test-dir: 'test/unit'
+          version: '0.8.1'
