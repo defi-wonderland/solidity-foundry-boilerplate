@@ -61,5 +61,5 @@ jobs:
 
       - name: Install and run Bulloak
         run: |
-          cargo install --git https://github.com/0xChin/bulloak bulloak
+          cargo install --git https://github.com/0xChin/bulloak --branch chore/solang-forge-fmt-migration bulloak
           bulloak check --skip-modifiers test/unit/**/*.tree
