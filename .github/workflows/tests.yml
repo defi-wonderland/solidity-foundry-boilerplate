@@ -57,7 +57,7 @@ jobs:
         run: yarn lint:check
 
       - name: Install Rust
-        uses: dtolnay/rust-action@stable
+        uses: dtolnay/rust-toolchain@stable
 
       - name: Install and run Bulloak
         run: |
