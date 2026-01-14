@@ -56,9 +56,6 @@ jobs:
       - name: Run Forge formatter and Solhint
         run: yarn lint:check
 
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-
       - name: Install and run Bulloak
         uses: smol-ninja/bulloak-toolchain@v1
         with:
