@@ -49,9 +49,9 @@ jobs:
           fetch-depth: 0
 
       - uses: wagoid/commitlint-github-action@v5
+
       - name: install-tools
         uses: ./.github/workflows/install-tools
-
 
       - name: Run Forge formatter and Solhint
         run: yarn lint:check
@@ -60,6 +60,6 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install and run Bulloak
-        run:  uses: smol-ninja/bulloak-toolchain@v1
+        uses: smol-ninja/bulloak-toolchain@v1
         with:
           test-dir: 'test/unit'
