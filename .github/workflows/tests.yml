@@ -49,7 +49,6 @@ jobs:
           fetch-depth: 0
 
       - uses: wagoid/commitlint-github-action@v5
-
       - name: install-tools
         uses: ./.github/workflows/install-tools
 
