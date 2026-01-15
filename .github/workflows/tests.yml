@@ -52,7 +52,6 @@ jobs:
       - name: install-tools
         uses: ./.github/workflows/install-tools
 
-
       - name: Run Forge formatter and Solhint
         run: yarn lint:check
 
