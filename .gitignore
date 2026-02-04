@@ -1,5 +1,5 @@
 # General
-yarn-error.log
+pnpm-debug.log
 node_modules
 .DS_STORE
 .vscode

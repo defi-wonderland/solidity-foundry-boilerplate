@@ -14,7 +14,7 @@ jobs:
         export_type: ['interfaces', 'all']
 
     env:
-    # 2) Fill the project name to be used in NPM
+      # 2) Fill the project name to be used in NPM
       NPM_PACKAGE_NAME: 'my-cool-project'
       EXPORT_NAME: ${{ matrix.export_type == 'interfaces' && '-interfaces' || '' }}
 
@@ -26,10 +26,10 @@ jobs:
         uses: ./.github/workflows/install-tools
 
       - name: Build project and generate out directory
-        run: yarn build
+        run: pnpm build
 
       - name: Update version
-        run: yarn version --new-version "0.0.0-${GITHUB_SHA::8}" --no-git-tag-version
+        run: pnpm version '0.0.0-${GITHUB_SHA::8}' --no-git-tag-version
 
       - name: Export Solidity - Export Type ${{ matrix.export_type }}
         uses: defi-wonderland/solidity-exporter-action@v2.1.0
@@ -38,7 +38,7 @@ jobs:
           out: 'out'
           interfaces: 'solidity/interfaces'
           contracts: 'solidity/contracts'
-          libraries: "solidity/libraries"
+          libraries: 'solidity/libraries'
           export_type: '${{ matrix.export_type }}'
 
       - name: Publish to NPM - Export Type ${{ matrix.export_type }}
