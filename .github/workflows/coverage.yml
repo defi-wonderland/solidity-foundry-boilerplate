@@ -96,10 +96,10 @@ jobs:
           min=$(awk -v b="$base" -v s="$sens" 'BEGIN{v=b-s; if (v<0) v=0; printf "%.2f", v}')
           echo "minimum=$min" >> "$GITHUB_OUTPUT"
 
-      # Updates the comment on every PR push
+      # Updates the comment on every PR push (skipped for fork PRs - token cannot comment)
       - name: Create a comment on the PR with the current branch coverage
         id: new-coverage
-        if: hashFiles('lcov.info') != ''
+        if: hashFiles('lcov.info') != '' && github.event.pull_request.head.repo.full_name == github.repository
         uses: zgosalvez/github-actions-report-lcov@v4
         with:
           coverage-files: lcov.info
