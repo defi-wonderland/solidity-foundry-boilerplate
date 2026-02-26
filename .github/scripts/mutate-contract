@@ -1,0 +1,55 @@
+#!/bin/sh
+set -e
+
+# mutate-contract
+#
+# Wrapper around slither-mutate to perform mutation testing on a provided solidity contract.
+#
+# Usage:
+# ./slither-mutate-on-changed-files [CONTRACT_NAME]
+#
+# Arguments:
+# CONTRACT_NAME  - Name of the contract file to mutate. This is a mandatory argument.
+#
+# Environment Variables:
+# VERBOSE - If set, the script outputs additional debugging information.
+#
+# Exit codes:
+# 255 - No contract name was provided or the contract file couldn't be found.
+#   1 - One or more mutants survived the mutation testing.
+#   0 - Successful mutation testing campaign with all mutants caught.
+
+if [ -z "$1" ] ; then
+    echo "specify what contract to mutate as a command line argument"
+    exit 255
+fi
+
+tempfile="$(mktemp)"
+foundry_sources="$(forge config --json | jq -r .src)"
+find_regex=".*\b$1.sol"
+contract_test="Unit$1"
+contract_file="$(find "${foundry_sources}" -regex "${find_regex}" )"
+
+if [ -z "${contract_file}" ] ; then
+    echo "couldnt find source file for $1 with regex ${find_regex}"
+    exit 255
+fi
+
+if [ -n "$VERBOSE" ] ; then
+    echo "find_regex ${find_regex}"
+    echo "contract_test ${contract_test}"
+    echo "contract_file ${contract_file}"
+    echo "tempfile ${tempfile}"
+fi
+
+# RR: replace a statement with revert()
+# CR: comment a statement out
+slither-mutate "${contract_file}" --test-cmd "forge test --match-contract ${contract_test}" --mutators-to-run RR,CR 2> "$tempfile"
+
+# grep -q: exits successfully on any match, necessary because slither-mutate returns zero even if it finds mutants
+# yes, the above will have a false positive when the UNCAUGHT text appears on a report by any other reason 
+# https://github.com/crytic/slither/issues/2772
+if grep -q UNCAUGHT "$tempfile" ; then
+    [ -n "$VERBOSE" ] && cat "$tempfile"
+    exit 1
+fi
